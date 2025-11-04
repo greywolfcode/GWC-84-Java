@@ -39,7 +39,7 @@ public class Renderer
             renderButtonMiddle("grp");
             System.out.println("\b┃");
             System.out.print("┃");
-            renderButtomBottomX5();
+            renderButtonBottomX5();
             System.out.println("\b┃");
             //2nd row
             System.out.print("┃      "+Colour.rgb("qut", 0, 130, 230)+"  "+Colour.rgb("ins",0,130,230));
@@ -93,13 +93,105 @@ public class Renderer
             renderButtonMiddle("clr");
             System.out.println("\b┃");
             System.out.print("┃");
-            renderButtomBottomX5();
+            renderButtonBottomX5();
             System.out.println("\b┃");
             //5th row
             System.out.print("┃"+Colour.rgb("mrx",0,130,230)+Colour.rgb(" D",99, 184,125)+" "+Colour.rgb(" sn⁻¹",0,130,230)+ Colour.rgb("E",99,184,125)+" "+Colour.rgb("cs⁻¹",0,130,230)+Colour.rgb("F", 99, 184, 125)+" "
                              +Colour.rgb("tn⁻¹", 0, 130, 230) +Colour.rgb("G",99,184,125)+" "+Colour.rgb("π",0,130,230)+Colour.rgb(" H",99,184,125));
-        
-            System.out.println("\b")
+            System.out.println(" ┃");
+            System.out.print("┃");
+            renderButtonTopX5();
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonMiddle("x⁻¹");
+            renderButtonMiddle("sin");
+            renderButtonMiddle("cos");
+            renderButtonMiddle("tan");
+            renderButtonMiddle(" ^ ");
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonBottomX5();
+            System.out.println("\b┃");
+            //6th row
+            System.out.println("┃"+Colour.rgb("√",0,130,230)+Colour.rgb("   I",99,184,125)+" "+Colour.rgb("EE",0,130,230)+Colour.rgb("  J",99,184,125)+" "+Colour.rgb("{",0,130,230)+Colour.rgb("   K",99,184,125)+" "+
+                                Colour.rgb("}",0,130,230)+Colour.rgb("   L", 99,184,125)+" "+Colour.rgb("e",0,130,230)+Colour.rgb("   M",99,184,125) + "┃");
+            System.out.print("┃");
+            renderButtonTopX5();
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonMiddle("x ²");
+            renderButtonMiddle(" , ");
+            renderButtonMiddle(" ( ");
+            renderButtonMiddle(" ) ");
+            renderButtonMiddle(" ÷ ");
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonBottomX5();
+            System.out.println("\b┃");
+            //7th row
+            System.out.println("┃"+Colour.rgb("10ˣ",0,130,230)+Colour.rgb(" N",99,184,125)+" "+Colour.rgb("u",0,130,230)+Colour.rgb("   O",99,184,125)+" "+Colour.rgb("v",0,130,230)+Colour.rgb("   P",99,184,125)+" "+
+                                Colour.rgb("w",0,130,230)+Colour.rgb("   Q",99,184,125)+" "+Colour.rgb("[",0,130,230)+Colour.rgb("   R",99,184,125)+"┃");
+            System.out.print("┃");
+            renderButtonTopX5();
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonMiddle("log");
+            renderButtonMiddle(" 7 ");
+            renderButtonMiddle(" 8 ");
+            renderButtonMiddle(" 9 ");
+            renderButtonMiddle(" × ");
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonBottomX5();
+            System.out.println("\b┃");
+            //8th row
+            System.out.println("┃"+Colour.rgb("eˣ",0,130,230)+Colour.rgb("  S",99,184,125)+" "+Colour.rgb("L4",0,130,230)+Colour.rgb("  T",99,184,125)+" "+Colour.rgb("L5",0,130,230)+Colour.rgb("  U",99,184,125)+" "+
+                                Colour.rgb("L6",0,130,230)+Colour.rgb("  V",99,184,125)+" "+Colour.rgb("]",0,130,230)+Colour.rgb("   W",99,184,125)+"┃");
+            System.out.print("┃");
+            renderButtonTopX5();
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonMiddle("l n");
+            renderButtonMiddle(" 4 ");
+            renderButtonMiddle(" 5 ");
+            renderButtonMiddle(" 6 ");
+            renderButtonMiddle(" − ");
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonBottomX5();
+            System.out.println("\b┃");
+            //9th row
+            System.out.println("┃"+Colour.rgb("rcl",0,130,230)+Colour.rgb(" X",99,184,125)+" "+Colour.rgb("L1",0,130,230)+Colour.rgb("  Y",99,184,125)+" "+Colour.rgb("L2",0,130,230)+Colour.rgb("  Z",99,184,125)+" "+
+                                Colour.rgb("L3",0,130,230)+Colour.rgb("  θ",99,184,125)+" "+Colour.rgb("mem",0,130,230)+Colour.rgb(" \"",99,184,125)+"┃");
+            System.out.print("┃");
+            renderButtonTopX5();
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonMiddle("st⭢");
+            renderButtonMiddle(" 1 ");
+            renderButtonMiddle(" 2 ");
+            renderButtonMiddle(" 3 ");
+            renderButtonMiddle(" + ");
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonBottomX5();
+            System.out.println("\b┃");
+            //10th row
+            System.out.println("┃"+Colour.rgb("off",0,130,230)+"   "+Colour.rgb("cat",0,130,230)+Colour.rgb(" ⎵",99,184,125)+" "+Colour.rgb("𝑖",0,130,230)+Colour.rgb("   :",99,184,125)+" "+Colour.rgb("ans",0,130,230)+
+                                Colour.rgb(" ?",99,184,125)+" "+Colour.rgb("ent",0,130,230)+Colour.rgb("sl",99,184,125)+"┃");
+            System.out.print("┃");
+            renderButtonTopX5();
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonMiddle("o n");
+            renderButtonMiddle(" 0 ");
+            renderButtonMiddle(" . ");
+            renderButtonMiddle("(-)");
+            renderButtonMiddle("ent");
+            System.out.println("\b┃");
+            System.out.print("┃");
+            renderButtonBottomX5();
+            System.out.println("\b┃");
         }
     }
     private static void renderButtonTop()
@@ -134,7 +226,7 @@ public class Renderer
         renderButtonTop();
         renderButtonTop();
     }
-    private static void renderButtomBottomX5()
+    private static void renderButtonBottomX5()
     {
         renderButtonBottom();
         renderButtonBottom();
