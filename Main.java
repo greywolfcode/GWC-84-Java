@@ -10,13 +10,15 @@ public class Main
         //call starting render
         Renderer.render();
         System.out.print("Your Action: ");
+        String inputLine = "";
         String action = "";
         //main loop
         while (true)
         {
             //get action
-            action = input.nextLine();
-            
+            inputLine = input.nextLine();
+            action = inputLine.trim();
+
             //handle action and check if turning off
             if (calc.handleInput(action))
             {
@@ -24,9 +26,9 @@ public class Main
             }
             
             //reset cursor and clear line
-            CursorControl.goTo(14,39);
-            System.out.print(" ".repeat(action.length()));
-            CursorControl.goTo(14,39);
+            CursorControl.goTo(14, 55);
+            System.out.print(" ".repeat(inputLine.length()));
+            CursorControl.goTo(14, 55);
         }
     }
 }

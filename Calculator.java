@@ -1,9 +1,14 @@
 public class Calculator 
 {
     private String state;
+    private Menu currentMenu;
+    private Data data;
+    
     public Calculator()
     {
         state = "main";
+        data = new Data();
+        currentMenu = new MainMenu(data);
     }
     public boolean handleInput(String input)
     {
@@ -41,8 +46,10 @@ public class Calculator
         //run menu event handler
         else
         {
-            
+            currentMenu.eventHandeler(state, input);
         }
+        //rerender screen
+        currentMenu.renderScreen();
         return false;
     }
     
