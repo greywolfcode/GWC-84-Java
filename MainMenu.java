@@ -44,22 +44,25 @@ public class MainMenu extends Menu
             case "0":
                 currentLine.append("0");
                 break;
+            //using u200b zero width space for stection purposes
             case "+":
-                currentLine.append("+");
+                currentLine.append("​+​");
                 break;
             case "_", "−": //underscore so hyphen can be negative number
-                currentLine.append("−");
+                currentLine.append("​−​");
                 break;
             case "*", "×":
-                currentLine.append("×");
+                currentLine.append("​×​");
                 break;
             case "/", "÷":
-                currentLine.append("÷");
+                currentLine.append("​÷​");
                 break;
             case "ent":
                 if (currentLine.length() > 0)
                 {
-                    data.addHistory(new String[]{currentLine.toString(), " ".repeat(27-currentLine.length()) + currentLine.toString()});
+                    //get postfix
+                    double value = Calculate.solveEquation(currentLine.toString());
+                    data.addHistory(new String[]{currentLine.toString(), value+""});
                     currentLine.setLength(0); 
                 }
                 break;
