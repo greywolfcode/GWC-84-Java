@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.lang.StringBuilder;
 
+/**
+ * Store methods to handle performing calculations
+ */
 public class Calculate 
 {
     //static map to hold operator presedence values
@@ -13,17 +16,20 @@ public class Calculate
         "×", 3,
         "÷", 3
         );
-    private Calculate(){}
     
+    private Calculate(){}
     /**
-     * creates postfix with Shunting Yard algorithm
+     * Converts infix to postfix, than evalutes
      */
     public static double solveEquation(String input)
     {
-        ArrayList postfix = toPostFix(input);
+        ArrayList<String> postfix = toPostFix(input);
         return solvePostFix(postfix);
     }
-    public static ArrayList toPostFix(String input)
+    /**
+     * creates postfix with Shunting Yard algorithm
+     */
+    public static ArrayList<String> toPostFix(String input)
     {
         //create output ArrayList
         ArrayList<String> output = new ArrayList<>();
@@ -74,6 +80,9 @@ public class Calculate
         }
         return output;
     }
+    /**
+     * Evalutates postfix
+     */
     public static double solvePostFix(ArrayList<String> input)
     {
         //create stack to store working values
@@ -88,7 +97,25 @@ public class Calculate
             {
                 num1 = values.pop();
                 num2 = values.pop();
-                values.push(num1 + num1);
+                values.push(num2 + num1);
+            }
+            else if (value.equals("−"))
+            {
+                num1 = values.pop();
+                num2 = values.pop();
+                values.push(num2 - num1); 
+            }
+            else if (value.equals("×"))
+            {
+                num1 = values.pop();
+                num2 = values.pop();
+                values.push(num2 * num1);
+            }
+            else if (value.equals("÷"))
+            {
+                num1 = values.pop();
+                num2 = values.pop();
+                values.push(num2 / num1);
             }
             else
             {

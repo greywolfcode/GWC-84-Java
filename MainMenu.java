@@ -3,11 +3,12 @@ import java.lang.StringBuilder;
 public class MainMenu extends Menu
 {
     private StringBuilder currentLine = new StringBuilder();
-    private int cursorLocation = 0;
+    private int cursorLocation = 0; //stores where in the block the cursor is
+    private int currentBlock = 0; //stores which segment for really long blocks
     
     public MainMenu(Data storage)
     {
-        String menuType = "action";
+       menuType = "action";
         data = storage;
     }
     public void eventHandeler(String state, String event)
@@ -67,8 +68,10 @@ public class MainMenu extends Menu
                 }
                 break;
             default:
+                cursorLocation--;
                 break;
         }
+        cursorLocation++;
         //update screen
         updateScreen();
     }
@@ -79,6 +82,7 @@ public class MainMenu extends Menu
         for(int i=5; i>0; i-=2)
         {
             screen[i] = data.getHistory(historyIndex)[1];
+            screen[i] = " ".repeat(27-screen[i].length()) + screen[i];
             screen[i-1] = data.getHistory(historyIndex)[0];
             historyIndex++;
         }

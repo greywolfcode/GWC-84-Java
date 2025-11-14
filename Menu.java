@@ -1,7 +1,7 @@
 public abstract class Menu
 {
-    private String menuType; //tells if menu can have actions done in it
     //protected as classes will need to make more complecated modifications to this
+    protected String menuType; //tells if menu can have actions done in it
     protected Data data;
     protected String[] screen = {"1", "2", "3", "4", "5", "6", "7", "8"};
     
