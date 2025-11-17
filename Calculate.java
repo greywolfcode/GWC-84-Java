@@ -24,6 +24,7 @@ public class Calculate
     public static double solveEquation(String input)
     {
         ArrayList<String> postfix = toPostFix(input);
+        System.out.println(postfix);
         return solvePostFix(postfix);
     }
     /**
@@ -46,7 +47,7 @@ public class Calculate
             //Left assocaitve operators
             if (token.equals("+") || token.equals("−") || token.equals("×") || token.equals("÷"))
             {
-                if (ops.size() == 0)
+                if (ops.size() == 0 || ops.peek().equals("("))
                 {
                     ops.push(token);
                 }
@@ -67,7 +68,23 @@ public class Calculate
                     ops.push(token);
                 }
             }
-            else
+            else if (token.equals("("))
+            {
+               ops.push(token); 
+            }
+            else if (token.equals(")"))
+            {
+                while (true)
+                {
+                    if (ops.peek().equals("("))
+                    {
+                        ops.pop();
+                        break;
+                    }
+                    output.add(ops.pop());
+                }
+            }
+            else if(!token.equals(""))
             {
                 //must be number; push to output
                 output.add(token);

@@ -58,6 +58,12 @@ public class MainMenu extends Menu
             case "/", "÷":
                 currentLine.append("​÷​");
                 break;
+            case "(":
+                currentLine.append("​(​");
+                break;
+            case ")":
+                currentLine.append("​)​");
+                break;
             case "ent":
                 if (currentLine.length() > 0)
                 {
