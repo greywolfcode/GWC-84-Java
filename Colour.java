@@ -1,5 +1,7 @@
 /**
- * Class creates string for colour output in console
+ * Class creates string for colour output in console using ANSI escpae codes
+ * 
+ * formatting is reset to normal after formatted string
  */
 public class Colour 
 {

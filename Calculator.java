@@ -1,14 +1,18 @@
+import java.util.Stack()
+
 public class Calculator 
 {
     private String state;
     private Menu currentMenu;
     private Data data;
+    private Stack<String> events;
     
     public Calculator()
     {
         state = "main";
         data = new Data();
         currentMenu = new MainMenu(data);
+        events = new Stack();
     }
     public boolean handleInput(String input)
     {
@@ -48,6 +52,8 @@ public class Calculator
         {
             currentMenu.eventHandeler(state, input);
         }
+        //handle events
+        
         //rerender screen
         clearScreen();
         currentMenu.renderScreen();
@@ -59,6 +65,22 @@ public class Calculator
         {
             CursorControl.goTo(3, 5+i);
             System.out.print("                           ");
+        }
+    }
+    private void handleEvents()
+    {
+        String event;
+        String[] eventData;
+        //loop through all events
+        while (events.size() > 0)
+        {
+           event = events.pop();
+           eventData = event.split(" ");
+           switch eventData[0]
+           {
+                case "switch":
+                    break;
+           }
         }
     }
 }

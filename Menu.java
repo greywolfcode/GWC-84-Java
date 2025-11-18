@@ -1,9 +1,12 @@
+import java.util.Stack;
+
 public abstract class Menu
 {
     //protected as classes will need to make more complecated modifications to this
     protected String menuType; //tells if menu can have actions done in it
     protected Data data;
     protected String[] screen = {"1", "2", "3", "4", "5", "6", "7", "8"};
+    protected Stack<String> globalEvents; //allows events to be sent to main calculator
     
     public abstract void eventHandeler(String state, String event);
     

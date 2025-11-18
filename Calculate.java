@@ -3,6 +3,7 @@ import java.util.Stack;
 import java.util.ArrayList;
 import java.util.Map;
 import java.lang.StringBuilder;
+import java.lang.ArithmeticException;
 
 /**
  * Store methods to handle performing calculations
@@ -14,18 +15,30 @@ public class Calculate
         "+", 2,
         "−", 2,
         "×", 3,
-        "÷", 3
+        "÷", 3,
+        "^", 4
         );
     
     private Calculate(){}
     /**
      * Converts infix to postfix, than evalutes
      */
-    public static double solveEquation(String input)
+    public static String solveEquation(String input)
     {
         ArrayList<String> postfix = toPostFix(input);
-        System.out.println(postfix);
-        return solvePostFix(postfix);
+        //catch error with equation
+        try
+        {
+            return solvePostFix(postfix) + "";
+        }
+        catch (ArithmeticException e)
+        {
+            return "div/0";
+        }
+        catch(Exception e)
+        {
+            return "error";
+        }
     }
     /**
      * creates postfix with Shunting Yard algorithm
@@ -67,6 +80,11 @@ public class Calculate
                     }
                     ops.push(token);
                 }
+            }
+            //right associative operators
+            else if (token.equals("^"))
+            {
+                ops.push(token);
             }
             else if (token.equals("("))
             {
@@ -132,7 +150,18 @@ public class Calculate
             {
                 num1 = values.pop();
                 num2 = values.pop();
+                //check for div/0
+                if (num1 == 0)
+                {
+                    throw new ArithmeticException("div/0");
+                }
                 values.push(num2 / num1);
+            }
+            else if (value.equals("^"))
+            {
+                num1 = values.pop();
+                num2 = values.pop();
+                values.push(Math.pow(num2, num1));
             }
             else
             {

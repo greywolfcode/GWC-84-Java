@@ -1,4 +1,5 @@
 import java.lang.StringBuilder;
+import java.util.Stack;
 
 public class MainMenu extends Menu
 {
@@ -6,10 +7,11 @@ public class MainMenu extends Menu
     private int cursorLocation = 0; //stores where in the block the cursor is
     private int currentBlock = 0; //stores which segment for really long blocks
     
-    public MainMenu(Data storage)
+    public MainMenu(Data storage, Stack events)
     {
-       menuType = "action";
+        menuType = "action";
         data = storage;
+        globalEvents = events;
     }
     public void eventHandeler(String state, String event)
     {
@@ -45,7 +47,7 @@ public class MainMenu extends Menu
             case "0":
                 currentLine.append("0");
                 break;
-            //using u200b zero width space for stection purposes
+            //using u200b zero width space for sectioning purposes
             case "+":
                 currentLine.append("​+​");
                 break;
@@ -64,12 +66,25 @@ public class MainMenu extends Menu
             case ")":
                 currentLine.append("​)​");
                 break;
+            case "^":
+                currentLine.append("​^​");
+                break;
             case "ent":
                 if (currentLine.length() > 0)
                 {
                     //get postfix
-                    double value = Calculate.solveEquation(currentLine.toString());
-                    data.addHistory(new String[]{currentLine.toString(), value+""});
+                    String value = Calculate.solveEquation(currentLine.toString());
+                    //check for error
+                    if (value.equals("error"))
+                    {
+                        value = "Error";
+                        events.push("switch SyntaxError");
+                    }
+                    else if(value.equals("div/0"))
+                    {
+                        value = "Error";
+                    }
+                    data.addHistory(new String[]{currentLine.toString(), value});
                     currentLine.setLength(0); 
                 }
                 break;
