@@ -1,22 +1,22 @@
 import java.util.Stack;
 
-public class SyntaxError extends Menu
+public class DivideByZeroError extends Menu
 {
     private int cursorLocation = 0; //0= Quit, 1 = Goto
     
-    public SyntaxError(Data storage, Stack<String> events)
+    public DivideByZeroError(Data storage, Stack<String> events)
     {
         menuType = "return";
         data = storage;
         globalEvents = events;
         //set up error
-        screen[0] = "      SYNTAX  ERROR:      ";
+        screen[0] = "     DIVIDE BY 0 ERROR:    ";
         screen[1] = Colour.invert("1:") + " Quit";
         screen[2] = "2: Goto";
         screen[3] = "___________________________";
-        screen[4] = "Check all arguments";
-        screen[5] = "Press + on menu"; 
-        screen[6] = "  item for help";
+        screen[4] = "Attempted calculation";
+        screen[5] = "  contains divison by zero"; 
+        screen[6] = "Calculation failed";
     }
     public void eventHandeler(String state, String event)
     {

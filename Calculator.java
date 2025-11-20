@@ -1,18 +1,27 @@
-import java.util.Stack()
+import java.util.Stack;
+import java.util.HashMap;
 
 public class Calculator 
 {
     private String state;
     private Menu currentMenu;
+    private Menu prevMenu;
+    private HashMap<String, Menu> menus;
     private Data data;
     private Stack<String> events;
+    
     
     public Calculator()
     {
         state = "main";
         data = new Data();
-        currentMenu = new MainMenu(data);
-        events = new Stack();
+        events = new Stack<String>();
+        currentMenu = new MainMenu(data, events);
+        //add all menus to hashmap
+        menus = new HashMap<String, Menu>();
+        menus.put("MainMenu", currentMenu);
+        menus.put("SyntaxError", new SyntaxError(data, events));
+        menus.put("DivideByZeroError", new DivideByZeroError(data, events));
     }
     public boolean handleInput(String input)
     {
@@ -53,7 +62,7 @@ public class Calculator
             currentMenu.eventHandeler(state, input);
         }
         //handle events
-        
+        handleEvents();
         //rerender screen
         clearScreen();
         currentMenu.renderScreen();
@@ -76,11 +85,34 @@ public class Calculator
         {
            event = events.pop();
            eventData = event.split(" ");
-           switch eventData[0]
+           switch (eventData[0])
            {
                 case "switch":
+                    switchMenu(eventData[1]);
+                    break;
+                case "prevMenu":
+                    switchMenu(prevMenu);
+                    break;
+                default:
                     break;
            }
         }
+    }
+    /**
+     * Switches menu to new menu
+     * Overloaded to take either string of name or menu object
+     * as the input
+     */
+    private void switchMenu(String menu)
+    {
+        prevMenu = currentMenu;
+        currentMenu = menus.get(menu);
+        currentMenu.onLoad();
+    }
+    private void switchMenu(Menu menu)
+    {
+        prevMenu = currentMenu;
+        currentMenu = menu;
+        currentMenu.onLoad();
     }
 }

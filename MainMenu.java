@@ -7,7 +7,7 @@ public class MainMenu extends Menu
     private int cursorLocation = 0; //stores where in the block the cursor is
     private int currentBlock = 0; //stores which segment for really long blocks
     
-    public MainMenu(Data storage, Stack events)
+    public MainMenu(Data storage, Stack<String> events)
     {
         menuType = "action";
         data = storage;
@@ -47,6 +47,12 @@ public class MainMenu extends Menu
             case "0":
                 currentLine.append("0");
                 break;
+            case ".":
+                currentLine.append(".");
+                break;
+            case "-":
+                currentLine.append("-");
+                break;
             //using u200b zero width space for sectioning purposes
             case "+":
                 currentLine.append("​+​");
@@ -69,8 +75,16 @@ public class MainMenu extends Menu
             case "^":
                 currentLine.append("​^​");
                 break;
+            case "clr":
+                currentLine.setLength(0);
+                break;
             case "ent":
-                if (currentLine.length() > 0)
+                //perform previous calculation if line in emtpy
+                if (currentLine.length() == 0)
+                {
+                    currentLine.append(data.getHistory(0)[0]);
+                }
+                if (currentLine.length() > 0) //additonal check in case there is no history
                 {
                     //get postfix
                     String value = Calculate.solveEquation(currentLine.toString());
@@ -78,23 +92,37 @@ public class MainMenu extends Menu
                     if (value.equals("error"))
                     {
                         value = "Error";
-                        events.push("switch SyntaxError");
+                        globalEvents.push("switch SyntaxError"); //add command to switch the menu
                     }
                     else if(value.equals("div/0"))
                     {
-                        value = "Error";
+                        value = "DIV/0";
+                        globalEvents.push("switch DivideByZeroError");
                     }
                     data.addHistory(new String[]{currentLine.toString(), value});
                     currentLine.setLength(0); 
                 }
                 break;
             default:
-                cursorLocation--;
+                cursorLocation0--;
                 break;
         }
         cursorLocation++;
         //update screen
         updateScreen();
+    }
+    public void onLoad()
+    {
+        String returnValue = data.getReturn();
+        switch (returnValue)
+        {
+            case "goto":
+                currentLine.append(data.getHistory(0)[0]);
+                updateScreen();
+                break;
+            default:
+                break;
+        }
     }
     private void updateScreen()
     {

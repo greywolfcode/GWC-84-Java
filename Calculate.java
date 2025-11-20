@@ -21,7 +21,7 @@ public class Calculate
     
     private Calculate(){}
     /**
-     * Converts infix to postfix, than evalutes
+     * Converts infix to postfix, than evalutes and returns the answer
      */
     public static String solveEquation(String input)
     {
