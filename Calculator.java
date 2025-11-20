@@ -10,7 +10,6 @@ public class Calculator
     private Data data;
     private Stack<String> events;
     
-    
     public Calculator()
     {
         state = "main";
@@ -22,6 +21,8 @@ public class Calculator
         menus.put("MainMenu", currentMenu);
         menus.put("SyntaxError", new SyntaxError(data, events));
         menus.put("DivideByZeroError", new DivideByZeroError(data, events));
+        //update ui on startup
+        updateTopBar();
     }
     public boolean handleInput(String input)
     {
@@ -36,6 +37,7 @@ public class Calculator
             {
                 state = "2nd";
             }
+            updateTopBar();
         }
         else if (input.equals("alp"))
         {
@@ -47,6 +49,7 @@ public class Calculator
             {
                 state = "alp";
             }
+            updateTopBar();
         }
         //check if need to turn off calculator
         else if (state.equals("2nd"))
@@ -74,6 +77,24 @@ public class Calculator
         {
             CursorControl.goTo(3, 5+i);
             System.out.print("                           ");
+        }
+    }
+    private void updateTopBar()
+    {
+        CursorControl.goTo(3, 4);
+        System.out.print(Colour.bgRGB("RAD", 200, 200, 200));
+        CursorControl.goTo(28, 4);
+        switch (state)
+        {
+            case "2nd":
+                System.out.print(Colour.bgRGB("🡩", 200, 200, 200));
+                break;
+            case "alp":
+                System.out.print(Colour.bgRGB("A", 200, 200, 200));
+                break;
+            default:
+                System.out.print(Colour.bgRGB(" ", 200, 200, 200));
+                break;
         }
     }
     private void handleEvents()

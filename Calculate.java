@@ -48,7 +48,7 @@ public class Calculate
         //create output ArrayList
         ArrayList<String> output = new ArrayList<>();
         //split string at operator charchters
-        String[] tokens = input.split("​");
+        String[] tokens = input.split("\u200b");
         
         //loop through all tokens
         int index = 0; //using seperate index to help with ()
@@ -60,7 +60,7 @@ public class Calculate
             //Left assocaitve operators
             if (token.equals("+") || token.equals("−") || token.equals("×") || token.equals("÷"))
             {
-                if (ops.size() == 0 || ops.peek().equals("("))
+                if (ops.size() == 0 || ops.peek().equals("(") || ops.peek().equals("(\u200d"))
                 {
                     ops.push(token);
                 }
@@ -86,7 +86,7 @@ public class Calculate
             {
                 ops.push(token);
             }
-            else if (token.equals("("))
+            else if (token.equals("(") || token.equals("(\u200d"))
             {
                ops.push(token); 
             }
@@ -96,11 +96,23 @@ public class Calculate
                 {
                     if (ops.peek().equals("("))
                     {
-                        ops.pop();
+                        ops.pop(); //remove paren
+                        break;
+                    }
+                    //\u200d is a flag that there is a function that needs to be moved to output adter paren
+                    else if (ops.peek().equals("(\u200d"))
+                    {
+                        ops.pop(); // remove (
+                        output.add(ops.pop()); //add fucntion to output
                         break;
                     }
                     output.add(ops.pop());
                 }
+            }
+            //handle functions
+            else if (token.equals("sin") || token.equals("cos") || token.equals("tan"))
+            {
+                ops.push("token");
             }
             else if(!token.equals(""))
             {
@@ -127,7 +139,7 @@ public class Calculate
         //loop thorugh all values
         for (String value : input)
         {
-            //check if operator
+            //evaluate operators
             if (value.equals("+"))
             {
                 num1 = values.pop();
@@ -163,6 +175,23 @@ public class Calculate
                 num2 = values.pop();
                 values.push(Math.pow(num2, num1));
             }
+            //evaluate functions
+            else if(value.equals("sin"))
+            {
+                num1 = values.pop();
+                values.push(Math.sin(num1));
+            }
+            else if (value.equals("cos"))
+            {
+                num1 = values.pop();
+                values.push(Math.cos(num1));
+            }
+            else if (value.equals("tan"))
+            {
+                num1 = values.pop();
+                values.push(Math.tan(num1));
+            }
+            //just add number to output
             else
             {
                 values.push(Double.parseDouble(value));

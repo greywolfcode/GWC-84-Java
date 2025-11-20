@@ -21,7 +21,7 @@ public class Colour
      */
     public static String bgRGB(String line, int r, int g, int b)
     {
-        return "\033[48;2" + r + ";" + g + ";" + b + "m" + line + "\033[0m";
+        return "\033[48;2;" + r + ";" + g + ";" + b + "m" + line + "\033[0m";
     }
     /**
      * Creates and returns Strings with colour inverted

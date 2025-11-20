@@ -4,11 +4,13 @@ public class Main
 {
     public static void main(String[] args)
     {
+        //call starting render
+        Renderer.render();
         //define objects
         Scanner input = new Scanner(System.in);
         Calculator calc = new Calculator();
-        //call starting render
-        Renderer.render();
+        //set up action prompt
+        CursorControl.goTo(0, 55);
         System.out.print("Your Action: ");
         String inputLine = "";
         String action = "";

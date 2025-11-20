@@ -12,9 +12,10 @@ public class Renderer
     }
     private static void renderScreen()
     {
-        String line = "│                           │"; //screen in 17 spaces wide
+        String line = "│                           │"; //screen is 27 spaces wide
         System.out.println("┃┌───────────────────────────┐┃");
-        for (int i=0; i<9; i++)
+        System.out.println("┃│" + Colour.bgRGB("                           ", 200, 200, 200) + "│┃");
+        for (int i=0; i<8; i++)
         {
             System.out.println("┃"+line+"┃");
         }

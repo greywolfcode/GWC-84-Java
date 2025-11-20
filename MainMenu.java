@@ -6,6 +6,7 @@ public class MainMenu extends Menu
     private StringBuilder currentLine = new StringBuilder();
     private int cursorLocation = 0; //stores where in the block the cursor is
     private int currentBlock = 0; //stores which segment for really long blocks
+    private int historyLine = 0; //stores how many lines of history there are
     
     public MainMenu(Data storage, Stack<String> events)
     {
@@ -55,25 +56,35 @@ public class MainMenu extends Menu
                 break;
             //using u200b zero width space for sectioning purposes
             case "+":
-                currentLine.append("​+​");
+                currentLine.append("\u200b+\u200b");
                 break;
             case "_", "−": //underscore so hyphen can be negative number
-                currentLine.append("​−​");
+                currentLine.append("\u200b−\u200b");
                 break;
             case "*", "×":
-                currentLine.append("​×​");
+                currentLine.append("\u200b×\u200b");
                 break;
             case "/", "÷":
-                currentLine.append("​÷​");
+                currentLine.append("\u200b÷\u200b");
                 break;
             case "(":
-                currentLine.append("​(​");
+                currentLine.append("\u200b(\u200b");
                 break;
             case ")":
-                currentLine.append("​)​");
+                currentLine.append("\u200b)\u200b");
+                break;
+            //functions us u200d zero width joiner to indicate that the parenthesis is attached to a function
+            case "sin":
+                currentLine.append("\u200bsin\u200b(\u200d\u200b");
+                break;
+            case "cos":
+                currentLine.append("\u200bcos\u200b(\u200d\u200b");
+                break;
+            case "tan":
+                currentLine.append("\u200btan\u200b(\u200d\u200b");
                 break;
             case "^":
-                currentLine.append("​^​");
+                currentLine.append("\u200b^\u200b");
                 break;
             case "clr":
                 currentLine.setLength(0);
@@ -101,10 +112,14 @@ public class MainMenu extends Menu
                     }
                     data.addHistory(new String[]{currentLine.toString(), value});
                     currentLine.setLength(0); 
+                    if (historyLine < 6)
+                    {
+                        historyLine+=2;
+                    }
                 }
                 break;
             default:
-                cursorLocation0--;
+                cursorLocation--;
                 break;
         }
         cursorLocation++;
@@ -128,14 +143,14 @@ public class MainMenu extends Menu
     {
         //fill as many slots as possible with history
         int historyIndex = 0;
-        for(int i=5; i>0; i-=2)
+        for(int i=historyLine-2; i>=0; i-=2)
         {
-            screen[i] = data.getHistory(historyIndex)[1];
-            screen[i] = " ".repeat(27-screen[i].length()) + screen[i];
-            screen[i-1] = data.getHistory(historyIndex)[0];
+            screen[i] = data.getHistory(historyIndex)[0];
+            screen[i+1] = data.getHistory(historyIndex)[1];
+            screen[i+1] = " ".repeat(27-screen[i+1].length()) + screen[i+1];
             historyIndex++;
         }
-        screen[6] = currentLine.toString();
-        screen[7] = "";
+        screen[historyLine] = currentLine.toString();
+        screen[historyLine + 1] = "";
     }
 }
