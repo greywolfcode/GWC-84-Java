@@ -3,7 +3,7 @@ import java.util.Stack;
 public abstract class Menu
 {
     //protected as classes will need to make more complecated modifications to this
-    protected String menuType; //tells if menu can have actions done in it
+    protected String menuType = "action"; //tells if menu can have actions done in it
     protected Data data;
     protected String[] screen = {"", "", "", "", "", "", "", ""};
     protected Stack<String> globalEvents; //allows events to be sent to main calculator
@@ -23,5 +23,12 @@ public abstract class Menu
     public String getType()
     {
         return menuType;
+    }
+    protected void clearScreen()
+    {
+        for (int i=0; i<8; i++)
+        {
+            screen[i] = "";
+        }
     }
 }

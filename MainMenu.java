@@ -14,10 +14,38 @@ public class MainMenu extends Menu
         data = storage;
         globalEvents = events;
     }
+    public void onLoad()
+    {
+        String returnValue = data.getReturn();
+        switch (returnValue)
+        {
+            case "goto":
+                currentLine.append(data.getHistory(0)[0]);
+                updateScreen();
+                break;
+            default:
+                break;
+        }
+    }
     public void eventHandeler(String state, String event)
+    {
+        if (state.equals("main"))
+        {
+            handelerMain(event);
+        }
+        else if (state.equals("2nd"))
+        {
+            handeler2nd(event);
+        }
+        cursorLocation++;
+        //update screen
+        updateScreen();
+    }
+    private void handelerMain(String event)
     {
         switch (event)
         {
+            //numbers
             case "1":
                 currentLine.append("1");
                 break;
@@ -54,7 +82,7 @@ public class MainMenu extends Menu
             case "-":
                 currentLine.append("-");
                 break;
-            //using u200b zero width space for sectioning purposes
+            //operators. using u200b zero width space for sectioning purposes
             case "+":
                 currentLine.append("\u200b+\u200b");
                 break;
@@ -70,10 +98,15 @@ public class MainMenu extends Menu
             case "(":
                 currentLine.append("\u200b(\u200b");
                 break;
+            case "^":
+                currentLine.append("\u200b^\u200b");
+                break;
             case ")":
                 currentLine.append("\u200b)\u200b");
                 break;
-            //functions us u200d zero width joiner to indicate that the parenthesis is attached to a function
+            //special operators
+
+            //functions. useing u200d zero width joiner to indicate that the parenthesis is attached to a function
             case "sin":
                 currentLine.append("\u200bsin\u200b(\u200d\u200b");
                 break;
@@ -83,11 +116,22 @@ public class MainMenu extends Menu
             case "tan":
                 currentLine.append("\u200btan\u200b(\u200d\u200b");
                 break;
-            case "^":
-                currentLine.append("\u200b^\u200b");
+            case "log":
+                currentLine.append("\u200blog\u200b(\u200d\u200b");
+                break;
+            case "ln":
+                currentLine.append("\u200bln\u200b(\u200d\u200b");
                 break;
             case "clr":
-                currentLine.setLength(0);
+                if (currentLine.length() > 0)
+                {
+                    currentLine.setLength(0);
+                }
+                else
+                {
+                    historyLine = 0;
+                    clearScreen();
+                }
                 break;
             case "ent":
                 //perform previous calculation if line in emtpy
@@ -122,21 +166,21 @@ public class MainMenu extends Menu
                 cursorLocation--;
                 break;
         }
-        cursorLocation++;
-        //update screen
-        updateScreen();
     }
-    public void onLoad()
+    private void handeler2nd(String event)
     {
-        String returnValue = data.getReturn();
-        switch (returnValue)
+        switch (event)
         {
-            case "goto":
-                currentLine.append(data.getHistory(0)[0]);
-                updateScreen();
+            //special numbers
+            case "e":
+                currentLine.append("e");
                 break;
-            default:
+            case "pi", "PI", "Pi", "π":
+                currentLine.append("π");
                 break;
+            //functions
+            case "sqrt", "√":
+                currentLine.append("\u200b√\u200b(\u200d\u200b");
         }
     }
     private void updateScreen()

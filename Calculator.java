@@ -51,18 +51,17 @@ public class Calculator
             }
             updateTopBar();
         }
-        //check if need to turn off calculator
-        else if (state.equals("2nd"))
+        else
         {
-            if (input.equals("on") || input.equals("off"))
+            //check if need to turn off calculator
+            if (input.equals("on") || input.equals("off") && state.equals("2nd"))
             {
                 return true;
             }
-        }
-        //run menu event handler
-        else
-        {
+            //run menu event handler
             currentMenu.eventHandeler(state, input);
+            state = "main"; //reset back to main if any other button is pressed
+            updateTopBar();
         }
         //handle events
         handleEvents();

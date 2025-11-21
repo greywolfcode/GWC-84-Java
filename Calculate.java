@@ -37,6 +37,7 @@ public class Calculate
         }
         catch(Exception e)
         {
+            System.out.println(e);
             return "error";
         }
     }
@@ -110,13 +111,13 @@ public class Calculate
                 }
             }
             //handle functions
-            else if (token.equals("sin") || token.equals("cos") || token.equals("tan"))
+            else if (token.equals("sin") || token.equals("cos") || token.equals("tan") || token.equals("log") || token.equals("ln") || token.equals("√"))
             {
-                ops.push("token");
+                ops.push(token);
             }
             else if(!token.equals(""))
             {
-                //must be number; push to output
+                //must be number or special number; push to output
                 output.add(token);
             }
         }
@@ -190,6 +191,30 @@ public class Calculate
             {
                 num1 = values.pop();
                 values.push(Math.tan(num1));
+            }
+            else if (value.equals("log"))
+            {
+                num1 = values.pop();
+                values.push(Math.log10(num1));
+            }
+            else if (value.equals("ln"))
+            {
+                num1 = values.pop();
+                values.push(Math.log(num1));
+            }
+            else if (value.equals("√"))
+            {
+                num1 = values.pop();
+                values.push(Math.sqrt(num1));
+            }
+            //replace special numbers with actual values
+            else if (value.equals("π"))
+            {
+                values.push(Math.PI);
+            }
+            else if (value.equals("e"))
+            {
+                values.push(Math.E);
             }
             //just add number to output
             else
