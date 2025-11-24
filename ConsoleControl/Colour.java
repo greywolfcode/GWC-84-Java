@@ -1,3 +1,4 @@
+package ConsoleControl;
 /**
  * Class creates string for colour output in console using ANSI escpae codes
  * 

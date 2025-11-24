@@ -1,5 +1,10 @@
+package GWC_84_Java;
+
 import java.util.Stack;
 import java.util.HashMap;
+import Menus.*;
+import ConsoleControl.Cursor;
+import ConsoleControl.Colour;
 
 public class Calculator 
 {
@@ -74,15 +79,15 @@ public class Calculator
     {
         for(int i = 0; i<8; i++)
         {
-            CursorControl.goTo(3, 5+i);
+            Cursor.goTo(3, 5+i);
             System.out.print("                           ");
         }
     }
     private void updateTopBar()
     {
-        CursorControl.goTo(3, 4);
+        Cursor.goTo(3, 4);
         System.out.print(Colour.bgRGB("RAD", 200, 200, 200));
-        CursorControl.goTo(28, 4);
+        Cursor.goTo(28, 4);
         switch (state)
         {
             case "2nd":

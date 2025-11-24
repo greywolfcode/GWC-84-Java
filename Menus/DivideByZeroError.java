@@ -1,4 +1,9 @@
+package Menus;
+
 import java.util.Stack;
+import GWC_84_Java.Menu;
+import GWC_84_Java.Data;
+import ConsoleControl.Colour;
 
 public class DivideByZeroError extends Menu
 {

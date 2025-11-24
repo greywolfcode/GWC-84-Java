@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import ConsoleControl.Cursor;
+import GWC_84_Java.Calculator;
+import GWC_84_Java.Renderer;
 
 public class Main
 {
@@ -10,7 +13,7 @@ public class Main
         Scanner input = new Scanner(System.in);
         Calculator calc = new Calculator();
         //set up action prompt
-        CursorControl.goTo(0, 55);
+        Cursor.goTo(0, 55);
         System.out.print("Your Action: ");
         String inputLine = "";
         String action = "";
@@ -28,9 +31,9 @@ public class Main
             }
             
             //reset cursor and clear line
-            CursorControl.goTo(14, 55);
+            Cursor.goTo(14, 55);
             System.out.print(" ".repeat(inputLine.length()));
-            CursorControl.goTo(14, 55);
+            Cursor.goTo(14, 55);
         }
     }
 }

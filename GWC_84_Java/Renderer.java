@@ -1,3 +1,7 @@
+package GWC_84_Java;
+
+import ConsoleControl.Colour;
+
 public class Renderer
 {
     private Renderer(){}

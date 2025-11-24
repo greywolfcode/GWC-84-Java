@@ -1,5 +1,10 @@
+package Menus;
+
 import java.lang.StringBuilder;
 import java.util.Stack;
+import GWC_84_Java.Menu;
+import GWC_84_Java.Data;
+import GWC_84_Java.Calculate;
 
 public class MainMenu extends Menu
 {

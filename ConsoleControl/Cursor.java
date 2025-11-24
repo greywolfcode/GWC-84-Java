@@ -1,21 +1,23 @@
+package ConsoleControl;
+
 /**
  * Methods for moving the console cursor
  */
-public class CursorControl 
+public class Cursor
 {
-    private CursorControl(){}
+    private Cursor(){}
     /**
      * Move cursor to specified coordinents
      * 1;1 is top left and default
      */
-    static void goTo(int x, int y)
+    public static void goTo(int x, int y)
     {
         System.out.print("\033[" + y + ";" + x +"H");
     }
     /**
      * reset cursor to begining of 1st line
      */
-    static void reset()
+    public static void reset()
     {
         System.out.print("\033[H");
     }
@@ -38,7 +40,7 @@ public class CursorControl
      * Move cursor horizontally
      * positive is right, negative is left
      */
-    static void moveHorz(int x)
+    public static void moveHorz(int x)
     {
         if (x < 0)
         {
@@ -52,14 +54,14 @@ public class CursorControl
     /**
      * Save current cursor position
      */
-    static void savePos()
+    public static void savePos()
     {
         System.out.print("\033[s");
     }
     /**
      * Restore cursor to previously saved position
      */
-    static void restorePos()
+    public static void restorePos()
     {
         System.out.print("\033[u");
     }

@@ -1,3 +1,5 @@
+package GWC_84_Java;
+
 import java.util.ArrayList;
 
 public class Data 
@@ -5,8 +7,9 @@ public class Data
     //main history
     ArrayList<String[]> history = new ArrayList<String[]>();
     //stores return from menus
-    String returnValue;
-    boolean usedReturn;
+    private String returnValue;
+    private boolean usedReturn;
+    
     public Data()
     {
         //this will eventually load save data

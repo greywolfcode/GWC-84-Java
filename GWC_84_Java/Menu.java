@@ -1,4 +1,8 @@
+package GWC_84_Java;
+
 import java.util.Stack;
+import ConsoleControl.Cursor;
+
 
 public abstract class Menu
 {
@@ -16,7 +20,7 @@ public abstract class Menu
     {
         for(int i=0; i<8; i++)
         {
-            CursorControl.goTo(3, 5+i);
+            Cursor.goTo(3, 5+i);
             System.out.print(screen[i]);
         }
     }
