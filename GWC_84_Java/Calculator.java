@@ -26,6 +26,7 @@ public class Calculator
         menus.put("MainMenu", currentMenu);
         menus.put("SyntaxError", new SyntaxError(data, events));
         menus.put("DivideByZeroError", new DivideByZeroError(data, events));
+        menus.put("MathMenu", new MathMenu(data, events));
         //update ui on startup
         updateTopBar();
     }
@@ -55,6 +56,10 @@ public class Calculator
                 state = "alp";
             }
             updateTopBar();
+        }
+        else if (input.equals("mth"))
+        {
+            events.push("switch MathMenu");
         }
         else
         {
@@ -87,6 +92,7 @@ public class Calculator
     {
         Cursor.goTo(3, 4);
         System.out.print(Colour.bgRGB("RAD", 200, 200, 200));
+        System.out.print(Colour.bgRGB(" CL", 200, 200, 200)); //only classic mode is an option
         Cursor.goTo(28, 4);
         switch (state)
         {
@@ -131,12 +137,14 @@ public class Calculator
     private void switchMenu(String menu)
     {
         prevMenu = currentMenu;
+        prevMenu.onUnload();
         currentMenu = menus.get(menu);
         currentMenu.onLoad();
     }
     private void switchMenu(Menu menu)
     {
         prevMenu = currentMenu;
+        prevMenu.onUnload();
         currentMenu = menu;
         currentMenu.onLoad();
     }

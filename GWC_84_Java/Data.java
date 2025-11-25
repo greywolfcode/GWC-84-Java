@@ -12,6 +12,7 @@ public class Data
     
     public Data()
     {
+        usedReturn = true;
         //this will eventually load save data
     }
     public void addHistory(String[] value)

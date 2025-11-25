@@ -61,6 +61,7 @@ public class DivideByZeroError extends Menu
         cursorLocation = 0; 
         updateScreen();
     }
+    public void onUnload(){}
     private void updateScreen()
     {
         if (cursorLocation == 0)

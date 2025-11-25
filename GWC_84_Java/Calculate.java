@@ -39,7 +39,7 @@ public class Calculate
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            //System.out.println(e);
             return "error";
         }
     }

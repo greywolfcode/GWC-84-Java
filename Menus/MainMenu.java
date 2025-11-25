@@ -32,6 +32,7 @@ public class MainMenu extends Menu
                 break;
         }
     }
+    public void onUnload(){}
     public void eventHandeler(String state, String event)
     {
         if (state.equals("main"))

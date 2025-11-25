@@ -16,6 +16,8 @@ public abstract class Menu
     
     public abstract void onLoad(); //runs every time current menu is changed to this menu
     
+    public abstract void onUnload(); //runs every time current menu is changed from this menu
+    
     public void renderScreen()
     {
         for(int i=0; i<8; i++)
