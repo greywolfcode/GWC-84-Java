@@ -1,7 +1,9 @@
+package MathObjects;
+
 /**
  * Class for storing and munipulating fractons
  */
-public class Fraction 
+public class Fraction extends MathObject 
 {
     private String numer;
     private String denom;
@@ -12,6 +14,7 @@ public class Fraction
      */
     public Fraction(int numerator, int denominator)
     {
+        setType("fraction")
         numer = numerator + "";
         denom = denom + "";
     }
@@ -24,5 +27,9 @@ public class Fraction
     {
         numer = numerator;
         denom = denominator;
+    }
+    public String toString()
+    {
+        return numer + "/" + denom;
     }
 }

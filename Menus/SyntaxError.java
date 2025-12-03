@@ -11,9 +11,9 @@ public class SyntaxError extends Menu
     
     public SyntaxError(Data storage, Stack<String> events)
     {
-        menuType = "return";
+        setMenuType("return");
         data = storage;
-        globalEvents = events;
+        setGlobalEvents(events);
         //set up error
         screen[0] = "      SYNTAX  ERROR:      ";
         screen[1] = Colour.invert("1:") + " Quit";
@@ -28,21 +28,21 @@ public class SyntaxError extends Menu
         switch (event)
         {
             case "1":
-                globalEvents.push("prevMenu");
+                pushEvent("prevMenu");
                 break;
             case "2":
                 data.setReturn("goto");
-                globalEvents.push("prevMenu");
+                pushEvent("prevMenu");
                 break;
             case "ent":
                 if (cursorLocation == 1)
                 {
                     data.setReturn("goto");
                 }
-                globalEvents.push("prevMenu");
+                pushEvent("prevMenu");
                 break;
             case "clr":
-                globalEvents.push("prevMenu");
+                pushEvent("prevMenu");
                 break;
             case "w":
                 cursorLocation = 0;

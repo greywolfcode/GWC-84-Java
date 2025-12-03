@@ -15,9 +15,9 @@ public class MainMenu extends Menu
     
     public MainMenu(Data storage, Stack<String> events)
     {
-        menuType = "action";
+        setMenuType("action");
         data = storage;
-        globalEvents = events;
+        setGlobalEvents(events);
     }
     public void onLoad()
     {
@@ -153,12 +153,12 @@ public class MainMenu extends Menu
                     if (value.equals("error"))
                     {
                         value = "Error";
-                        globalEvents.push("switch SyntaxError"); //add command to switch the menu
+                        pushEvent("switch SyntaxError"); //add command to switch the menu
                     }
                     else if(value.equals("div/0"))
                     {
                         value = "DIV/0";
-                        globalEvents.push("switch DivideByZeroError");
+                        pushEvent("switch DivideByZeroError");
                     }
                     data.addHistory(new String[]{currentLine.toString(), value});
                     currentLine.setLength(0); 
