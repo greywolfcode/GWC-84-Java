@@ -30,6 +30,6 @@ public class Fraction extends MathObject
     }
     public String toString()
     {
-        return numer + "/" + denom;
+        return numer + "⁄" + denom;
     }
 }

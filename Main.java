@@ -7,7 +7,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        //call starting render
+        //call starting render   
         Renderer.render();
         //define objects
         Scanner input = new Scanner(System.in);
