@@ -8,6 +8,7 @@ import MathObjects.MathObject
 public abstract class Operator extend MathObject
 {
     private int presdence;
+    private String associtivity;
     
     public abstract MathObject evaluate(MathObject numOne, MathObject numTwo);
     
@@ -23,4 +24,18 @@ public abstract class Operator extend MathObject
     {
         return presedence;
     }
+    /**
+     * Methods for setting and getting associativity
+     * - left
+     * - right
+     * Used for shunting yard algoritm
+     */
+     protected void setAssociative(String type)
+     {
+         associtivity = type;
+     }
+     public String getAssociative()
+     {
+         return associtivity;
+     }
 }

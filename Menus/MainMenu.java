@@ -1,14 +1,19 @@
 package Menus;
 
-import java.lang.StringBuilder;
 import java.util.Stack;
+import java.util.ArrayList;
+
 import GWC_84_Java.Menu;
 import GWC_84_Java.Data;
 import GWC_84_Java.Calculate;
 
+//import MathObject libraries
+import MathObjects.MathObject;
+import MathObject.Decimal;
+
 public class MainMenu extends Menu
 {
-    private StringBuilder currentLine = new StringBuilder();
+    private ArrayList<MathObject> currentLine = new ArrayList<>();
     private int cursorLocation = 0; //stores where in the block the cursor is
     private int currentBlock = 0; //stores which segment for really long blocks
     private int historyLine = 0; //stores how many lines of history there are
@@ -25,7 +30,7 @@ public class MainMenu extends Menu
         switch (returnValue)
         {
             case "goto":
-                currentLine.append(data.getHistory(0)[0]);
+                currentLine = data.getHistory(0)[0];
                 updateScreen();
                 break;
             default:
@@ -51,36 +56,49 @@ public class MainMenu extends Menu
     {
         switch (event)
         {
-            //numbers
+            //values that can be in a decimal
+            case "temp_value_for_figuring_out_logic_will_be_made_to_work_later"
+            {
+                //if possible, add to current Decimal object
+                if currentLine.get(currentLine.size() - 1).getType().equals("Decimal")
+                {
+                    currentLine.get(currentLine.size()-1).add;
+                }
+                //creat new object when required
+                else
+                {
+                     currentLine.add(Decimal("1"));
+                }
+            }
             case "1":
-                currentLine.append("1");
+                currentLine.append(Decimal(1));
                 break;
             case "2":
-                currentLine.append("2");
+                currentLine.append(Decimal(2));
                 break;
             case "3":
-                currentLine.append("3");
+                currentLine.append(Decimal(3));
                 break;
             case "4":
-                currentLine.append("4");
+                currentLine.append(Decimal(4));
                 break;
             case "5":
-                currentLine.append("5");
+                currentLine.append(Decimal(5));
                 break;
             case "6":
-                currentLine.append("6");
+                currentLine.append(Decimal(6));
                 break;
             case "7":
-                currentLine.append("7");
+                currentLine.append(Decimal(7));
                 break;
             case "8":
-                currentLine.append("8");
+                currentLine.append(Decimal(8));
                 break;
             case "9":
-                currentLine.append("9");
+                currentLine.append(Decimal(9));
                 break;
             case "0":
-                currentLine.append("0");
+                currentLine.append(Decimal(0));
                 break;
             case ".":
                 currentLine.append(".");
@@ -161,7 +179,7 @@ public class MainMenu extends Menu
                         pushEvent("switch DivideByZeroError");
                     }
                     data.addHistory(new String[]{currentLine.toString(), value});
-                    currentLine.setLength(0); 
+                    currentLine.clear(); 
                     if (historyLine < 6)
                     {
                         historyLine+=2;

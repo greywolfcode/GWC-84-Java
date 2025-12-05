@@ -1,4 +1,4 @@
-package MathObjects.Functions;
+package MathObject.Functions;
 
 import java.util.Math;
 
@@ -6,20 +6,20 @@ import MathObjects.MathObject;
 import MathObjects.Decimal;
 
 /**
- * Class for storing cosine functions
+ * Class for storing all square root functions
  */
-public class Cos extends Function
+public class Sqrt extends Function
 {
-    public Cos()
+    public Sqrt()
     {
         setType("Function")
     }
     public MathObject evaluate(MathObject value)
     {
-        return Decimal(Math.cos(value.getValue()))
+        return Decimal(Math.sqrt(value.getValue()));
     }
     public String toString()
     {
-        return "cos(";
+        return "√";
     }
 }

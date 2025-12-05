@@ -32,7 +32,7 @@ public class Main
             
             //reset cursor and clear line
             Cursor.goTo(14, 55);
-            System.out.print(" ".repeat(inputLine.length()));
+            System.out.print(" ".repeat(inputLine.length()) + " ");
             Cursor.goTo(14, 55);
         }
     }

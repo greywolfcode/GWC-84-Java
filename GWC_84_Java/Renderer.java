@@ -76,7 +76,7 @@ public class Renderer
             System.out.println("           ┃");
             System.out.print("┃");
             renderButtonMiddleRGB("alp", 99, 184, 125);
-            renderButtonMiddle(" x ");
+            renderButtonMiddle(" 𝑥 ");
             renderButtonMiddle("stt");
             System.out.println("     🞃     ┃"); 
             System.out.print("┃");

@@ -1,11 +1,11 @@
 package GWC_84_Java;
 
 import java.util.ArrayList;
-
+import MathObjects.MathObject;
 public class Data 
 {
     //main history
-    ArrayList<String[]> history = new ArrayList<String[]>();
+    ArrayList<ArrayList<MathObject>[]> history = new ArrayList<>();
     //stores return from menus
     private String returnValue;
     private boolean usedReturn;
@@ -15,20 +15,20 @@ public class Data
         usedReturn = true;
         //this will eventually load save data
     }
-    public void addHistory(String[] value)
+    public void addHistory(ArrayList<MathObject>[] value)
     {
         history.add(0, value);
         returnValue = "";
         usedReturn = true;
     }
-    public String[] getHistory(int index)
+    public ArrayList<MathObject>[] getHistory(int index)
     {
         if (index < history.size())
         {
             return history.get(index);
         }
         //default to empty string
-        return new String[]{"",""};
+        return new ArrayList<MathObject>[];
     }
     public void setReturn(String value)
     {
@@ -43,9 +43,11 @@ public class Data
             return returnValue;
         }
         return "";
-        
     }
-    public boolean checkReturn()
+    /**
+     * Checks if return has been retrieved
+     */
+    public boolean checkReturned()
     {
         return usedReturn;
     }

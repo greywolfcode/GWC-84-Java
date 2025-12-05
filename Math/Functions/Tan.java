@@ -1,8 +1,9 @@
 package MathObjects.Function;
 
+import java.util.Math;
+
 import MathObjects.MathObject;
 import MathObjects.Decimal;
-import java.util.Math;
 
 /**
  * Class for storing all tangent functions
@@ -15,7 +16,7 @@ public class Tan extends Function
     }
     public MathObject evaluate(MathObject value)
     {
-        return Decimal(Math.tan(value));
+        return Decimal(Math.tan(value.getValue()));
     }
     public toString()
     {

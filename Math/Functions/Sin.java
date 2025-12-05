@@ -1,8 +1,9 @@
 package MathObjects.Functions;
 
+import java.util.Math;
+
 import MathObjects.MathObject;
 import MathObjects.Decimal;
-import java.util.Math;
 
 /**
  * Class for storing sine functions
@@ -15,7 +16,7 @@ public class Sin extends Function
     }
     public MathObject evaluate(MathObject value)
     {
-        return Decimal(Math.sin(value));
+        return Decimal(Math.sin(value.getValue()));
     }
     public String toString()
     {

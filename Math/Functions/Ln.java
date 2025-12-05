@@ -1,8 +1,9 @@
 package MathObjects.Functions;
 
+import java.util.Math;
+
 import MathObjects.MathObject;
 import MathObjects.Decimal;
-import java.util.Math;
 
 /**
  * Stores natural log objects
@@ -15,7 +16,7 @@ public class Ln extends Function
     }
     public MathObject evaluate(MathObject value)
     {
-        return Decimal(Math.log(value));
+        return Decimal(Math.log(value.getValue()));
     }
     public String toString()
     {
