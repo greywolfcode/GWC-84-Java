@@ -7,9 +7,30 @@ import GWC_84_Java.Menu;
 import GWC_84_Java.Data;
 import GWC_84_Java.Calculate;
 
-//import MathObject libraries
+//import MathObject classes
 import MathObjects.MathObject;
-import MathObject.Decimal;
+//numbers:
+import MathObjects.Numbers.Decimal;
+//operators:
+import MathObjects.Operators.Plus;
+import MathObjects.Operators.Minus;
+import MathObjects.Operators.Multiply;
+import MathObjects.Operators.Divide;
+import MathObjects.Operators.Exponent;
+//functions
+import MathObjects.Functions.Sin;
+import MathObjects.Functions.Cos;
+import MathObjects.Functions.Tan;
+import MathObjects.Functions.Log;
+import MathObjects.Functions.Ln;
+import MathObjects.Functions.Sqrt;
+//groupers:
+import MathObjects.Groupers.RoundLeft;
+import MathObjects.Groupers.RoundRight;
+//symbols:
+import MathObjects.Symbols.Pi;
+import MathObjects.Symbols.EulersNumber;
+import MathObjects.Symbols.Ans;
 
 public class MainMenu extends Menu
 {
@@ -30,7 +51,7 @@ public class MainMenu extends Menu
         switch (returnValue)
         {
             case "goto":
-                currentLine = data.getHistory(0)[0];
+                currentLine = data.getHistory(0).get(0);
                 updateScreen();
                 break;
             default:
@@ -57,99 +78,69 @@ public class MainMenu extends Menu
         switch (event)
         {
             //values that can be in a decimal
-            case "temp_value_for_figuring_out_logic_will_be_made_to_work_later"
-            {
+            case "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".":
                 //if possible, add to current Decimal object
-                if currentLine.get(currentLine.size() - 1).getType().equals("Decimal")
+                if (currentLine.size() > 0 && currentLine.get(currentLine.size() - 1).getType().equals("Decimal"))
                 {
-                    currentLine.get(currentLine.size()-1).add;
+                    currentLine.get(currentLine.size() - 1).add(event);
                 }
                 //creat new object when required
                 else
                 {
-                     currentLine.add(Decimal("1"));
+                     currentLine.add(new Decimal(event));
                 }
-            }
-            case "1":
-                currentLine.append(Decimal(1));
                 break;
-            case "2":
-                currentLine.append(Decimal(2));
-                break;
-            case "3":
-                currentLine.append(Decimal(3));
-                break;
-            case "4":
-                currentLine.append(Decimal(4));
-                break;
-            case "5":
-                currentLine.append(Decimal(5));
-                break;
-            case "6":
-                currentLine.append(Decimal(6));
-                break;
-            case "7":
-                currentLine.append(Decimal(7));
-                break;
-            case "8":
-                currentLine.append(Decimal(8));
-                break;
-            case "9":
-                currentLine.append(Decimal(9));
-                break;
-            case "0":
-                currentLine.append(Decimal(0));
-                break;
-            case ".":
-                currentLine.append(".");
-                break;
+            //handle negative seperatly since it has to go at the start of the numbe-
             case "-":
-                currentLine.append("-");
+                if(currentLine.size() > 0 && currentLine.get(currentLine.size() - 1).getType() == "Decimal")
+                {
+                    currentLine.add(new Multiply());
+                }
+                currentLine.add(new Decimal("-"));
                 break;
-            //operators. using u200b zero width space for sectioning purposes
+            //operators
             case "+":
-                currentLine.append("\u200b+\u200b");
+                currentLine.add(new Plus());
                 break;
             case "_", "−": //underscore so hyphen can be negative number
-                currentLine.append("\u200b−\u200b");
+                currentLine.add(new Minus());
                 break;
             case "*", "×":
-                currentLine.append("\u200b×\u200b");
+                currentLine.add(new Multiply());
                 break;
             case "/", "÷":
-                currentLine.append("\u200b÷\u200b");
-                break;
-            case "(":
-                currentLine.append("\u200b(\u200b");
+                currentLine.add(new Divide());
                 break;
             case "^":
-                currentLine.append("\u200b^\u200b");
+                currentLine.add(new Exponent());
+                break;
+            //groupers
+            case "(":
+                currentLine.add(new RoundLeft());
                 break;
             case ")":
-                currentLine.append("\u200b)\u200b");
+                currentLine.add(new RoundRight());
                 break;
-            //special operators
-
-            //functions. useing u200d zero width joiner to indicate that the parenthesis is attached to a function
+            //functions
             case "sin":
-                currentLine.append("\u200bsin\u200b(\u200d\u200b");
+                currentLine.add(new Sin());
                 break;
             case "cos":
-                currentLine.append("\u200bcos\u200b(\u200d\u200b");
+                currentLine.add(new Cos());
                 break;
             case "tan":
-                currentLine.append("\u200btan\u200b(\u200d\u200b");
+                currentLine.add(new Tan());
                 break;
             case "log":
-                currentLine.append("\u200blog\u200b(\u200d\u200b");
+                currentLine.add(new Log());
                 break;
             case "ln":
-                currentLine.append("\u200bln\u200b(\u200d\u200b");
+                currentLine.add(new Ln());
                 break;
             case "clr":
-                if (currentLine.length() > 0)
+                if (currentLine.size() > 0)
                 {
-                    currentLine.setLength(0);
+                    currentLine.clear();
                 }
                 else
                 {
@@ -158,12 +149,12 @@ public class MainMenu extends Menu
                 }
                 break;
             case "ent":
-                //perform previous calculation if line in emtpy
-                if (currentLine.length() == 0)
+                //perform previous calculation in line if empty
+                if (currentLine.size() == 0)
                 {
-                    currentLine.append(data.getHistory(0)[0]);
+                    currentLine = data.getHistory(0).get(0);
                 }
-                if (currentLine.length() > 0) //additonal check in case there is no history
+                if (currentLine.size() > 0) //additonal check in case there is no history
                 {
                     //get postfix
                     String value = Calculate.solveEquation(currentLine.toString());
@@ -178,7 +169,13 @@ public class MainMenu extends Menu
                         value = "DIV/0";
                         pushEvent("switch DivideByZeroError");
                     }
-                    data.addHistory(new String[]{currentLine.toString(), value});
+                    //create value to store in data
+                    ArrayList<ArrayList<MathObject>> historyValue = new ArrayList<>();
+                    historyValue.add(currentLine);
+                    //TODO: add output to history once Calculate is finished
+                    historyValue.add(currentLine);
+                    
+                    data.addHistory(historyValue);
                     currentLine.clear(); 
                     if (historyLine < 6)
                     {
@@ -195,16 +192,20 @@ public class MainMenu extends Menu
     {
         switch (event)
         {
-            //special numbers
+            //symbols
             case "e":
-                currentLine.append("e");
+                currentLine.add(new EulersNumber());
                 break;
-            case "pi", "PI", "Pi", "π":
-                currentLine.append("π");
+            case "pi", "PI", "Pi", "pI", "π":
+                currentLine.add(new Pi());
+                break;
+            case "ans", "Ans", "ANs", "ANS", "aNS", "anS", "aNs":
+                currentLine.add(new Ans(data));
                 break;
             //functions
             case "sqrt", "√":
-                currentLine.append("\u200b√\u200b(\u200d\u200b");
+                currentLine.add(new Sqrt());
+                break;
         }
     }
     private void updateScreen()
@@ -213,8 +214,8 @@ public class MainMenu extends Menu
         int historyIndex = 0;
         for(int i=historyLine-2; i>=0; i-=2)
         {
-            screen[i] = data.getHistory(historyIndex)[0];
-            screen[i+1] = data.getHistory(historyIndex)[1];
+            screen[i] = data.getHistory(historyIndex).get(0).toString();
+            screen[i+1] = data.getHistory(historyIndex).get(1).toString();
             screen[i+1] = " ".repeat(27-screen[i+1].length()) + screen[i+1];
             historyIndex++;
         }

@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import MathObjects.MathObject;
 public class Data 
 {
-    //main history
-    ArrayList<ArrayList<MathObject>[]> history = new ArrayList<>();
+    /*main history. So complicated because it needs to store:
+       - all the equation-value pairs in history which stores:
+        - the objects for the equation and value which stores:
+         - all the MathObjects that make up those lines
+      All of those are ArrayLists as that prevents type issues with classes
+     */
+    ArrayList<ArrayList<ArrayList<MathObject>>> history = new ArrayList<>();
     //stores return from menus
     private String returnValue;
     private boolean usedReturn;
@@ -15,20 +20,20 @@ public class Data
         usedReturn = true;
         //this will eventually load save data
     }
-    public void addHistory(ArrayList<MathObject>[] value)
+    public void addHistory(ArrayList<ArrayList<MathObject>> value)
     {
         history.add(0, value);
         returnValue = "";
         usedReturn = true;
     }
-    public ArrayList<MathObject>[] getHistory(int index)
+    public ArrayList<ArrayList<MathObject>> getHistory(int index)
     {
         if (index < history.size())
         {
             return history.get(index);
         }
-        //default to empty string
-        return new ArrayList<MathObject>[];
+        //default to empty ArrayList
+        return new ArrayList<ArrayList<MathObject>>();
     }
     public void setReturn(String value)
     {
