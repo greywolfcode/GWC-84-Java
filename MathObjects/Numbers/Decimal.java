@@ -41,6 +41,10 @@ public class Decimal extends Numbers
         //get string from StringBuilder, then parse to double
         return Double.parseDouble(value.toString());
     }
+    public boolean isZero()
+    {
+       return getValue() == 0; 
+    }
     public String toString()
     {
         return value.toString();

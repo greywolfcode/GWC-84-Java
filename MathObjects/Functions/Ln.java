@@ -1,6 +1,5 @@
 package MathObjects.Functions;
 
-import MathObjects.MathObject;
 import MathObjects.Numbers.Decimal;
 
 /**
@@ -12,9 +11,9 @@ public class Ln extends Function
     {
         setType("Function");
     }
-    public MathObject evaluate(MathObject value)
+    public Decimal evaluate(Decimal value)
     {
-        return Decimal(Math.log(value.getValue()));
+        return new Decimal(Math.log(value.getValue()));
     }
     public String toString()
     {

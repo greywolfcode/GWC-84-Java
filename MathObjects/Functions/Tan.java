@@ -1,6 +1,5 @@
 package MathObjects.Functions;
 
-import MathObjects.MathObject;
 import MathObjects.Numbers.Decimal;
 
 /**
@@ -10,11 +9,11 @@ public class Tan extends Function
 {
     public Tan()
     {
-        setType(Function);
+        setType("Function");
     }
-    public MathObject evaluate(MathObject value)
+    public Decimal evaluate(Decimal value)
     {
-        return Decimal(Math.tan(value.getValue()));
+        return new Decimal(Math.tan(value.getValue()));
     }
     public String toString()
     {

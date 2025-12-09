@@ -15,6 +15,4 @@ public abstract class MathObject
     {
         return type;
     }
-    //need this so adding to decimal works properly
-    public void add(String value){}
 }

@@ -157,7 +157,7 @@ public class MainMenu extends Menu
                 if (currentLine.size() > 0) //additonal check in case there is no history
                 {
                     //get postfix
-                    String value = Calculate.solveEquation(currentLine.toString());
+                    String value = Calculate.solveEquation(currentLine);
                     //check for error
                     if (value.equals("error"))
                     {

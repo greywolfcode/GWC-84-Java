@@ -12,7 +12,7 @@ public class Exponent extends Operator
     }
     public Decimal evaluate(Decimal num1, Decimal num2)
     {
-        return Decimal(Math.pow(num2.getValue(), num1.getValue()));
+        return new Decimal(Math.pow(num2.getValue(), num1.getValue()));
     }
     public String toString()
     {

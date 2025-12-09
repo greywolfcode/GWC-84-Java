@@ -1,6 +1,5 @@
 package MathObjects.Functions;
 
-import MathObjects.MathObject;
 import MathObjects.Numbers.Decimal;
 
 /**
@@ -12,9 +11,9 @@ public class Sqrt extends Function
     {
         setType("Function");
     }
-    public MathObject evaluate(MathObject value)
+    public Decimal evaluate(Decimal value)
     {
-        return Decimal(Math.sqrt(value.getValue()));
+        return new Decimal(Math.sqrt(value.getValue()));
     }
     public String toString()
     {

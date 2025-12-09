@@ -1,6 +1,5 @@
 package MathObjects.Functions;
 
-import MathObjects.MathObject;
 import MathObjects.Numbers.Decimal;
 
 /**
@@ -12,9 +11,9 @@ public class Sin extends Function
     {
         setType("Function");
     }
-    public MathObject evaluate(MathObject value)
+    public Decimal evaluate(Decimal value)
     {
-        return Decimal(Math.sin(value.getValue()));
+        return new Decimal(Math.sin(value.getValue()));
     }
     public String toString()
     {

@@ -12,9 +12,9 @@ public class Log extends Function
     {
         setType("Function");
     }
-    public MathObject evaluate(MathObject Value)
+    public Decimal evaluate(Decimal value)
     {
-        return Decimal(Math.log10(value.getValue()));
+        return new Decimal(Math.log10(value.getValue()));
     }
     public String toString()
     {

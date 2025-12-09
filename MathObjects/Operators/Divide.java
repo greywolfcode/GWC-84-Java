@@ -14,11 +14,11 @@ public class Divide extends Operator
     }
     public Decimal evaluate(Decimal num1, Decimal num2)
     {
-        if (num1 == 0)
+        if (num1.isZero())
         {
             throw new ArithmeticException("div/0");
         }
-        return Decimal(num2.getValue() / num1.getValue());
+        return new Decimal(num2.getValue() / num1.getValue());
     }
     public String toString()
     {

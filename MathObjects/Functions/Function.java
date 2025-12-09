@@ -1,11 +1,12 @@
 package MathObjects.Functions;
 
 import MathObjects.MathObject;
+import MathObjects.Numbers.Decimal;
 
 /**
  * Basis for all function obejcts
  */
 public abstract class Function extends MathObject
 {
-    public abstract MathObject evaluate(MathObject value);
+    public abstract Decimal evaluate(Decimal value);
 }

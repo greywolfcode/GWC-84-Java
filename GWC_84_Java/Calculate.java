@@ -3,31 +3,26 @@ package GWC_84_Java;
 //import standard libraries
 import java.util.Stack;
 import java.util.ArrayList;
-import java.util.Map;
 import java.lang.StringBuilder;
 import java.lang.ArithmeticException;
+
+//import MathObject stuff
+import MathObjects.MathObject;
 
 /**
  * Store methods to handle performing calculations
  */
 public class Calculate 
 {
-    //static map to hold operator presedence values
-    private static Map<String, Integer> presedence =  Map.of(
-        "+", 2,
-        "−", 2,
-        "×", 3,
-        "÷", 3,
-        "^", 4
-        );
-    
     private Calculate(){}
     /**
      * Converts infix to postfix, than evalutes and returns the answer
+     * 
+     * Returns string so that errors can be returned
      */
-    public static String solveEquation(String input)
+    public static String solveEquation(ArrayList<MathObject> input)
     {
-        ArrayList<String> postfix = toPostFix(input);
+        ArrayList<MathObject> postfix = toPostFix(input);
         //catch error with equation
         try
         {
@@ -46,34 +41,34 @@ public class Calculate
     /**
      * creates postfix with Shunting Yard algorithm
      */
-    public static ArrayList<String> toPostFix(String input)
+    public static ArrayList<MathObject> toPostFix(ArrayList<MathObject> input)
     {
         //create output ArrayList
-        ArrayList<String> output = new ArrayList<>();
-        //split string at operator charchters
-        String[] tokens = input.split("\u200b");
-        
+        ArrayList<MathObject> output = new ArrayList<>();
         //loop through all tokens
         int index = 0; //using seperate index to help with ()
-        Stack<String> ops = new Stack<>();
-        String currentToken = "";
-        StringBuilder currentNumber = new StringBuilder();
-        for (String token:tokens)
+        Stack<MathObject> ops = new Stack<>();
+        for (MathObject token:input)
         {
-            //Left assocaitve operators
-            if (token.equals("+") || token.equals("−") || token.equals("×") || token.equals("÷"))
+            //handle operators
+            if (token.getType().equals("operator"))
             {
-                if (ops.size() == 0 || ops.peek().equals("(") || ops.peek().equals("(\u200d"))
+                
+                if (ops.size() == 0 || ops.peek().getType().equals("Grouper"))
                 {
                     ops.push(token);
                 }
-                else if (presedence.get(token) > presedence.get(ops.peek()))
+                else if (token.getPresedence() > ops.peek().getPresedence())
+                {
+                    ops.push(token);
+                }
+                else if (token.getPresdence() == ops.peek().getPresdence() && token.getAssociative().equals("right"))
                 {
                     ops.push(token);
                 }
                 else
                 {
-                    while(presedence.get(token) <= presedence.get(ops.peek()))
+                    while((token.getPresedence() < ops.peek().getPresedence()) || (token.getPresdence() == ops.peek().getPresedence() && token.getAssociative().equals("left")))
                     {
                         output.add(ops.pop());
                         if (ops.size() == 0)
@@ -84,42 +79,39 @@ public class Calculate
                     ops.push(token);
                 }
             }
-            //right associative operators
-            else if (token.equals("^"))
+            else if (token.getType().equals("grouper") && token.getGrouperType().equals("round"))
             {
-                ops.push(token);
-            }
-            else if (token.equals("(") || token.equals("(\u200d"))
-            {
-               ops.push(token); 
-            }
-            else if (token.equals(")"))
-            {
-                while (true)
-                {
-                    if (ops.peek().equals("("))
+               if (token.getSide().equals("left"))
+               {
+                    ops.push(token); 
+               }
+               else
+               {
+                    //loop through until closing brace is found
+                    while (true)
                     {
-                        ops.pop(); //remove paren
-                        break;
+                        if (ops.peek().getType().equals("Grouper") && ops.peek().getGrouperType.equals("round") && ops.peek().getSide().equals("right"))
+                        {
+                            ops.pop(); //remove paren
+                            break;
+                        }
+                        output.add(ops.pop());
                     }
-                    //\u200d is a flag that there is a function that needs to be moved to output adter paren
-                    else if (ops.peek().equals("(\u200d"))
+                    //check if there is a function that needs to be moved
+                    if (ops.peek().equals("Function"))
                     {
-                        ops.pop(); // remove (
-                        output.add(ops.pop()); //add fucntion to output
-                        break;
+                        output.add(ops.pop());
                     }
-                    output.add(ops.pop());
-                }
+               }
             }
             //handle functions
-            else if (token.equals("sin") || token.equals("cos") || token.equals("tan") || token.equals("log") || token.equals("ln") || token.equals("√"))
+            else if (token.getType().equals("Function"))
             {
                 ops.push(token);
             }
-            else if(!token.equals(""))
+            //handle symbols
+            else if(token.getType().equals("Symbol"))
             {
-                //must be number or special number; push to output
                 output.add(token);
             }
         }
@@ -133,7 +125,7 @@ public class Calculate
     /**
      * Evalutates postfix
      */
-    public static double solvePostFix(ArrayList<String> input)
+    public static double solvePostFix(ArrayList<MathObject> input)
     {
         //create stack to store working values
         Stack<Double> values = new Stack<>();
