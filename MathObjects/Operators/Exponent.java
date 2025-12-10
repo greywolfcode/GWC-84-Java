@@ -1,5 +1,6 @@
 package MathObjects.Operators;
 
+import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
 
 public class Exponent extends Operator 
@@ -10,7 +11,7 @@ public class Exponent extends Operator
         setPresedence(4);
         setAssociative("right");
     }
-    public Decimal evaluate(Decimal num1, Decimal num2)
+    public Numbers evaluate(Numbers num1, Numbers num2)
     {
         return new Decimal(Math.pow(num2.getValue(), num1.getValue()));
     }

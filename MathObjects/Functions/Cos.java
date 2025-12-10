@@ -1,5 +1,6 @@
 package MathObjects.Functions;
 
+import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
 
 /**
@@ -11,7 +12,7 @@ public class Cos extends Function
     {
         setType("Function");
     }
-    public Decimal evaluate(Decimal value)
+    public Numbers evaluate(Numbers value)
     {
         return new Decimal(Math.cos(value.getValue()));
     }

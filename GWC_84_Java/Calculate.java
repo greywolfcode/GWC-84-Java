@@ -3,11 +3,19 @@ package GWC_84_Java;
 //import standard libraries
 import java.util.Stack;
 import java.util.ArrayList;
-import java.lang.StringBuilder;
 import java.lang.ArithmeticException;
 
 //import MathObject stuff
 import MathObjects.MathObject;
+//base classes:
+import MathObjects.Operators.Operator;
+import MathObjects.Functions.Function;
+import MathObjects.Groupers.Grouper;
+import MathObjects.Numbers.Numbers;
+import MathObjects.Symbols.Symbol;
+//main classes
+import MathObjects.Groupers.RoundLeft;
+import MathObjects.Numbers.Decimal;
 
 /**
  * Store methods to handle performing calculations
@@ -26,7 +34,8 @@ public class Calculate
         //catch error with equation
         try
         {
-            return solvePostFix(postfix) + "";
+            //return string value so that errors can be returned
+            return solvePostFix(postfix).toString();
         }
         catch (ArithmeticException e)
         {
@@ -34,7 +43,7 @@ public class Calculate
         }
         catch(Exception e)
         {
-            //System.out.println(e);
+            System.out.println(e);
             return "error";
         }
     }
@@ -51,24 +60,26 @@ public class Calculate
         for (MathObject token:input)
         {
             //handle operators
-            if (token.getType().equals("operator"))
+            if (token instanceof Operator)
             {
+                //create new variable of correct type
+                Operator opToken = (Operator)token;
                 
-                if (ops.size() == 0 || ops.peek().getType().equals("Grouper"))
+                if (ops.size() == 0 || ops.peek() instanceof Grouper)
                 {
-                    ops.push(token);
+                    ops.push(opToken);
                 }
-                else if (token.getPresedence() > ops.peek().getPresedence())
+                else if (opToken.getPresedence() > ((Operator)ops.peek()).getPresedence())
                 {
-                    ops.push(token);
+                    ops.push(opToken);
                 }
-                else if (token.getPresdence() == ops.peek().getPresdence() && token.getAssociative().equals("right"))
+                else if (opToken.getPresedence() == ((Operator)ops.peek()).getPresedence() && opToken.getAssociative().equals("right"))
                 {
-                    ops.push(token);
+                    ops.push(opToken);
                 }
                 else
                 {
-                    while((token.getPresedence() < ops.peek().getPresedence()) || (token.getPresdence() == ops.peek().getPresedence() && token.getAssociative().equals("left")))
+                    while((opToken.getPresedence() < ((Operator)ops.peek()).getPresedence()) || (opToken.getPresedence() == ((Operator)ops.peek()).getPresedence() && opToken.getAssociative().equals("left")))
                     {
                         output.add(ops.pop());
                         if (ops.size() == 0)
@@ -76,12 +87,14 @@ public class Calculate
                             break;
                         }
                     }
-                    ops.push(token);
+                    ops.push(opToken);
                 }
             }
-            else if (token.getType().equals("grouper") && token.getGrouperType().equals("round"))
+            else if (token instanceof Grouper && ((Grouper)token).getGrouperType().equals("round"))
             {
-               if (token.getSide().equals("left"))
+               Grouper groupToken = (Grouper)token;
+               
+               if (groupToken.getSide().equals("left"))
                {
                     ops.push(token); 
                }
@@ -90,7 +103,7 @@ public class Calculate
                     //loop through until closing brace is found
                     while (true)
                     {
-                        if (ops.peek().getType().equals("Grouper") && ops.peek().getGrouperType.equals("round") && ops.peek().getSide().equals("right"))
+                        if (ops.peek() instanceof Grouper && ((Grouper)ops.peek()).getGrouperType().equals("round") && ((Grouper)ops.peek()).getSide().equals("right"))
                         {
                             ops.pop(); //remove paren
                             break;
@@ -98,19 +111,25 @@ public class Calculate
                         output.add(ops.pop());
                     }
                     //check if there is a function that needs to be moved
-                    if (ops.peek().equals("Function"))
+                    if (ops.peek() instanceof Function)
                     {
                         output.add(ops.pop());
                     }
                }
             }
             //handle functions
-            else if (token.getType().equals("Function"))
+            else if (token instanceof Function)
             {
+                ops.push(new RoundLeft());
                 ops.push(token);
             }
             //handle symbols
-            else if(token.getType().equals("Symbol"))
+            else if(token instanceof Symbol)
+            {
+                output.add(new Decimal(((Symbol)token).getValue()));
+            }
+            //handle basic numbers
+            else
             {
                 output.add(token);
             }
@@ -125,96 +144,41 @@ public class Calculate
     /**
      * Evalutates postfix
      */
-    public static double solvePostFix(ArrayList<MathObject> input)
+    public static Numbers solvePostFix(ArrayList<MathObject> input)
     {
         //create stack to store working values
-        Stack<Double> values = new Stack<>();
-        double num1;
-        double num2;
+        Stack<Numbers> values = new Stack<>();
+        //variables to store data while working with it
+        Numbers num1;
+        Numbers num2;
+        Numbers result;
         //loop thorugh all values
-        for (String value : input)
+        for (MathObject value : input)
         {
             //evaluate operators
-            if (value.equals("+"))
+            if (value instanceof Operator)
             {
                 num1 = values.pop();
                 num2 = values.pop();
-                values.push(num2 + num1);
-            }
-            else if (value.equals("−"))
-            {
-                num1 = values.pop();
-                num2 = values.pop();
-                values.push(num2 - num1); 
-            }
-            else if (value.equals("×"))
-            {
-                num1 = values.pop();
-                num2 = values.pop();
-                values.push(num2 * num1);
-            }
-            else if (value.equals("÷"))
-            {
-                num1 = values.pop();
-                num2 = values.pop();
-                //check for div/0
-                if (num1 == 0)
-                {
-                    throw new ArithmeticException("div/0");
-                }
-                values.push(num2 / num1);
-            }
-            else if (value.equals("^"))
-            {
-                num1 = values.pop();
-                num2 = values.pop();
-                values.push(Math.pow(num2, num1));
+                result = ((Operator)value).evaluate(num1, num2);
             }
             //evaluate functions
-            else if(value.equals("sin"))
+            else if (value instanceof Function)
             {
                 num1 = values.pop();
-                values.push(Math.sin(num1));
-            }
-            else if (value.equals("cos"))
-            {
-                num1 = values.pop();
-                values.push(Math.cos(num1));
-            }
-            else if (value.equals("tan"))
-            {
-                num1 = values.pop();
-                values.push(Math.tan(num1));
-            }
-            else if (value.equals("log"))
-            {
-                num1 = values.pop();
-                values.push(Math.log10(num1));
-            }
-            else if (value.equals("ln"))
-            {
-                num1 = values.pop();
-                values.push(Math.log(num1));
-            }
-            else if (value.equals("√"))
-            {
-                num1 = values.pop();
-                values.push(Math.sqrt(num1));
+                result = ((Function)value).evaluate(num1);
             }
             //replace special numbers with actual values
-            else if (value.equals("π"))
+            else if (value instanceof Symbol)
             {
-                values.push(Math.PI);
+                result = new Decimal(((Symbol)value).getValue());
             }
-            else if (value.equals("e"))
-            {
-                values.push(Math.E);
-            }
-            //just add number to output
+            //must be a number 
             else
             {
-                values.push(Double.parseDouble(value));
+                result = ((Numbers)value);
             }
+            values.push(result);
         }
         //should be one value left
         return values.pop();

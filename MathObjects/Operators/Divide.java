@@ -2,6 +2,7 @@ package MathObjects.Operators;
 
 import java.lang.ArithmeticException;
 
+import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
 
 public class Divide extends Operator
@@ -12,7 +13,7 @@ public class Divide extends Operator
         setPresedence(3);
         setAssociative("left");
     }
-    public Decimal evaluate(Decimal num1, Decimal num2)
+    public Numbers evaluate(Numbers num1, Numbers num2)
     {
         if (num1.isZero())
         {

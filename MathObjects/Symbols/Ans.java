@@ -19,12 +19,13 @@ public class Ans extends Symbol
     {
         try
         {
-            //get Arraylist then MathObject, then convert to MathObject string then to double
-            return Double.parseDouble(data.getHistory(0).get(0).toString());
+            //get Arraylist, then answer ArrayList, then MathObject, then convert to MathObject string then to double
+            return Double.parseDouble(data.getHistory(0).get(1).get(0).toString());
         }
         //run default method if cannot retrieve previous value
         catch (Exception e)
         {
+            System.out.println(e);
             return super.getValue();
         }
     }

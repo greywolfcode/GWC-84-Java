@@ -9,4 +9,5 @@ public abstract class Numbers extends MathObject
 {
     public abstract double getValue();
     public abstract void add(double newValue);
+    public abstract boolean isZero();
 }

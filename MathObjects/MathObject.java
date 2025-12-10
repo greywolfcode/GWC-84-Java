@@ -15,4 +15,8 @@ public abstract class MathObject
     {
         return type;
     }
+    public MathObject getThis()
+    {
+        return this;
+    }
 }

@@ -5,8 +5,8 @@ package MathObjects.Numbers;
  */
 public class Fraction extends Numbers 
 {
-    private String numer;
-    private String denom;
+    private double numer;
+    private double denom;
     
     /**
      * Can enter numerator and denominator as ints, doubles, or Strings.
@@ -15,23 +15,40 @@ public class Fraction extends Numbers
     public Fraction(int numerator, int denominator)
     {
         setType("fraction")
-        numer = numerator + "";
-        denom = denom + "";
+        numer = numerator;
+        denom = denom;
     }
     public Fraction(double numerator, double denominator)
     {
-        numer = numerator + "";
-        denom = denominator + "";
+        numer = numerator;
+        denom = denominator;
     }
     public Fraction(String numerato, String denominator)
     {
-        numer = numerator;
-        denom = denominator;
+        numer = Double.parseDouble(numerator);
+        denom = Double.parseDouble(denominator);
+    }
+    public boolean isZero()
+    {
+        if (numer == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Converts Fraction object to Decimal object
+     */
+    public Decimal toDecimal()
+    {
+        return new Decimal(numer / denom);
     }
     public String toString()
     {
         return numer + "⁄" + denom;
     }
+    
+    //define these later
     public void add(double newValue){}
     public double getValue(){}
 }

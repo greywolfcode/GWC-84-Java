@@ -80,9 +80,10 @@ public class MainMenu extends Menu
             //values that can be in a decimal
             case "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".":
                 //if possible, add to current Decimal object
-                if (currentLine.size() > 0 && currentLine.get(currentLine.size() - 1).getType().equals("Decimal"))
+                if (currentLine.size() > 0 && currentLine.get(currentLine.size() - 1) instanceof Decimal)
                 {
-                    currentLine.get(currentLine.size() - 1).add(event);
+                    //cast to decimal so add method can be run
+                    ((Decimal)currentLine.get(currentLine.size() - 1)).add(event);
                 }
                 //creat new object when required
                 else
@@ -92,7 +93,7 @@ public class MainMenu extends Menu
                 break;
             //handle negative seperatly since it has to go at the start of the numbe-
             case "-":
-                if(currentLine.size() > 0 && currentLine.get(currentLine.size() - 1).getType() == "Decimal")
+                if(currentLine.size() > 0 && currentLine.get(currentLine.size() - 1) instanceof Decimal)
                 {
                     currentLine.add(new Multiply());
                 }
@@ -171,9 +172,16 @@ public class MainMenu extends Menu
                     }
                     //create value to store in data
                     ArrayList<ArrayList<MathObject>> historyValue = new ArrayList<>();
-                    historyValue.add(currentLine);
-                    //TODO: add output to history once Calculate is finished
-                    historyValue.add(currentLine);
+                    
+                    //shallow copy currentLine; don't need to copy stored objects, 
+                    //as the original will be cleared anyway
+                    ArrayList<MathObject> inputLine = new ArrayList<MathObject>(currentLine);
+                    historyValue.add(inputLine);
+                    //convert putput to the right format and add it
+                    ArrayList<MathObject>output = new ArrayList<>();
+                    output.add(new Decimal(value));
+                    
+                    historyValue.add(output);
                     
                     data.addHistory(historyValue);
                     currentLine.clear(); 
@@ -214,12 +222,12 @@ public class MainMenu extends Menu
         int historyIndex = 0;
         for(int i=historyLine-2; i>=0; i-=2)
         {
-            screen[i] = data.getHistory(historyIndex).get(0).toString();
+            screen[i] = data.getHistory(historyIndex).get(0).toString().replace("[", "").replace("]", "").replace(", ", "");
             screen[i+1] = data.getHistory(historyIndex).get(1).toString();
-            screen[i+1] = " ".repeat(27-screen[i+1].length()) + screen[i+1];
+            screen[i+1] = " ".repeat(27-screen[i+1].length()) + screen[i+1].replace("[", "").replace("]", "").replace(", ", "");
             historyIndex++;
         }
-        screen[historyLine] = currentLine.toString();
+        screen[historyLine] = currentLine.toString().replace("[", "").replace("]", "").replace(", ", "");
         screen[historyLine + 1] = "";
     }
 }

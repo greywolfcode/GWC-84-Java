@@ -1,7 +1,7 @@
 package MathObjects.Operators;
 
 import MathObjects.MathObject;
-import MathObjects.Numbers.Decimal;
+import MathObjects.Numbers.Numbers;
 
 /**
  * Basis for all operator objects
@@ -11,8 +11,8 @@ public abstract class Operator extends MathObject
     private int presedence;
     private String associtivity;
     
-    //Method for evaluating two Decimals
-    public abstract Decimal evaluate(Decimal numOne, Decimal numTwo);
+    //Method for evaluating operator
+    public abstract Numbers evaluate(Numbers numOne, Numbers numTwo);
     
     /**
      * Methods for setting and getting presedence.

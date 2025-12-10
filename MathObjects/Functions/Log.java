@@ -1,6 +1,6 @@
 package MathObjects.Functions;
 
-import MathObjects.MathObject;
+import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
 
 /**
@@ -12,7 +12,7 @@ public class Log extends Function
     {
         setType("Function");
     }
-    public Decimal evaluate(Decimal value)
+    public Numbers evaluate(Numbers value)
     {
         return new Decimal(Math.log10(value.getValue()));
     }
