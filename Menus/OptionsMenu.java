@@ -1,6 +1,5 @@
 package Menus;
 
-import GWC_84_Java.Menu;
 import ConsoleControl.Colour;
 
 /**
@@ -48,7 +47,7 @@ public abstract class OptionsMenu extends Menu
     protected String getCurrentOption()
     {
         //remove number from begining of menu
-        return options[topLine + (topLine - cursorPos)].substring(2);
+        return options[topLine + cursorPos].substring(3);
     }
     protected String getFullOption()
     {

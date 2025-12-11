@@ -4,20 +4,20 @@ import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
 
 /**
- * Class for storing all square root functions
+ * Class for storing all cube root functions
  */
-public class Sqrt extends Function
+public class Cbrt extends Function
 {
-    public Sqrt()
+    public Cbrt()
     {
-        setType("Function");
+        setType("Function");   
     }
     public Numbers evaluate(Numbers value)
     {
-        return new Decimal(Math.sqrt(value.getValue()));
+        return new Decimal(Math.cbrt(value.getValue()));
     }
     public String toString()
     {
-        return "√(";
+        return "∛(";
     }
 }

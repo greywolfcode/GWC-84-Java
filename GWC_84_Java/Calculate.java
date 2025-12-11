@@ -30,10 +30,10 @@ public class Calculate
      */
     public static String solveEquation(ArrayList<MathObject> input)
     {
-        ArrayList<MathObject> postfix = toPostFix(input);
         //catch error with equation
         try
         {
+            ArrayList<MathObject> postfix = toPostFix(input);
             //return string value so that errors can be returned
             return solvePostFix(postfix).toString();
         }
@@ -43,7 +43,7 @@ public class Calculate
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            //System.out.println(e);
             return "error";
         }
     }
@@ -103,7 +103,7 @@ public class Calculate
                     //loop through until closing brace is found
                     while (true)
                     {
-                        if (ops.peek() instanceof Grouper && ((Grouper)ops.peek()).getGrouperType().equals("round") && ((Grouper)ops.peek()).getSide().equals("right"))
+                        if (ops.peek() instanceof Grouper && ((Grouper)ops.peek()).getGrouperType().equals("round") && ((Grouper)ops.peek()).getSide().equals("left"))
                         {
                             ops.pop(); //remove paren
                             break;
@@ -111,7 +111,7 @@ public class Calculate
                         output.add(ops.pop());
                     }
                     //check if there is a function that needs to be moved
-                    if (ops.peek() instanceof Function)
+                    if (ops.size() > 0 && ops.peek() instanceof Function)
                     {
                         output.add(ops.pop());
                     }
@@ -137,7 +137,14 @@ public class Calculate
         //move all remaining operators to output
         while(ops.size() > 0)
         {
-            output.add(ops.pop());
+            if (ops.peek() instanceof Grouper)
+            {
+                ops.pop();
+            }
+            else
+            {
+                output.add(ops.pop());
+            }
         }
         return output;
     }

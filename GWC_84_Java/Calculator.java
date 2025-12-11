@@ -1,8 +1,15 @@
 package GWC_84_Java;
 
+//import java stuff
 import java.util.Stack;
 import java.util.HashMap;
-import Menus.*;
+//import menu stuff
+import Menus.Menu;
+import Menus.MainMenu;
+import Menus.SyntaxError;
+import Menus.DivideByZeroError;
+import Menus.MathMenu;
+//import console control stuff
 import ConsoleControl.Cursor;
 import ConsoleControl.Colour;
 

@@ -3,7 +3,6 @@ package Menus;
 import java.util.Stack;
 import java.util.ArrayList;
 
-import GWC_84_Java.Menu;
 import GWC_84_Java.Data;
 import GWC_84_Java.Calculate;
 
@@ -24,6 +23,8 @@ import MathObjects.Functions.Tan;
 import MathObjects.Functions.Log;
 import MathObjects.Functions.Ln;
 import MathObjects.Functions.Sqrt;
+import MathObjects.Functions.Cbrt;
+import MathObjects.Functions.FrthRt;
 //groupers:
 import MathObjects.Groupers.RoundLeft;
 import MathObjects.Groupers.RoundRight;
@@ -52,11 +53,15 @@ public class MainMenu extends Menu
         {
             case "goto":
                 currentLine = data.getHistory(0).get(0);
-                updateScreen();
                 break;
-            default:
+            case "∛":
+                currentLine.add(new Cbrt());
+                break;
+            case "∜":
+                currentLine.add(new FrthRt());
                 break;
         }
+        updateScreen();
     }
     public void onUnload(){}
     public void eventHandeler(String state, String event)

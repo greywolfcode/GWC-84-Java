@@ -1,12 +1,12 @@
-package GWC_84_Java;
+package Menus;
 
 import java.util.Stack;
+import GWC_84_Java.Data;
 import ConsoleControl.Cursor;
-
 
 public abstract class Menu
 {
-    //protected as classes will need to make more complecated modifications to these
+    //protected as classes will need to make more complicated modifications to these
     protected Data data;
     protected String[] screen = {"", "", "", "", "", "", "", ""}; //get 8 lines for screen
     //These variables don't require complicated operations
