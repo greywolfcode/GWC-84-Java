@@ -1,6 +1,6 @@
 package ConsoleControl;
 /**
- * Class creates string for colour output in console using ANSI escpae codes
+ * Class creates string for colour output in console using ANSI escape codes
  * 
  * formatting is reset to normal after formatted string
  */

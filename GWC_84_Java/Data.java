@@ -35,11 +35,21 @@ public class Data
         //default to empty ArrayList
         return new ArrayList<ArrayList<MathObject>>();
     }
+    public int getHistorySize()
+    {
+        return history.size();
+    }
+    /**
+     * sets the reuturn to send to new menu
+     */
     public void setReturn(String value)
     {
         returnValue = value;
         usedReturn = false;
     }
+    /**
+     * gets return for new menu and confirms that the return has been usedd
+     */
     public String getReturn()
     {
         if (!usedReturn)
@@ -47,7 +57,20 @@ public class Data
             usedReturn = true;
             return returnValue;
         }
-        return "";
+        return "returnAlreadyCaptured";
+    }
+    /**
+     * Allows the menu to specify if it wants the return value even if 
+     * another menu has already captured it
+     */
+    public String getReturn(boolean getIfAlreadyUsed)
+    {
+        if (getIfAlreadyUsed || !usedReturn)
+        {
+            usedReturn = true;
+            return returnValue;
+        }
+        return "returnAlreadyCaptured";
     }
     /**
      * Checks if return has been retrieved

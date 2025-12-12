@@ -9,7 +9,7 @@ public class Decimal extends Numbers
 {
     //string builder so numbers can be added individually
     private StringBuilder value;
-    
+
     public Decimal(String decimalValue)
     {
         value = new StringBuilder(decimalValue);

@@ -16,6 +16,7 @@ import MathObjects.Operators.Minus;
 import MathObjects.Operators.Multiply;
 import MathObjects.Operators.Divide;
 import MathObjects.Operators.Exponent;
+import MathObjects.Operators.NthRt;
 //functions
 import MathObjects.Functions.Sin;
 import MathObjects.Functions.Cos;
@@ -59,6 +60,13 @@ public class MainMenu extends Menu
                 break;
             case "∜":
                 currentLine.add(new FrthRt());
+                break;
+            case "³":
+                currentLine.add(new Exponent());
+                currentLine.add(new Decimal(3));
+                break;
+            case "ᕽ√":
+                currentLine.add(new NthRt());
                 break;
         }
         updateScreen();
@@ -155,45 +163,46 @@ public class MainMenu extends Menu
                 }
                 break;
             case "ent":
-                //perform previous calculation in line if empty
-                if (currentLine.size() == 0)
+                //perform previous calculation in line if empty or break if no hostory
+                if (currentLine.size() == 0 && data.getHistorySize() > 0)
                 {
-                    currentLine = data.getHistory(0).get(0);
+                    currentLine = new ArrayList<MathObject>(data.getHistory(0).get(0)); //copy the ArrayList so clearing currentLine doesn't clear the one storred in history
                 }
-                if (currentLine.size() > 0) //additonal check in case there is no history
+                else if (currentLine.size() == 0) //get out clause if there is nothing in the current line
                 {
-                    //get postfix
-                    String value = Calculate.solveEquation(currentLine);
-                    //check for error
-                    if (value.equals("error"))
-                    {
-                        value = "Error";
-                        pushEvent("switch SyntaxError"); //add command to switch the menu
-                    }
-                    else if(value.equals("div/0"))
-                    {
-                        value = "DIV/0";
-                        pushEvent("switch DivideByZeroError");
-                    }
-                    //create value to store in data
-                    ArrayList<ArrayList<MathObject>> historyValue = new ArrayList<>();
-                    
-                    //shallow copy currentLine; don't need to copy stored objects, 
-                    //as the original will be cleared anyway
-                    ArrayList<MathObject> inputLine = new ArrayList<MathObject>(currentLine);
-                    historyValue.add(inputLine);
-                    //convert putput to the right format and add it
-                    ArrayList<MathObject>output = new ArrayList<>();
-                    output.add(new Decimal(value));
-                    
-                    historyValue.add(output);
-                    
-                    data.addHistory(historyValue);
-                    currentLine.clear(); 
-                    if (historyLine < 6)
-                    {
-                        historyLine+=2;
-                    }
+                    break;
+                }
+                //get postfix
+                String value = Calculate.solveEquation(currentLine);
+                //check for error
+                if (value.equals("error"))
+                {
+                    value = "Error";
+                    pushEvent("switch SyntaxError"); //add command to switch the menu
+                }
+                else if(value.equals("div/0"))
+                {
+                    value = "DIV/0";
+                    pushEvent("switch DivideByZeroError");
+                }
+                //create value to store in data
+                ArrayList<ArrayList<MathObject>> historyValue = new ArrayList<>();
+                
+                //shallow copy currentLine; don't need to copy stored objects, 
+                //as the original will be cleared anyway
+                ArrayList<MathObject> inputLine = new ArrayList<MathObject>(currentLine);
+                historyValue.add(inputLine);
+                //convert output to the right format and add it
+                ArrayList<MathObject>output = new ArrayList<>();
+                output.add(new Decimal(value));
+                
+                historyValue.add(output);
+                
+                data.addHistory(historyValue);
+                currentLine.clear(); 
+                if (historyLine < 6)
+                {
+                    historyLine+=2;
                 }
                 break;
             default:
