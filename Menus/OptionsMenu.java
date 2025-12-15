@@ -42,12 +42,12 @@ public abstract class OptionsMenu extends Menu
         options = new ArrayList<>();
         String[] array;
         //loop through all inputed options
-        for (int i=1; i<newOptions.length; i++)
+        for (int i=0; i<newOptions.length; i++)
         {
             //can have options 0-9 then A-Z
             if (i <= 9)
             {
-                array = new String[] {i+": ", newOptions[i]};
+                array = new String[] {(i + 1) + ": ", newOptions[i]};
                 options.add(array);
             }
             //A-Z is only 1-26 with 9 offset

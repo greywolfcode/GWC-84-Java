@@ -43,7 +43,7 @@ public class Calculate
         }
         catch(Exception e)
         {
-            //System.out.println(e);
+            System.out.println(e);
             return "error";
         }
     }
@@ -188,6 +188,9 @@ public class Calculate
             values.push(result);
         }
         //should be one value left
-        return values.pop();
+        Numbers ans = values.pop();
+        //want answer to round 
+        ans.setRound(true);
+        return ans;
     }
 }

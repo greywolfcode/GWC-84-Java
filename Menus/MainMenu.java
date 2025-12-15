@@ -128,6 +128,14 @@ public class MainMenu extends Menu
             case "^":
                 currentLine.add(new Exponent());
                 break;
+            case "^2", "²":
+                currentLine.add(new Exponent());
+                currentLine.add(new Decimal(2));
+                break;
+            case "^-1", "⁻¹":
+                currentLine.add(new Exponent());
+                currentLine.add(new Decimal("-1"));
+                break;
             //groupers
             case "(":
                 currentLine.add(new RoundLeft());
