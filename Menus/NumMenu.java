@@ -4,6 +4,7 @@ import java.util.Stack;
 import GWC_84_Java.Data;
 import ConsoleControl.Colour;
 
+
 public class MathMenu extends OptionsMenu
 {
     public MathMenu(Data storage, Stack<String> events)
@@ -11,10 +12,10 @@ public class MathMenu extends OptionsMenu
         setMenuType("return");
         data = storage;
         setGlobalEvents(events);
-        String[] options = {"🞂Frac","🞂Dec","³", "∛", "∜", "ᕽ√", "fMin(", "fMax(", "nDeriv(", "fnInt(", "sum ∑", "LOGBASE(", "piecewise(", "Num Solver"};
+        String[] options = {"abs(", "round(", "iPart(", "fPart(", "int(", "min(", "max(", "lcm(", "gcd(", "remainder(", "🞂n⁄d🞀🞂Un⁄d", "🞂F🞀🞂D", "Un⁄d", "n⁄d"};
         setOptions(options);
         String[] topBar = {"MATH", "NUM", "CMPLX", "PROB", "FRAC"};
-        setTopBar(topBar, 0);
+        setTopBar(topBar, 1);
     }
     public void onLoad()
     {

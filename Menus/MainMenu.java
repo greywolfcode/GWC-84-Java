@@ -21,6 +21,9 @@ import MathObjects.Operators.NthRt;
 import MathObjects.Functions.Sin;
 import MathObjects.Functions.Cos;
 import MathObjects.Functions.Tan;
+import MathObjects.Functions.ArcSin;
+import MathObjects.Functions.ArcCos;
+import MathObjects.Functions.ArcTan;
 import MathObjects.Functions.Log;
 import MathObjects.Functions.Ln;
 import MathObjects.Functions.Sqrt;
@@ -188,10 +191,20 @@ public class MainMenu extends Menu
                     value = "Error";
                     pushEvent("switch SyntaxError"); //add command to switch the menu
                 }
-                else if(value.equals("div/0"))
+                else if (value.equals("div/0"))
                 {
                     value = "DIV/0";
                     pushEvent("switch DivideByZeroError");
+                }
+                else if (value.equals("domainError"))
+                {
+                    value = "Domain Error";
+                    pushEvent("switch DomainError");
+                }
+                else if (value.equals("nonRealError"))
+                {
+                    value = "Non Real Number";
+                    pushEvent("switch NonRealError");
                 }
                 //create value to store in data
                 ArrayList<ArrayList<MathObject>> historyValue = new ArrayList<>();
@@ -226,6 +239,14 @@ public class MainMenu extends Menu
             case "e":
                 currentLine.add(new EulersNumber());
                 break;
+            case "e^", "e^x", "eᕽ":
+                currentLine.add(new EulersNumber());
+                currentLine.add(new Exponent());
+                break;
+            case "10^", "10^x", "10ᕽ":
+                currentLine.add(new Decimal(10));
+                currentLine.add(new Exponent());
+                break;
             case "pi", "PI", "Pi", "pI", "π":
                 currentLine.add(new Pi());
                 break;
@@ -235,6 +256,15 @@ public class MainMenu extends Menu
             //functions
             case "sqrt", "√":
                 currentLine.add(new Sqrt());
+                break;
+            case "asin", "sin^-1", "sin⁻¹":
+                currentLine.add(new ArcSin());
+                break;
+            case "acos", "cos^-1", "cos⁻¹":
+                currentLine.add(new ArcCos());
+                break;
+            case "atan", "tan^-1", "tan⁻¹":
+                currentLine.add(new ArcTan());
                 break;
         }
     }

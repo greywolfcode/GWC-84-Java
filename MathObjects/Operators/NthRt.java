@@ -1,5 +1,7 @@
 package MathObjects.Operators;
 
+import MathObjects.Exceptions.NonRealException;
+
 import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
 /**
@@ -19,7 +21,18 @@ public class NthRt extends Operator
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {
-        return new Decimal(Math.pow(num1.getValue(), 1.0/num2.getValue()));
+        //if even powered root, make sure that the value is not negative
+        if ((num2.getValue() % 2 == 0) && (num1.getValue() < 0))
+        {
+            throw new NonRealException("Evaluation produces a non-real answer");
+        }
+        //Math.pow cannot handle negative base, so need to add negative on at the end
+        double ans = Math.pow(Math.abs(num1.getValue()), 1.0/num2.getValue());
+        if (num1.getValue() < 0)
+        {
+            return new Decimal(ans * -1);
+        }
+        return new Decimal(ans);
     }
     public String toString()
     {

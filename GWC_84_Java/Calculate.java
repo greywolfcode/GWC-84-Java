@@ -7,6 +7,9 @@ import java.lang.ArithmeticException;
 
 //import MathObject stuff
 import MathObjects.MathObject;
+//exceptions
+import MathObjects.Exceptions.DomainException;
+import MathObjects.Exceptions.NonRealException;
 //base classes:
 import MathObjects.Operators.Operator;
 import MathObjects.Functions.Function;
@@ -40,6 +43,14 @@ public class Calculate
         catch (ArithmeticException e)
         {
             return "div/0";
+        }
+        catch (DomainException e)
+        {
+            return "domainError";
+        }
+        catch (NonRealException e)
+        {
+            return "nonRealError";
         }
         catch(Exception e)
         {

@@ -3,11 +3,13 @@ package GWC_84_Java;
 //import java stuff
 import java.util.Stack;
 import java.util.HashMap;
-//import menu stuff
+//import menus
 import Menus.Menu;
 import Menus.MainMenu;
 import Menus.SyntaxError;
 import Menus.DivideByZeroError;
+import Menus.DomainError;
+import Menus.NonRealError;
 import Menus.MathMenu;
 //import console control stuff
 import ConsoleControl.Cursor;
@@ -33,7 +35,10 @@ public class Calculator
         menus.put("MainMenu", currentMenu);
         menus.put("SyntaxError", new SyntaxError(data, events));
         menus.put("DivideByZeroError", new DivideByZeroError(data, events));
+        menus.put("DomainError", new DomainError(data, events));
+        menus.put("NonRealError", new NonRealError(data, events));
         menus.put("MathMenu", new MathMenu(data, events));
+        menus.put("NumMenu", new MathMenu(data, events));
         //update ui on startup
         updateTopBar();
     }
