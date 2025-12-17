@@ -29,6 +29,8 @@ import MathObjects.Functions.Ln;
 import MathObjects.Functions.Sqrt;
 import MathObjects.Functions.Cbrt;
 import MathObjects.Functions.FrthRt;
+import MathObjects.Functions.Abs;
+import MathObjects.Functions.Int;
 //groupers:
 import MathObjects.Groupers.RoundLeft;
 import MathObjects.Groupers.RoundRight;
@@ -36,6 +38,7 @@ import MathObjects.Groupers.RoundRight;
 import MathObjects.Symbols.Pi;
 import MathObjects.Symbols.EulersNumber;
 import MathObjects.Symbols.Ans;
+import MathObjects.Symbols.Rand;
 
 public class MainMenu extends Menu
 {
@@ -70,6 +73,15 @@ public class MainMenu extends Menu
                 break;
             case "ᕽ√":
                 currentLine.add(new NthRt());
+                break;
+            case "rand":
+                currentLine.add(new Rand());
+                break;
+            case "abs(":
+                currentLine.add(new Abs());
+                break;
+            case "int(":
+                currentLine.add(new Int());
                 break;
         }
         updateScreen();

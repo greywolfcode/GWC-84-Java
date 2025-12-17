@@ -11,6 +11,10 @@ import Menus.DivideByZeroError;
 import Menus.DomainError;
 import Menus.NonRealError;
 import Menus.MathMenu;
+import Menus.NumMenu;
+import Menus.CmplxMenu;
+import Menus.ProbMenu;
+import Menus.FracMenu;
 //import console control stuff
 import ConsoleControl.Cursor;
 import ConsoleControl.Colour;
@@ -38,7 +42,10 @@ public class Calculator
         menus.put("DomainError", new DomainError(data, events));
         menus.put("NonRealError", new NonRealError(data, events));
         menus.put("MathMenu", new MathMenu(data, events));
-        menus.put("NumMenu", new MathMenu(data, events));
+        menus.put("NumMenu", new NumMenu(data, events));
+        menus.put("CmplxMenu", new CmplxMenu(data, events));
+        menus.put("ProbMenu", new ProbMenu(data, events));
+        menus.put("FracMenu", new FracMenu(data, events));
         //update ui on startup
         updateTopBar();
     }
@@ -131,6 +138,12 @@ public class Calculator
            switch (eventData[0])
            {
                 case "switch":
+                    //check for flags
+                    if (eventData[1].equals("noChangePrev"))
+                    {
+                        switchMenuNoChangePrev(eventData[2]);
+                        break;
+                    }
                     switchMenu(eventData[1]);
                     break;
                 case "prevMenu":
@@ -157,6 +170,20 @@ public class Calculator
     {
         prevMenu = currentMenu;
         prevMenu.onUnload();
+        currentMenu = menu;
+        currentMenu.onLoad();
+    }
+    /**
+     * Switches menu to new menu,
+     * but doesn't change the previous menu
+     */
+    private void switchMenuNoChangePrev(String menu)
+    {
+        currentMenu = menus.get(menu);
+        currentMenu.onLoad();
+    }
+    private void switchMenuNoChangePrev(Menu menu)
+    {
         currentMenu = menu;
         currentMenu.onLoad();
     }

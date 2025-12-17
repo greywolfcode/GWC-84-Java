@@ -11,6 +11,7 @@ public abstract class OptionsMenu extends Menu
 {
     private ArrayList<String[]> options; //all possible options to select
     private String[] topBarMenus; //stores other menus in current options menu
+    private String[] classSwitchOptions; //stores class namto switch to in top bar
     private String topBar = "\b"; //stores topBar String to display
     private int selectedMenu; //stores menu to select on topBar
     private int cursorPos = 0; //current selected item on screen
@@ -36,6 +37,10 @@ public abstract class OptionsMenu extends Menu
                 topBar += " " + topBarMenus[i];
             }
         }
+    }
+    protected void setClassSwitchOptions(String[] options)
+    {
+        classSwitchOptions = options;
     }
     protected void setOptions(String[] newOptions)
     {
@@ -98,7 +103,11 @@ public abstract class OptionsMenu extends Menu
                 if (cursorPos == 0)
                 {
                     cursorPos = options.size() - 1;
-                    topLine = cursorPos - 6;
+                    //handle having less options than fit on screen
+                    if (options.size() >= 6)
+                    {
+                        topLine = cursorPos - 6;
+                    }
                 }
                 else if (cursorPos == topLine)
                 {
@@ -128,24 +137,56 @@ public abstract class OptionsMenu extends Menu
                 break;
             //switch which options menu is selected
             case "a":
+                //move to the last one if at the first one
+                if (selectedMenu == 0)
+                {
+                    pushEvent("switch noChangePrev " + classSwitchOptions[topBarMenus.length - 1]);
+                    break;
+                }
+                pushEvent("switch noChangePrev " + classSwitchOptions[selectedMenu - 1]);
                 break;
             case "d":
+                //move to first one if at last one
+                if (selectedMenu == topBarMenus.length - 1)
+                {
+                    pushEvent("switch noChangePrev " + classSwitchOptions[0]);
+                    break;
+                }
+                pushEvent("switch noChangePrev " + classSwitchOptions[selectedMenu + 1]);
                 break;
         }
     }
     protected void updateScreen()
     {
         screen[0] = topBar;
-        for (int i=0; i<7; i++)
+        if (options.size() >= 7)
         {
-            //Highlight number on selected line
-            if (topLine + i == cursorPos)
+            for (int i=0; i<7; i++)
             {
-                screen[i+1] = Colour.invert(options.get(topLine+i)[0].substring(0, 2)) + options.get(topLine+i)[0].substring(2) + options.get(topLine+i)[1];
+                //Highlight number on selected line
+                if (topLine + i == cursorPos)
+                {
+                    screen[i+1] = Colour.invert(options.get(topLine+i)[0].substring(0, 2)) + options.get(topLine+i)[0].substring(2) + options.get(topLine+i)[1];
+                }
+                else
+                {
+                    screen[i+1] = options.get(topLine + i)[0] + options.get(topLine+i)[1];
+                }
             }
-            else
+        }
+        //if having less options than can fit on screen
+        else
+        {
+            for (int i=0; i<options.size(); i++)
             {
-                screen[i+1] = options.get(topLine + i)[0] + options.get(topLine+i)[1];
+                if (topLine + i == cursorPos)
+                {
+                    screen[i+1] = Colour.invert(options.get(topLine+i)[0].substring(0, 2)) + options.get(topLine+1)[0].substring(2) + options.get(topLine+i)[1];
+                }
+                else
+                {
+                    screen[i+1] = options.get(topLine + i)[0] + options.get(topLine+i)[1];
+                }
             }
         }
     }

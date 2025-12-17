@@ -4,10 +4,9 @@ import java.util.Stack;
 import GWC_84_Java.Data;
 import ConsoleControl.Colour;
 
-
-public class MathMenu extends OptionsMenu
+public class NumMenu extends OptionsMenu
 {
-    public MathMenu(Data storage, Stack<String> events)
+    public NumMenu(Data storage, Stack<String> events)
     {
         setMenuType("return");
         data = storage;
@@ -16,6 +15,8 @@ public class MathMenu extends OptionsMenu
         setOptions(options);
         String[] topBar = {"MATH", "NUM", "CMPLX", "PROB", "FRAC"};
         setTopBar(topBar, 1);
+        String[] classSwitchOptions = {"MathMenu", "NumMenu", "CmplxMenu", "ProbMenu", "FracMenu"};
+        setClassSwitchOptions(classSwitchOptions);
     }
     public void onLoad()
     {
@@ -25,13 +26,17 @@ public class MathMenu extends OptionsMenu
     public void onUnload(){}
     public void eventHandeler(String state, String event)
     {
-        if (state.equals("Main"))
+        if (state.equals("main"))
         {
             handelerMain(event);
         }
         else if (state.equals("2nd"))
         {
             handeler2nd(event);
+        }
+        else if (state.equals("alp"))
+        {
+            handelerAlpha(event);
         }
         updateScreen();
     }

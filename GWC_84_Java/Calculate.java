@@ -131,8 +131,8 @@ public class Calculate
             //handle functions
             else if (token instanceof Function)
             {
-                ops.push(new RoundLeft());
                 ops.push(token);
+                ops.push(new RoundLeft());
             }
             //handle symbols
             else if(token instanceof Symbol)
