@@ -12,7 +12,7 @@ public class Rand extends Symbol
     @Override
     public double getValue()
     {
-        return Math.random();
+        return new Decimal(Math.random());
     }
     public String toString()
     {

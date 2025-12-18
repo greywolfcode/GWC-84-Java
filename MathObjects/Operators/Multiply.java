@@ -13,7 +13,8 @@ public class Multiply extends Operator
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {
-        return new Decimal(num2.getValue() * num1.getValue());
+        //limiting precision to 14 places for consistancy. The user will only see 10 places anyways
+        return new Decimal(num2.getValue().multiply(num1.getValue()).setScale(14, BigDecimal.ROUND_HALF_UP));
     }
     public String toString()
     {

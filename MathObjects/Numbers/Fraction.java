@@ -1,5 +1,7 @@
 package MathObjects.Numbers;
 
+import java.lang.BigDecimal;
+
 /**
  * Class for storing and munipulating fractons
  */
@@ -50,5 +52,5 @@ public class Fraction extends Numbers
     
     //define these later
     public void add(double newValue){}
-    public double getValue(){}
+    public BigDecimal getValue(){}
 }

@@ -13,7 +13,8 @@ public class Exponent extends Operator
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {
-        return new Decimal(Math.pow(num2.getValue(), num1.getValue()));
+        //have to set scale and rounding mode after doing exponential
+        return new Decimal(num2.getValue().pow(num1.getValue()).setScale(14, BigDecimal.ROUND_HALF_UP));
     }
     public String toString()
     {

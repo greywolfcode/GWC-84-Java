@@ -1,5 +1,7 @@
 package MathObjects.Functions;
 
+import java.lang.BigDecimal;
+
 import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
 
@@ -14,7 +16,7 @@ public class Abs extends Function
     }
     public Numbers evaluate(Numbers value)
     {
-        return new Decimal(Math.abs(value.getValue()));
+        return new Decimal(value.getValue().abs());
     }
     public String toString()
     {

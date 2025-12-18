@@ -13,7 +13,7 @@ public class Plus extends Operator
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {
-        return new Decimal(num2.getValue() + num1.getValue());
+        return new Decimal(num2.getValue().add(num1.getValue()));
     }
     public String toString()
     {

@@ -189,7 +189,7 @@ public class Calculate
             //replace special numbers with actual values
             else if (value instanceof Symbol)
             {
-                result = new Decimal(((Symbol)value).getValue());
+                result = ((Symbol)value).getValue();
             }
             //must be a number 
             else
