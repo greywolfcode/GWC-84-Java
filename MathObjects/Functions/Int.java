@@ -1,5 +1,7 @@
 package MathObjects.Functions;
 
+import java.math.BigDecimal;
+
 import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
 
@@ -16,7 +18,7 @@ public class Int extends Function
     public Numbers evaluate(Numbers value)
     {
         //truncates value to only whole number; no precision problems
-        //becuase the Decimal will convert to StringBuilder anyway
+        //because the new Decimal object will convert to StringBuilder anyway
         return new Decimal(value.getvalue().setScale(0, BigDecimal.FLOOR));
     }
     public String toString()

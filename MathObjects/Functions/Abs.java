@@ -1,6 +1,6 @@
 package MathObjects.Functions;
 
-import java.lang.BigDecimal;
+import java.math.BigDecimal;
 
 import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;

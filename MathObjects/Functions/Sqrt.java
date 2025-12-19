@@ -1,5 +1,8 @@
 package MathObjects.Functions;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 import MathObjects.Exceptions.NonRealException;
 
 import MathObjects.Numbers.Numbers;
@@ -21,7 +24,8 @@ public class Sqrt extends Function
         {
             throw new NonRealException("Evaluation produces a non-real answer");
         }
-        return new Decimal(Math.sqrt(value.getValue()));
+        //do square root with correct precision
+        return new Decimal(value.sqrt(new MathContext(14)));
     }
     public String toString()
     {

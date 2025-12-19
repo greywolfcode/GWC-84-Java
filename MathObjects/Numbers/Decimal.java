@@ -1,7 +1,7 @@
 package MathObjects.Numbers;
 
 import java.lang.StringBuilder;
-import java.lang.BigDecimal;
+import java.math.BigDecimal;
 
 /**
  * Class for storing and munipulating decimal obejcts
