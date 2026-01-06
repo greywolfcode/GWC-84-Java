@@ -56,7 +56,7 @@ public class Decimal extends Numbers
         //get string from StringBuilder, then convert to BigDecimal
         BigDecimal numValue = new BigDecimal(value.toString());
         //return value with correct rounding precision. TI-84+CE has 14 digits
-        return numValue().setScale(14, BigDecimal.ROUND_HALF_UP);
+        return numValue.setScale(14, BigDecimal.ROUND_HALF_UP);
     }
     public boolean isZero()
     {
