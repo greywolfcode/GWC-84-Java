@@ -137,7 +137,7 @@ public class Calculate
             //handle symbols
             else if(token instanceof Symbol)
             {
-                output.add(new Decimal(((Symbol)token).getValue()));
+                output.add(((Symbol)token).getValue());
             }
             //handle basic numbers
             else

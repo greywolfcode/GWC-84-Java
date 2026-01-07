@@ -4,6 +4,9 @@ import MathObjects.Exceptions.NonRealException;
 
 import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
+
+import BigMath.BigNthRoot;
+
 /**
  * The nth root is an operator and not a function like
  * the square root and cube root because it performs an 
@@ -26,13 +29,7 @@ public class NthRt extends Operator
         {
             throw new NonRealException("Evaluation produces a non-real answer");
         }
-        //Math.pow cannot handle negative base, so need to add negative on at the end
-        double ans = Math.pow(Math.abs(num1.getValue()), 1.0/num2.getValue());
-        if (num1.getValue() < 0)
-        {
-            return new Decimal(ans * -1);
-        }
-        return new Decimal(ans);
+        return new Decimal(BigNthRoot.nthRoot(num1.getValue(), num2.getValue()));
     }
     public String toString()
     {

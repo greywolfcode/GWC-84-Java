@@ -11,7 +11,7 @@ public abstract class Numbers extends MathObject
 {
     private boolean round;
     
-    public abstract double getValue();
+    public abstract BigDecimal getValue();
     public abstract void add(double newValue);
     public abstract boolean isZero();
     

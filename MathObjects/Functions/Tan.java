@@ -3,6 +3,8 @@ package MathObjects.Functions;
 import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
 
+import BigMath.BigTangent;
+
 /**
  * Class for storing all tangent functions
  */
@@ -14,7 +16,7 @@ public class Tan extends Function
     }
     public Numbers evaluate(Numbers value)
     {
-        return new Decimal(Math.tan(value.getValue()));
+        return new Decimal(BigTangent.tangent(value.getValue()));
     }
     public String toString()
     {

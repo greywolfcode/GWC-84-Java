@@ -1,7 +1,7 @@
 package MathObjects.Operators;
 
 import java.lang.ArithmeticException;
-import java.lang.BigDecimal;
+import java.math.BigDecimal;
 
 import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
@@ -21,7 +21,7 @@ public class Divide extends Operator
             throw new ArithmeticException("div/0");
         }
         //define scale and orunding mode with divide
-        return new Decimal(num2.getValue().divide(num1.getValue(), 14, BigDecimal.ROUND_HALF_UP);
+        return new Decimal(num2.getValue().divide(num1.getValue(), 14, BigDecimal.ROUND_HALF_UP));
     }
     public String toString()
     {

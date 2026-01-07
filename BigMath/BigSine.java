@@ -20,14 +20,14 @@ public class BigSine
      * Uses precision of input value.
      * Input must be in radians.
      */
-    public static BigDecimal sine (BigDecial value)
+    public static BigDecimal sine(BigDecimal value)
     {
         //get precision
         int precision = value.precision();
         //define math context for use in calculations
         MathContext context = new MathContext(precision);
         //get tolorance with 10^-precision
-        BigDecimal tolorence = BigDecimal(Math.pow(10, -1 * valuePrecision), context); // 10 to the negative of input precision
+        BigDecimal tolorence = BigDecimal(10).pow(new BigDecimal(-1 * precision), context); // 10 to the negative of input precision
         //define starting values
         BigDecimal sineValue = new BigDecimal.ZERO;
         BigDecimal n = new BigDecimal(1, context);

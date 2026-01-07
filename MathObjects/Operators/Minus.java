@@ -14,7 +14,7 @@ public class Minus extends Operator
     public Numbers evaluate(Numbers num1, Numbers num2)
     {
         //rounding mode is done automatically 
-        return new Decimal(num2.getValue().subtract(num1.getValue());
+        return new Decimal(num2.getValue().subtract(num1.getValue()));
     }
     public String toString()
     {
