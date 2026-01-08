@@ -1,5 +1,7 @@
 package MathObjects.Functions;
 
+import java.math.BigDecimal;
+
 import MathObjects.Exceptions.DomainException;
 
 import MathObjects.Numbers.Numbers;
@@ -17,11 +19,12 @@ public class ArcTan extends Function
     public Numbers evaluate(Numbers value)
     {
         //raise error when out of range
-        if (value.getValue() < -1 || value.getValue() > 1)
+        if (value.getValue().compareTo(BigDecimal.ONE.negate()) == -1 || value.getValue().compareTo(BigDecimal.ONE) == 1)
         {
             throw new DomainException("Value out of bounds");
         }
-        return new Decimal(Math.atan(value.getValue()));
+        //return new Decimal(Math.atan(value.getValue()));
+        return value;
     }
     public String toString()
     {

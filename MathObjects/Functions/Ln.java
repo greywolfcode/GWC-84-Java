@@ -1,5 +1,7 @@
 package MathObjects.Functions;
 
+import java.math.BigDecimal;
+
 import MathObjects.Exceptions.NonRealException;
 
 import MathObjects.Numbers.Numbers;
@@ -16,11 +18,12 @@ public class Ln extends Function
     }
     public Numbers evaluate(Numbers value)
     {
-        if (value.getValue() < 0)
+        if (value.getValue().compareTo(BigDecimal.ZERO) == -1)
         {
             throw new NonRealException("Evaluation produces non-real answer");
         }
-        return new Decimal(Math.log(value.getValue()));
+        //return new Decimal(Math.log(value.getValue()));
+        return value;
     }
     public String toString()
     {

@@ -1,7 +1,7 @@
 package BigMath;
 
 import java.math.BigDecimal;
-import java.math.MathContext
+import java.math.MathContext;
 
 /**
  * Methods for perfoming sine operations on BigDecimal obejcts
@@ -27,16 +27,16 @@ public class BigSine
         //define math context for use in calculations
         MathContext context = new MathContext(precision);
         //get tolorance with 10^-precision
-        BigDecimal tolorence = BigDecimal(10).pow(new BigDecimal(-1 * precision), context); // 10 to the negative of input precision
+        BigDecimal tolorence = new BigDecimal(10).pow(-1 * precision, context); // 10 to the negative of input precision
         //define starting values
-        BigDecimal sineValue = new BigDecimal.ZERO;
+        BigDecimal sineValue = BigDecimal.ZERO;
         BigDecimal n = new BigDecimal(1, context);
         //shrink range of term for greater accuracy
         BigDecimal term = value.remainder(BIG_PI.multiply(TWO), context);
         //taylor series can't use negatives, so make positive and add flag to make negative again
         //sin(-x) = -sin(x)
         boolean isNeg;
-        if (term.signum < 0)
+        if (term.signum() < 0)
         {
             term = term.abs();
             isNeg = true;

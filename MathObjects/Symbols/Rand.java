@@ -1,5 +1,7 @@
 package MathObjects.Symbols;
 
+import MathObjects.Numbers.Decimal;
+
 /**
  * Stores object that outputs random number between 0 and 1
  */
@@ -10,7 +12,7 @@ public class Rand extends Symbol
         setValue(0.0);
     }
     @Override
-    public double getValue()
+    public Decimal getValue()
     {
         return new Decimal(Math.random());
     }

@@ -18,7 +18,7 @@ public class Sin extends Function
     }
     public Numbers evaluate(Numbers value)
     {
-        return new Decimal(BigSine.sine(value));
+        return new Decimal(BigSine.sine(value.getValue()));
     }
     public String toString()
     {

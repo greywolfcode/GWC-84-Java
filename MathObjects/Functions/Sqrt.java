@@ -20,12 +20,12 @@ public class Sqrt extends Function
     public Numbers evaluate(Numbers value)
     {
         //make sure value is not negative
-        if (value.getValue() < 0)
+        if (value.getValue().compareTo(BigDecimal.ZERO) == -1)
         {
             throw new NonRealException("Evaluation produces a non-real answer");
         }
         //do square root with correct precision
-        return new Decimal(value.sqrt(new MathContext(14)));
+        return new Decimal(value.getValue().sqrt(new MathContext(14)));
     }
     public String toString()
     {

@@ -14,7 +14,7 @@ public class Decimal extends Numbers
     public Decimal(BigDecimal decimalValue)
     {
         setType("Decimal");
-        value = new StringBuilder(decimalvalue.toString());
+        value = new StringBuilder(decimalValue.toString());
     }
     public Decimal(String decimalValue)
     {
@@ -26,7 +26,7 @@ public class Decimal extends Numbers
         value = new StringBuilder(decimalValue + "");
         setType("Decimal");
     }
-    public Decimal(int decimalValue)
+    public Decimal(long decimalValue)
     {
         value = new StringBuilder(decimalValue + "");
         setType("Decimal");
@@ -60,7 +60,7 @@ public class Decimal extends Numbers
     }
     public boolean isZero()
     {
-       return getValue().compareTo(BigDecimal.ZERO); 
+       return getValue().compareTo(BigDecimal.ZERO) == 0; 
     }
     public String toString()
     {

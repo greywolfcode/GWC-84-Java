@@ -2,6 +2,8 @@ package MathObjects.Symbols;
 
 import GWC_84_Java.Data;
 
+import MathObjects.Numbers.Decimal;
+
 /**
  * Stores all cases that refrence the previous answer
  */
@@ -15,12 +17,12 @@ public class Ans extends Symbol
         data = storage;
     }
     @Override
-    public double getValue()
+    public Decimal getValue()
     {
         try
         {
-            //get Arraylist, then answer ArrayList, then MathObject, then convert to MathObject string then to double
-            return new Decimal(Double.parseDouble(data.getHistory(0).get(1).get(0).toString()));
+            //get Arraylist, then answer ArrayList, then MathObject, then convert to MathObject string then to decimal
+            return new Decimal(data.getHistory(0).get(1).get(0).toString());
         }
         //run default method if cannot retrieve previous value
         catch (Exception e)
