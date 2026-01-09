@@ -65,7 +65,7 @@ public class Decimal extends Numbers
     public String toString()
     {
         //round value to up to 10 places if there is a decimal and the last charachter is not the decimal
-        if (doRound() && (value.indexOf(".") != -1) && value.charAt(value.length() - 1) != '.')
+        if (doRound() && (value.indexOf(".") != -1) && (value.charAt(value.length() - 1) != '.'))
         {
             BigDecimal num = getValue();
             //BigDecimal is immutable, so this will not break the stored 14 significant digits

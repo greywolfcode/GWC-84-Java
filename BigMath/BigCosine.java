@@ -20,6 +20,6 @@ public class BigCosine
     public static BigDecimal cosine(BigDecimal value)
     {
         //for the time being, piggy back off sine calculation
-        return BigSine.sine(value).add(HALF_PI);
+        return BigSine.sine(HALF_PI.subtract(value));
     }
 }

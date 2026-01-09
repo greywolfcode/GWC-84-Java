@@ -48,12 +48,12 @@ public class BigSine
         //loop until required precision
         while (term.abs().compareTo(tolorence) > 0)
         {
-            sineValue.add(term, context);
+            sineValue = sineValue.add(term, context);
             //this is a not very pretty representation of 
             // term = -term * ((x/(n+1)) * (x/(n+2)))
-            term = term.negate().multiply(value.divide(n.add(BigDecimal.ONE)).multiply(value.divide(n.add(TWO))), context);
+            term = term.negate().multiply(value.divide(n.add(BigDecimal.ONE), context).multiply(value.divide(n.add(TWO), context)), context);
             
-            n.add(TWO, context);
+            n = n.add(TWO, context);
         }
         //negate value if required
         if (isNeg)

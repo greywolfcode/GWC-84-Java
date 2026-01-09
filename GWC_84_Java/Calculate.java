@@ -42,6 +42,7 @@ public class Calculate
         }
         catch (ArithmeticException e)
         {
+            System.out.println(e);
             return "div/0";
         }
         catch (DomainException e)
