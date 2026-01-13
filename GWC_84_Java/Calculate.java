@@ -16,6 +16,7 @@ import MathObjects.Functions.Function;
 import MathObjects.Groupers.Grouper;
 import MathObjects.Numbers.Numbers;
 import MathObjects.Symbols.Symbol;
+import MathObjects.UnaryOperators.UnaryOperator;
 //main classes
 import MathObjects.Groupers.RoundLeft;
 import MathObjects.Numbers.Decimal;
@@ -102,6 +103,10 @@ public class Calculate
                     ops.push(opToken);
                 }
             }
+            else if (token instanceof UnaryOperator)
+            {
+                output.add(token);
+            }
             else if (token instanceof Grouper && ((Grouper)token).getGrouperType().equals("round"))
             {
                Grouper groupToken = (Grouper)token;
@@ -180,6 +185,12 @@ public class Calculate
                 num1 = values.pop();
                 num2 = values.pop();
                 result = ((Operator)value).evaluate(num1, num2);
+            }
+            //evaluate unary operators
+            else if (value instanceof UnaryOperator)
+            {
+                num1 = values.pop();
+                result = ((UnaryOperator)value).evaluate(num1);
             }
             //evaluate functions
             else if (value instanceof Function)

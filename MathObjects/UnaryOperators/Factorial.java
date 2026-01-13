@@ -2,10 +2,10 @@ package MathObjects.UnaryOperators;
 
 import java.math.BigDecimal;
 
-import MathObjects.Excptions.DomainExcpetion;
+import MathObjects.Exceptions.DomainException;
 
 import MathObjects.Numbers.Numbers;
-import MathObjects.Numbes.Decimal
+import MathObjects.Numbers.Decimal;
 
 public class Factorial extends UnaryOperator
 {
@@ -18,13 +18,12 @@ public class Factorial extends UnaryOperator
     public Numbers evaluate(Numbers num1)
     {
         //Error if negative or if not a whole number
-        if (!num1.isZero() || num1.getValue() % 1 != 0)
+        if (num1.getValue().compareTo(BigDecimal.ZERO) == -1 || num1.getValue().remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) != 0)
         {
-            throw new DomainExcpetion("Value is not a valid input");
+            throw new DomainException("Value is not a valid input");
         }
-        //temporarily short circuits the value and returns the input
-        //just for now to avoid errors
-        return num1;
+        
+        return new Decimal(factorial(num1.getValue()));
     }
     public String toString()
     {
@@ -32,7 +31,7 @@ public class Factorial extends UnaryOperator
     }
     private BigDecimal factorial(BigDecimal num)
     {
-        if (num.comapreTo(BigDecimal.ZERO))
+        if (num.compareTo(BigDecimal.ONE) == 0)
         {
             return new BigDecimal(1);
         }

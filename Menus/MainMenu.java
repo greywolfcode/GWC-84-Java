@@ -17,6 +17,8 @@ import MathObjects.Operators.Multiply;
 import MathObjects.Operators.Divide;
 import MathObjects.Operators.Exponent;
 import MathObjects.Operators.NthRt;
+//unary operators
+import MathObjects.UnaryOperators.Factorial;
 //functions
 import MathObjects.Functions.Sin;
 import MathObjects.Functions.Cos;
@@ -79,6 +81,9 @@ public class MainMenu extends Menu
                 break;
             case "abs(":
                 currentLine.add(new Abs());
+                break;
+            case "!":
+                currentLine.add(new Factorial());
                 break;
             case "int(":
                 currentLine.add(new Int());
