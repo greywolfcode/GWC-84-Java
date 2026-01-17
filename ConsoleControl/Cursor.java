@@ -53,6 +53,7 @@ public class Cursor
     }
     /**
      * Save current cursor position
+     * Only for use with supported terminals
      */
     public static void savePos()
     {
@@ -60,6 +61,7 @@ public class Cursor
     }
     /**
      * Restore cursor to previously saved position
+     * Only for use with supported terminals
      */
     public static void restorePos()
     {

@@ -69,7 +69,7 @@ public class Decimal extends Numbers
         {
             BigDecimal num = getValue();
             //BigDecimal is immutable, so this will not break the stored 14 significant digits
-            return num.setScale(10, BigDecimal.ROUND_HALF_UP).toString();
+            return num.setScale(10, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toString();
         }
         //return full string if there is no decimal or just a decimal point
         return value.toString();

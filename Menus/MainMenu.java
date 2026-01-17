@@ -17,6 +17,7 @@ import MathObjects.Operators.Multiply;
 import MathObjects.Operators.Divide;
 import MathObjects.Operators.Exponent;
 import MathObjects.Operators.NthRt;
+import MathObjects.Operators.SciNotationOperator;
 //unary operators
 import MathObjects.UnaryOperators.Factorial;
 //functions
@@ -282,6 +283,9 @@ public class MainMenu extends Menu
                 break;
             case "atan", "tan^-1", "tan⁻¹":
                 currentLine.add(new ArcTan());
+                break;
+            case "ᴇ", "ᴇᴇ", "E", "EE":
+                currentLine.add(new SciNotationOperator());
                 break;
         }
     }

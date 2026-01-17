@@ -6,4 +6,5 @@
  * @author greywolfcode
  * 
  */
+ 
 package MathObjects;

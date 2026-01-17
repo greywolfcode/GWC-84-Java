@@ -118,7 +118,7 @@ public class Renderer
             renderButtonBottomX5();
             System.out.println("\b┃");
             //6th row
-            System.out.println("┃"+Colour.rgb("√",0,130,230)+Colour.rgb("   I",99,184,125)+" "+Colour.rgb("EE",0,130,230)+Colour.rgb("  J",99,184,125)+" "+Colour.rgb("{",0,130,230)+Colour.rgb("   K",99,184,125)+" "+
+            System.out.println("┃"+Colour.rgb("√",0,130,230)+Colour.rgb("   I",99,184,125)+" "+Colour.rgb("ᴇᴇ",0,130,230)+Colour.rgb("  J",99,184,125)+" "+Colour.rgb("{",0,130,230)+Colour.rgb("   K",99,184,125)+" "+
                                 Colour.rgb("}",0,130,230)+Colour.rgb("   L", 99,184,125)+" "+Colour.rgb("e",0,130,230)+Colour.rgb("   M",99,184,125) + "┃");
             System.out.print("┃");
             renderButtonTopX5();

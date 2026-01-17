@@ -1,8 +1,8 @@
 package ConsoleControl;
 /**
- * Class creates string for colour output in console using ANSI escape codes
+ * Class creates strings for colour output in console using ANSI escape codes
  * 
- * formatting is reset to normal after formatted string
+ * Formatting is reset to normal after String is formatted
  */
 public class Colour 
 {

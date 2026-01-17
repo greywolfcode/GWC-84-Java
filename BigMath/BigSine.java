@@ -2,6 +2,7 @@ package BigMath;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode
 
 /**
  * Methods for perfoming sine operations on BigDecimal obejcts
@@ -25,7 +26,7 @@ public class BigSine
         //get precision
         int precision = value.precision();
         //define math context for use in calculations
-        MathContext context = new MathContext(precision);
+        MathContext context = new MathContext(precision + 10, RoundingMode.HALF_UP);
         //get tolorance with 10^-precision
         BigDecimal tolorence = new BigDecimal(10).pow(-1 * precision, context); // 10 to the negative of input precision
         //define starting values
