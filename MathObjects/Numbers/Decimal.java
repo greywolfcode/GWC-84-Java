@@ -10,6 +10,8 @@ public class Decimal extends Numbers
 {
     //string builder so numbers can be added individually
     private StringBuilder value;
+    //store where in the decimal is being selected
+    private long selectedDigit = 0;
     
     public Decimal(BigDecimal decimalValue)
     {
@@ -61,6 +63,45 @@ public class Decimal extends Numbers
     public boolean isZero()
     {
        return getValue().compareTo(BigDecimal.ZERO) == 0; 
+    }
+    public boolean setSelected(String direction)
+    {
+        if (selected) //check if already selected
+        {
+            //check what direction the selection is moving
+            if (direction.equals("a"))
+            {
+                if (selectedDigit == 0) //check if on first digit of decimal
+                {
+                    selected = false;
+                    return true;
+                }
+                selectedDigit -= 1;
+                return false;
+            }
+            else if (direction.equals("d"))
+            {
+                if (selectedDigit == value.length() - 1)
+                {
+                    selected = false;
+                    return true;
+                }
+                selectedDigit += 1;
+                return false;
+            }
+        }
+        //check what direction is being moved
+        if (direction.equals("a"))
+        {
+            selectedDigit = value.length() - 1;
+            return false;
+        }
+        else if (direction.equals("d"))
+        {
+            selectedDigit = 0;
+            return false;
+        }
+        return false; //catch all in case of some wierd occurance
     }
     public String toString()
     {

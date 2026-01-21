@@ -2,7 +2,7 @@ package BigMath;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode
+import java.math.RoundingMode;
 
 /**
  * Methods for perfoming sine operations on BigDecimal obejcts

@@ -35,4 +35,14 @@ public abstract class Grouper extends MathObject
       {
           return grouperType;
       }
+      public boolean setSelected(String direction)
+      {
+          if (selected) //check if already selected
+          {
+              selected = false;
+              return true;
+          }
+          selected = true;
+          return false;
+      }
 }

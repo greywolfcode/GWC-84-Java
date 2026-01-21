@@ -6,6 +6,7 @@ package MathObjects;
 public abstract class MathObject 
 {
     private String type;
+    protected boolean selected = false; //it is just easier to let the chld classes handle this
     
     protected void setType(String objectType)
     {
@@ -19,4 +20,5 @@ public abstract class MathObject
     {
         return this;
     }
+    public abstract boolean setSelected(String direction);
 }

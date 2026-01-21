@@ -45,6 +45,7 @@ public class Fraction extends Numbers
     {
         return new Decimal(numer / denom);
     }
+    
     public String toString()
     {
         return numer + "⁄" + denom;
@@ -53,4 +54,5 @@ public class Fraction extends Numbers
     //define these later
     public void add(double newValue){}
     public BigDecimal getValue(){}
+    public boolean setSelected(String direction){}
 }

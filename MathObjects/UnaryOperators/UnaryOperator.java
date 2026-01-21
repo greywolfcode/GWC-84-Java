@@ -40,4 +40,14 @@ public abstract class UnaryOperator extends MathObject
      {
          return associtivity;
      }
+     public boolean setSelected(String direction)
+     {
+         if (selected) //check if already selected
+         {
+             selected = false;
+             return true;
+         }
+         selected = true;
+         return false;
+     }
 }

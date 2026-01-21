@@ -19,4 +19,14 @@ public abstract class Symbol extends MathObject
     {
         return new Decimal(value);
     }
+    public boolean setSelected(String direction)
+    {
+        if (selected) //check if already selected
+        {
+            selected = false;
+            return true;
+        }
+        selected = true;
+        return false;
+    }
 }
