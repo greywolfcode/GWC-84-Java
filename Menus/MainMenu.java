@@ -8,6 +8,7 @@ import GWC_84_Java.Calculate;
 
 //import MathObject classes
 import MathObjects.MathObject;
+import MathObjects.Blank;
 //numbers:
 import MathObjects.Numbers.Decimal;
 //operators:
