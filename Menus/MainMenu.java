@@ -56,6 +56,7 @@ public class MainMenu extends Menu
         setMenuType("action");
         data = storage;
         setGlobalEvents(events);
+        currentLine.add(new Blank()); //add blank token for cursor
     }
     public void onLoad()
     {
@@ -240,10 +241,19 @@ public class MainMenu extends Menu
                 
                 data.addHistory(historyValue);
                 currentLine.clear(); 
+                currentLine.add(new Blank()); //add blank cursor token 
                 if (historyLine < 6)
                 {
                     historyLine+=2;
                 }
+                break;
+            case "w":
+                break;
+            case "a":
+                break;
+            case "s":
+                break;
+            case "d":
                 break;
             default:
                 cursorLocation--;

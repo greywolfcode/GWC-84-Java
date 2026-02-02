@@ -7,6 +7,7 @@ import java.lang.ArithmeticException;
 
 //import MathObject stuff
 import MathObjects.MathObject;
+import MathObjects.Blank;
 //exceptions
 import MathObjects.Exceptions.DomainException;
 import MathObjects.Exceptions.NonRealException;
@@ -72,8 +73,12 @@ public class Calculate
         Stack<MathObject> ops = new Stack<>();
         for (MathObject token:input)
         {
+            if (token instanceof Blank) //skip over Blanks
+            {
+                continue;
+            }
             //handle operators
-            if (token instanceof Operator)
+            else if (token instanceof Operator)
             {
                 //create new variable of correct type
                 Operator opToken = (Operator)token;

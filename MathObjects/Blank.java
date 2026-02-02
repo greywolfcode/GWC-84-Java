@@ -9,6 +9,7 @@ public class Blank extends MathObject
     public Blank()
     {
         setType("blank");
+        selected = true; //will always be currently selected when added
     }
     public boolean setSelected(String direction)
     {
