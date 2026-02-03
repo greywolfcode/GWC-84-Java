@@ -8,7 +8,7 @@ import ConsoleControl.Colour;
 public abstract class MathObject 
 {
     private String type;
-    protected boolean selected = false; //it is just easier to let the chld classes handle this
+    protected boolean selected = false; //it is just easier to let the child classes handle this
     
     public String getType()
     {

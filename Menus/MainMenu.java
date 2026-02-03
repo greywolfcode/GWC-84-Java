@@ -311,7 +311,8 @@ public class MainMenu extends Menu
             screen[i+1] = " ".repeat(27-screen[i+1].length()) + screen[i+1].replace("[", "").replace("]", "").replace(", ", "");
             historyIndex++;
         }
-        screen[historyLine] = currentLine.toString().replace("[", "").replace("]", "").replace(", ", "");
+        screen[historyLine] = currentLine.toString().substring(1).replace("]", "").replace(", ", "");
+        
         screen[historyLine + 1] = "";
     }
 }
