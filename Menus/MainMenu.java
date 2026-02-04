@@ -116,15 +116,15 @@ public class MainMenu extends Menu
             //values that can be in a decimal
             case "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".":
                 //if possible, add to current Decimal object
-                if (currentLine.size() > 0 && currentLine.get(currentLine.size() - 1) instanceof Decimal)
+                if (currentLine.size() > 1 && currentLine.get(currentLine.size() - 2) instanceof Decimal)
                 {
                     //cast to decimal so add method can be run
-                    ((Decimal)currentLine.get(currentLine.size() - 1)).add(event);
+                    ((Decimal)currentLine.get(currentLine.size() - 2)).add(event);
                 }
                 //creat new object when required
                 else
                 {
-                     currentLine.add(new Decimal(event));
+                     currentLine.add(currentLine.size()-1, new Decimal(event));
                 }
                 break;
             //handle negative seperatly since it has to go at the start of the numbe-
@@ -137,38 +137,38 @@ public class MainMenu extends Menu
                 break;
             //operators
             case "+":
-                currentLine.add(new Plus());
+                currentLine.add(currentLine.size()-1, new Plus());
                 break;
             case "_", "−": //underscore so hyphen can be negative number
-                currentLine.add(new Minus());
+                currentLine.add(currentLine.size()-1, new Minus());
                 break;
             case "*", "×":
-                currentLine.add(new Multiply());
+                currentLine.add(currentLine.size()-1, new Multiply());
                 break;
             case "/", "÷":
-                currentLine.add(new Divide());
+                currentLine.add(currentLine.size()-1, new Divide());
                 break;
             case "^":
-                currentLine.add(new Exponent());
+                currentLine.add(currentLine.size()-1, new Exponent());
                 break;
             case "^2", "²":
-                currentLine.add(new Exponent());
-                currentLine.add(new Decimal(2));
+                currentLine.add(currentLine.size()-1, new Exponent());
+                currentLine.add(currentLine.size()-1, new Decimal(2));
                 break;
             case "^-1", "⁻¹":
-                currentLine.add(new Exponent());
+                currentLine.add(currentLine.size()-1, new Exponent());
                 currentLine.add(new Decimal("-1"));
                 break;
             //groupers
             case "(":
-                currentLine.add(new RoundLeft());
+                currentLine.add(currentLine.size()-1, new RoundLeft());
                 break;
             case ")":
-                currentLine.add(new RoundRight());
+                currentLine.add(currentLine.size()-1, new RoundRight());
                 break;
             //functions
             case "sin":
-                currentLine.add(new Sin());
+                currentLine.add(currentLine.size()-1, new Sin());
                 break;
             case "cos":
                 currentLine.add(new Cos());
@@ -197,7 +197,7 @@ public class MainMenu extends Menu
                 //perform previous calculation in line if empty or break if no hostory
                 if (currentLine.size() == 0 && data.getHistorySize() > 0)
                 {
-                    currentLine = new ArrayList<MathObject>(data.getHistory(0).get(0)); //copy the ArrayList so clearing currentLine doesn't clear the one storred in history
+                    currentLine = new ArrayList<MathObject>(data.getHistory(0).get(0)); //copy the ArrayList so clearing currentLine doesn't clear the one stored in history
                 }
                 else if (currentLine.size() == 0) //get out clause if there is nothing in the current line
                 {
@@ -232,6 +232,7 @@ public class MainMenu extends Menu
                 //shallow copy currentLine; don't need to copy stored objects, 
                 //as the original will be cleared anyway
                 ArrayList<MathObject> inputLine = new ArrayList<MathObject>(currentLine);
+                inputLine.removeIf(element -> element instanceof Blank); //remvoe blank 
                 historyValue.add(inputLine);
                 //convert output to the right format and add it
                 ArrayList<MathObject>output = new ArrayList<>();
