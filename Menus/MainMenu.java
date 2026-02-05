@@ -48,8 +48,9 @@ public class MainMenu extends Menu
 {
     private ArrayList<MathObject> currentLine = new ArrayList<>();
     private int cursorLocation = 0; //stores where in the block the cursor is
-    private int currentBlock = 0; //stores which segment for really long blocks
     private int historyLine = 0; //stores how many lines of history there are
+    private boolean updateCursor = true;
+    
     
     public MainMenu(Data storage, Stack<String> events)
     {
@@ -65,33 +66,43 @@ public class MainMenu extends Menu
         {
             case "goto":
                 currentLine = data.getHistory(0).get(0);
+                currentLine.add(new Blank());
                 break;
             case "∛":
-                currentLine.add(new Cbrt());
+                currentLine.add(currentLine.size()-1, new Cbrt());
                 break;
             case "∜":
-                currentLine.add(new FrthRt());
+                currentLine.add(currentLine.size()-1, new FrthRt());
                 break;
             case "³":
-                currentLine.add(new Exponent());
+                currentLine.add(currentLine.size()-1, new Exponent());
                 currentLine.add(new Decimal(3));
                 break;
             case "ᕽ√":
-                currentLine.add(new NthRt());
+                currentLine.add(currentLine.size()-1, new NthRt());
                 break;
             case "rand":
-                currentLine.add(new Rand());
+                currentLine.add(currentLine.size()-1, new Rand());
                 break;
             case "abs(":
-                currentLine.add(new Abs());
+                currentLine.add(currentLine.size()-1, new Abs());
                 break;
             case "!":
-                currentLine.add(new Factorial());
+                currentLine.add(currentLine.size()-1, new Factorial());
                 break;
             case "int(":
-                currentLine.add(new Int());
+                currentLine.add(currentLine.size()-1, new Int());
+                break;
+            default:
+                updateCursor = false;
                 break;
         }
+        if (updateCursor)
+        {
+            cursorLocation++;
+        }
+        updateCursor = true;
+        
         updateScreen();
     }
     public void onUnload(){}
@@ -105,7 +116,12 @@ public class MainMenu extends Menu
         {
             handeler2nd(event);
         }
-        cursorLocation++;
+        //check if need to move cursor
+        if (updateCursor)
+        {
+            cursorLocation += 1;
+        }
+        updateCursor = true;
         //update screen
         updateScreen();
     }
@@ -131,9 +147,9 @@ public class MainMenu extends Menu
             case "-":
                 if(currentLine.size() > 0 && currentLine.get(currentLine.size() - 1) instanceof Decimal)
                 {
-                    currentLine.add(new Multiply());
+                    currentLine.add(currentLine.size()-1, new Multiply());
                 }
-                currentLine.add(new Decimal("-"));
+                currentLine.add(currentLine.size()-1, new Decimal("-"));
                 break;
             //operators
             case "+":
@@ -171,21 +187,22 @@ public class MainMenu extends Menu
                 currentLine.add(currentLine.size()-1, new Sin());
                 break;
             case "cos":
-                currentLine.add(new Cos());
+                currentLine.add(currentLine.size()-1, new Cos());
                 break;
             case "tan":
-                currentLine.add(new Tan());
+                currentLine.add(currentLine.size()-1, new Tan());
                 break;
             case "log":
-                currentLine.add(new Log());
+                currentLine.add(currentLine.size()-1, new Log());
                 break;
             case "ln":
-                currentLine.add(new Ln());
+                currentLine.add(currentLine.size()-1, new Ln());
                 break;
             case "clr":
                 if (currentLine.size() > 0)
                 {
                     currentLine.clear();
+                    currentLine.add(new Blank()); //re-add the cursor
                 }
                 else
                 {
@@ -251,13 +268,37 @@ public class MainMenu extends Menu
             case "w":
                 break;
             case "a":
+                updateCursor = false;
+                //check if need to change selected token
+                if (currentLine.get(cursorLocation).setSelected("a"))
+                {
+                    if (cursorLocation == 0) //keep selection on last token
+                    {
+                        currentLine.get(cursorLocation).setSelected("a");
+                        break;
+                    }
+                    cursorLocation--;
+                    currentLine.get(cursorLocation).setSelected("a");
+                }
                 break;
             case "s":
                 break;
             case "d":
+                updateCursor = false;
+                //check if need to change selected token
+                if (currentLine.get(cursorLocation).setSelected("d"))
+                {
+                    if (cursorLocation == currentLine.size()-1)
+                    {
+                        currentLine.get(cursorLocation).setSelected("d");
+                        break;
+                    }
+                    cursorLocation++;
+                    currentLine.get(cursorLocation).setSelected("d");
+                }
                 break;
             default:
-                cursorLocation--;
+                updateCursor = false; //don't update cursor if no action was done 
                 break;
         }
     }
@@ -267,39 +308,46 @@ public class MainMenu extends Menu
         {
             //symbols
             case "e":
-                currentLine.add(new EulersNumber());
+                currentLine.add(currentLine.size()-1, new EulersNumber());
                 break;
             case "e^", "e^x", "eᕽ":
-                currentLine.add(new EulersNumber());
-                currentLine.add(new Exponent());
+                currentLine.add(currentLine.size()-1, new EulersNumber());
+                currentLine.add(currentLine.size()-1, new Exponent());
                 break;
             case "10^", "10^x", "10ᕽ":
-                currentLine.add(new Decimal(10));
-                currentLine.add(new Exponent());
+                currentLine.add(currentLine.size()-1, new Decimal(10));
+                currentLine.add(currentLine.size()-1, new Exponent());
                 break;
             case "pi", "PI", "Pi", "pI", "π":
-                currentLine.add(new Pi());
+                currentLine.add(currentLine.size()-1, new Pi());
                 break;
             case "ans", "Ans", "ANs", "ANS", "aNS", "anS", "aNs":
-                currentLine.add(new Ans(data));
+                currentLine.add(currentLine.size()-1, new Ans(data));
                 break;
             //functions
             case "sqrt", "√":
-                currentLine.add(new Sqrt());
+                currentLine.add(currentLine.size()-1, new Sqrt());
                 break;
             case "asin", "sin^-1", "sin⁻¹":
-                currentLine.add(new ArcSin());
+                currentLine.add(currentLine.size()-1, new ArcSin());
                 break;
             case "acos", "cos^-1", "cos⁻¹":
-                currentLine.add(new ArcCos());
+                currentLine.add(currentLine.size()-1, new ArcCos());
                 break;
             case "atan", "tan^-1", "tan⁻¹":
-                currentLine.add(new ArcTan());
+                currentLine.add(currentLine.size()-1, new ArcTan());
                 break;
             case "ᴇ", "ᴇᴇ", "E", "EE":
-                currentLine.add(new SciNotationOperator());
+                currentLine.add(currentLine.size()-1, new SciNotationOperator());
+                break;
+            default:
+                updateCursor = false;
                 break;
         }
+    }
+    private void addToCurrentLine(int index, MathObject value, String cursorType)
+    {
+        
     }
     private void updateScreen()
     {

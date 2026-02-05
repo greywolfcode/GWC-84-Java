@@ -17,6 +17,10 @@ public class Plus extends Operator
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("+");
+        }
         return "+";
     }
 }

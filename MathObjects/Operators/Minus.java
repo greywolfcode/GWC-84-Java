@@ -18,6 +18,10 @@ public class Minus extends Operator
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("-");
+        }
         return "−";
     }
 }

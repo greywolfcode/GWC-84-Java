@@ -112,6 +112,11 @@ public class Decimal extends Numbers
             //BigDecimal is immutable, so this will not break the stored 14 significant digits
             return num.setScale(10, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toString();
         }
+        //this return will always be used if you are able to edit the decimal
+        if (selected)
+        {
+            return value.toString();
+        }
         //return full string if there is no decimal or just a decimal point
         return value.toString();
     }
