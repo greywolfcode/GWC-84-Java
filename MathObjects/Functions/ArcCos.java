@@ -28,6 +28,10 @@ public class ArcCos extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("c") + "os⁻¹(";
+        }
         return "cos⁻¹(";
     }
 }

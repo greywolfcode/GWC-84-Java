@@ -18,6 +18,10 @@ public class Abs extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("a") + "bs(";
+        }
         return "abs(";
     }
 }

@@ -13,6 +13,10 @@ public class RoundLeft extends Grouper
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("(");
+        }
         return "("; 
     }
 }

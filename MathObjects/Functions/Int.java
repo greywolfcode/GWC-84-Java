@@ -24,6 +24,10 @@ public class Int extends Function
     }
     public String toString()
     {
-        return ("int(");
+        if (selected)
+        {
+            return getSelectedString("i") + "nt(";
+        }
+        return "int(";
     }
 }

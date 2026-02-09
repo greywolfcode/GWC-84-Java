@@ -8,6 +8,10 @@ public class EulersNumber extends Symbol
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("e");
+        }
         return "e";
     }
 }

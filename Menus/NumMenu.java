@@ -18,13 +18,13 @@ public class NumMenu extends OptionsMenu
         String[] classSwitchOptions = {"MathMenu", "NumMenu", "CmplxMenu", "ProbMenu", "FracMenu"};
         setClassSwitchOptions(classSwitchOptions);
     }
-    public void onLoad()
+    public void onLoad(String cursorState)
     {
         resetPositions();
         updateScreen();
     }
     public void onUnload(){}
-    public void eventHandeler(String state, String event)
+    public void eventHandeler(String state, String event, String cursorState)
     {
         if (state.equals("main"))
         {

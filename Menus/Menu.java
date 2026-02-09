@@ -13,9 +13,9 @@ public abstract class Menu
     private String menuType = "action"; //tells if menu can have actions done in it
     private Stack<String> globalEvents; //allows events to be sent to main calculator
     
-    public abstract void eventHandeler(String state, String event);
+    public abstract void eventHandeler(String state, String event, String cursorState);
     
-    public abstract void onLoad(); //runs every time current menu is changed to this menu
+    public abstract void onLoad(String cursorState); //runs every time current menu is changed to this menu
     
     public abstract void onUnload(); //runs every time current menu is changed from this menu
     

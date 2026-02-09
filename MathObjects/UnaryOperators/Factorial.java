@@ -27,6 +27,10 @@ public class Factorial extends UnaryOperator
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("!");
+        }
         return "!";
     }
     private BigDecimal factorial(BigDecimal num)

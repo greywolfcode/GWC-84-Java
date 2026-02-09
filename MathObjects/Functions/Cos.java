@@ -20,6 +20,10 @@ public class Cos extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("c") + "os(";
+        }
         return "cos(";
     }
 }

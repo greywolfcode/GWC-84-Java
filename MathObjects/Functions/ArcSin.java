@@ -28,6 +28,10 @@ public class ArcSin extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("s") + "in⁻¹";
+        }
         return "sin⁻¹(";
     }
 }

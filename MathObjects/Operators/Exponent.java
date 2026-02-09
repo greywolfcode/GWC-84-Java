@@ -21,6 +21,10 @@ public class Exponent extends Operator
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("^");
+        }
         return "^";
     }
 }

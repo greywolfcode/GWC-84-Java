@@ -22,7 +22,7 @@ public class DivideByZeroError extends Menu
         screen[5] = "  contains divison by zero"; 
         screen[6] = "Calculation failed";
     }
-    public void eventHandeler(String state, String event)
+    public void eventHandeler(String state, String event, String cursorState)
     {
         switch (event)
         {
@@ -55,7 +55,7 @@ public class DivideByZeroError extends Menu
                 break;
         }
     }
-    public void onLoad()
+    public void onLoad(String cursorState)
     {
         cursorLocation = 0; 
         updateScreen();

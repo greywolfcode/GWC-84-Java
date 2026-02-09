@@ -13,6 +13,10 @@ public class RoundRight extends Grouper
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString(")");
+        }
         return ")";
     }
 }

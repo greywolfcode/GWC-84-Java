@@ -22,7 +22,7 @@ public class DomainError extends Menu
         screen[5] = "allowed in the function"; 
         screen[6] = "or command";
     }
-    public void eventHandeler(String state, String event)
+    public void eventHandeler(String state, String event, String cursorState)
     {
         switch (event)
         {
@@ -55,7 +55,7 @@ public class DomainError extends Menu
                 break;
         }
     }
-    public void onLoad()
+    public void onLoad(String cursorState)
     {
         cursorLocation = 0; 
         updateScreen();

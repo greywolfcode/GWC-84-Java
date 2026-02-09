@@ -59,7 +59,7 @@ public class MainMenu extends Menu
         setGlobalEvents(events);
         currentLine.add(new Blank()); //add blank token for cursor
     }
-    public void onLoad()
+    public void onLoad(String cursorState)
     {
         String returnValue = data.getReturn();
         switch (returnValue)
@@ -69,29 +69,29 @@ public class MainMenu extends Menu
                 currentLine.add(new Blank());
                 break;
             case "∛":
-                currentLine.add(currentLine.size()-1, new Cbrt());
+                addToCurrentLine(cursorLocation, new Cbrt(), cursorState);
                 break;
             case "∜":
-                currentLine.add(currentLine.size()-1, new FrthRt());
+                addToCurrentLine(cursorLocation, new FrthRt(), cursorState);
                 break;
             case "³":
-                currentLine.add(currentLine.size()-1, new Exponent());
-                currentLine.add(new Decimal(3));
+                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
+                addToCurrentLine(cursorLocation, new Decimal(3));
                 break;
             case "ᕽ√":
-                currentLine.add(currentLine.size()-1, new NthRt());
+                addToCurrentLine(cursorLocation, new NthRt(), cursorState);
                 break;
             case "rand":
-                currentLine.add(currentLine.size()-1, new Rand());
+                addToCurrentLine(cursorLocation, new Rand(), cursorState);
                 break;
             case "abs(":
-                currentLine.add(currentLine.size()-1, new Abs());
+                addToCurrentLine(cursorLocation, new Abs(), cursorState);
                 break;
             case "!":
-                currentLine.add(currentLine.size()-1, new Factorial());
+                addToCurrentLine(cursorLocation, new Factorial(), cursorState);
                 break;
             case "int(":
-                currentLine.add(currentLine.size()-1, new Int());
+                addToCurrentLine(cursorLocation, new Int(), cursorState);
                 break;
             default:
                 updateCursor = false;
@@ -106,15 +106,15 @@ public class MainMenu extends Menu
         updateScreen();
     }
     public void onUnload(){}
-    public void eventHandeler(String state, String event)
+    public void eventHandeler(String state, String event, String cursorState)
     {
         if (state.equals("main"))
         {
-            handelerMain(event);
+            handelerMain(event, cursorState);
         }
         else if (state.equals("2nd"))
         {
-            handeler2nd(event);
+            handeler2nd(event, cursorState);
         }
         //check if need to move cursor
         if (updateCursor)
@@ -125,7 +125,7 @@ public class MainMenu extends Menu
         //update screen
         updateScreen();
     }
-    private void handelerMain(String event)
+    private void handelerMain(String event, String cursorState)
     {
         switch (event)
         {
@@ -134,69 +134,70 @@ public class MainMenu extends Menu
                 //if possible, add to current Decimal object
                 if (currentLine.size() > 1 && currentLine.get(currentLine.size() - 2) instanceof Decimal)
                 {
+                    updateCursor = false; //not changing length of currentLine
                     //cast to decimal so add method can be run
                     ((Decimal)currentLine.get(currentLine.size() - 2)).add(event);
                 }
                 //creat new object when required
                 else
                 {
-                     currentLine.add(currentLine.size()-1, new Decimal(event));
+                     addToCurrentLine(cursorLocation, new Decimal(event), cursorState);
                 }
                 break;
             //handle negative seperatly since it has to go at the start of the numbe-
             case "-":
                 if(currentLine.size() > 0 && currentLine.get(currentLine.size() - 1) instanceof Decimal)
                 {
-                    currentLine.add(currentLine.size()-1, new Multiply());
+                    addToCurrentLine(cursorLocation, new Multiply(), cursorState);
                 }
-                currentLine.add(currentLine.size()-1, new Decimal("-"));
+                addToCurrentLine(cursorLocation, new Decimal("-"), cursorState);
                 break;
             //operators
             case "+":
-                currentLine.add(currentLine.size()-1, new Plus());
+                addToCurrentLine(cursorLocation, new Plus(), cursorState);
                 break;
             case "_", "−": //underscore so hyphen can be negative number
-                currentLine.add(currentLine.size()-1, new Minus());
+                addToCurrentLine(cursorLocation, new Minus(), cursorState);
                 break;
             case "*", "×":
-                currentLine.add(currentLine.size()-1, new Multiply());
+                addToCurrentLine(cursorLocation, new Multiply(), cursorState);
                 break;
             case "/", "÷":
-                currentLine.add(currentLine.size()-1, new Divide());
+                addToCurrentLine(cursorLocation, new Divide(), cursorState);
                 break;
             case "^":
-                currentLine.add(currentLine.size()-1, new Exponent());
+                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
                 break;
             case "^2", "²":
-                currentLine.add(currentLine.size()-1, new Exponent());
-                currentLine.add(currentLine.size()-1, new Decimal(2));
+                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
+                addToCurrentLine(cursorLocation, new Decimal(2));
                 break;
             case "^-1", "⁻¹":
-                currentLine.add(currentLine.size()-1, new Exponent());
-                currentLine.add(new Decimal("-1"));
+                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
+                addToCurrentLine(cursorLocation, new Decimal("-1"));
                 break;
             //groupers
             case "(":
-                currentLine.add(currentLine.size()-1, new RoundLeft());
+                addToCurrentLine(cursorLocation, new RoundLeft(), cursorState);
                 break;
             case ")":
-                currentLine.add(currentLine.size()-1, new RoundRight());
+                addToCurrentLine(cursorLocation, new RoundRight(), cursorState);
                 break;
             //functions
             case "sin":
-                currentLine.add(currentLine.size()-1, new Sin());
+                addToCurrentLine(cursorLocation, new Sin(), cursorState);
                 break;
             case "cos":
-                currentLine.add(currentLine.size()-1, new Cos());
+                addToCurrentLine(cursorLocation, new Cos(), cursorState);
                 break;
             case "tan":
-                currentLine.add(currentLine.size()-1, new Tan());
+                addToCurrentLine(cursorLocation, new Tan(), cursorState);
                 break;
             case "log":
-                currentLine.add(currentLine.size()-1, new Log());
+                addToCurrentLine(cursorLocation, new Log(), cursorState);
                 break;
             case "ln":
-                currentLine.add(currentLine.size()-1, new Ln());
+                addToCurrentLine(cursorLocation, new Ln(), cursorState);
                 break;
             case "clr":
                 if (currentLine.size() > 0)
@@ -249,7 +250,12 @@ public class MainMenu extends Menu
                 //shallow copy currentLine; don't need to copy stored objects, 
                 //as the original will be cleared anyway
                 ArrayList<MathObject> inputLine = new ArrayList<MathObject>(currentLine);
-                inputLine.removeIf(element -> element instanceof Blank); //remvoe blank 
+                inputLine.removeIf(element -> element instanceof Blank); //remove blank 
+                //make sure nothing is selected
+                if (cursorLocation < inputLine.size())
+                {
+                    inputLine.get(cursorLocation).setUnselected();
+                }
                 historyValue.add(inputLine);
                 //convert output to the right format and add it
                 ArrayList<MathObject>output = new ArrayList<>();
@@ -260,6 +266,9 @@ public class MainMenu extends Menu
                 data.addHistory(historyValue);
                 currentLine.clear(); 
                 currentLine.add(new Blank()); //add blank cursor token 
+                //reset cursor
+                cursorLocation = 0;
+                updateCursor = false;
                 if (historyLine < 6)
                 {
                     historyLine+=2;
@@ -274,7 +283,7 @@ public class MainMenu extends Menu
                 {
                     if (cursorLocation == 0) //keep selection on last token
                     {
-                        currentLine.get(cursorLocation).setSelected("a");
+                        currentLine.get(cursorLocation).setSelected("d"); //flip direction for first charachter of decimal
                         break;
                     }
                     cursorLocation--;
@@ -290,7 +299,7 @@ public class MainMenu extends Menu
                 {
                     if (cursorLocation == currentLine.size()-1)
                     {
-                        currentLine.get(cursorLocation).setSelected("d");
+                        currentLine.get(cursorLocation).setSelected("a"); //flip direction for last charachter of decimal
                         break;
                     }
                     cursorLocation++;
@@ -302,52 +311,96 @@ public class MainMenu extends Menu
                 break;
         }
     }
-    private void handeler2nd(String event)
+    private void handeler2nd(String event, String cursorState)
     {
         switch (event)
         {
             //symbols
             case "e":
-                currentLine.add(currentLine.size()-1, new EulersNumber());
+                addToCurrentLine(cursorLocation, new EulersNumber(), cursorState);
                 break;
             case "e^", "e^x", "eᕽ":
-                currentLine.add(currentLine.size()-1, new EulersNumber());
-                currentLine.add(currentLine.size()-1, new Exponent());
+                addToCurrentLine(cursorLocation, new EulersNumber(), cursorState);
+                addToCurrentLine(cursorLocation, new Exponent());
                 break;
             case "10^", "10^x", "10ᕽ":
-                currentLine.add(currentLine.size()-1, new Decimal(10));
-                currentLine.add(currentLine.size()-1, new Exponent());
+                addToCurrentLine(cursorLocation, new Decimal(10), cursorState);
+                addToCurrentLine(cursorLocation, new Exponent());
                 break;
             case "pi", "PI", "Pi", "pI", "π":
-                currentLine.add(currentLine.size()-1, new Pi());
+                addToCurrentLine(cursorLocation, new Pi(), cursorState);
                 break;
             case "ans", "Ans", "ANs", "ANS", "aNS", "anS", "aNs":
-                currentLine.add(currentLine.size()-1, new Ans(data));
+                addToCurrentLine(cursorLocation, new Ans(data), cursorState);
                 break;
             //functions
             case "sqrt", "√":
-                currentLine.add(currentLine.size()-1, new Sqrt());
+                addToCurrentLine(cursorLocation, new Sqrt(), cursorState);
                 break;
             case "asin", "sin^-1", "sin⁻¹":
-                currentLine.add(currentLine.size()-1, new ArcSin());
+                addToCurrentLine(cursorLocation, new ArcSin(), cursorState);
                 break;
             case "acos", "cos^-1", "cos⁻¹":
-                currentLine.add(currentLine.size()-1, new ArcCos());
+                addToCurrentLine(cursorLocation, new ArcCos(), cursorState);
                 break;
             case "atan", "tan^-1", "tan⁻¹":
-                currentLine.add(currentLine.size()-1, new ArcTan());
+                addToCurrentLine(cursorLocation, new ArcTan(), cursorState);
                 break;
             case "ᴇ", "ᴇᴇ", "E", "EE":
-                currentLine.add(currentLine.size()-1, new SciNotationOperator());
+                addToCurrentLine(cursorLocation, new SciNotationOperator(), cursorState);
                 break;
             default:
                 updateCursor = false;
                 break;
         }
     }
-    private void addToCurrentLine(int index, MathObject value, String cursorType)
+    /**
+     * Adds to current line by pushing all values after index to the right
+     */
+    private void addToCurrentLine(int index, MathObject value)
     {
-        
+        cursorLocation++; //need to move cursor location on place further than normal
+        currentLine.add(index+1, value);
+    }
+    /**
+     * Adds to current line while taking cursor location and state into account
+     */
+    private void addToCurrentLine(int index, MathObject value, String cursorState)
+    {
+        if (cursorState.equals("N"))
+        {
+            if (index == currentLine.size()-1)
+            {
+                currentLine.add(index, value); //don't overwrite Blank cursor
+            }
+            else
+            {
+                //check if currently selected value is a decimal
+                if (currentLine.get(index) instanceof Decimal)
+                {
+                    Decimal[] nums = ((Decimal)currentLine.get(index)).split(false);
+                    currentLine.set(index, nums[0]); //replace original decimal
+                    if (nums.length == 2)
+                    {
+                        currentLine.add(index+1, nums[1]); //insert second part of decimal after first part
+                    }
+                    currentLine.add(index+1, value);
+                    
+                    currentLine.get(index+2).setSelected("d");
+                    cursorLocation++;
+                }
+                else
+                {
+                    //next charachter is now selected; cursor stays in the same spot
+                    currentLine.get(index+1).setSelected("a"); //manually set next token to be selected
+                    currentLine.set(index, value); //replace value 
+                }
+            }
+        }
+        else
+        {
+            currentLine.add(index-1, value); //inserts before currently selected token
+        }
     }
     private void updateScreen()
     {

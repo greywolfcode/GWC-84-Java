@@ -22,6 +22,10 @@ public class Sin extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("s") + "in(";
+        }
         return "sin(";
     }
 }

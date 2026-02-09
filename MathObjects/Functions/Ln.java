@@ -27,6 +27,10 @@ public class Ln extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("l") + "n(";
+        }
         return "ln(";
     }
 }

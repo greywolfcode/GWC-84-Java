@@ -28,6 +28,10 @@ public class Log extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("l") + "og(";
+        }
         return "log(";
     }
 }

@@ -8,6 +8,10 @@ public class Pi extends Symbol
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("π");
+        }
         return "π";
     }
 }

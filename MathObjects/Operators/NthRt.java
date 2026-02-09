@@ -37,6 +37,10 @@ public class NthRt extends Operator
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("ᕽ√");
+        }
         return "ᕽ√(";
     }
 }

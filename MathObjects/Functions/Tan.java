@@ -20,6 +20,10 @@ public class Tan extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("t") + "an(";
+        }
         return "tan(";
     }
 }

@@ -22,6 +22,7 @@ import ConsoleControl.Colour;
 public class Calculator 
 {
     private String state;
+    private String cursorState;
     private Menu currentMenu;
     private Menu prevMenu;
     private HashMap<String, Menu> menus;
@@ -31,6 +32,7 @@ public class Calculator
     public Calculator()
     {
         state = "main";
+        cursorState = "N";
         data = new Data();
         events = new Stack<String>();
         currentMenu = new MainMenu(data, events);
@@ -87,8 +89,25 @@ public class Calculator
             {
                 return true;
             }
+            //check if need to change cursor state
+            else if (input.equals("ins") && state.equals("2nd"))
+            {
+                if (cursorState.equals("N"))
+                {
+                    cursorState = "I";
+                }
+                else
+                {
+                    cursorState = "N";
+                }
+            }
+            //reset cursor state if moving cursor
+            if (input.equals("w") || input.equals("a") || input.equals("s") || input.equals("d"))
+            {
+                cursorState = "N";
+            }
             //run menu event handler
-            currentMenu.eventHandeler(state, input);
+            currentMenu.eventHandeler(state, input, cursorState);
             state = "main"; //reset back to main if any other button is pressed
             updateTopBar();
         }
@@ -112,6 +131,7 @@ public class Calculator
         Cursor.goTo(3, 4);
         System.out.print(Colour.bgRGB("RAD", 200, 200, 200));
         System.out.print(Colour.bgRGB(" CL", 200, 200, 200)); //only classic mode is an option
+        System.out.print(Colour.bgRGB(" " + cursorState, 200, 200, 200));
         Cursor.goTo(28, 4);
         switch (state)
         {
@@ -164,14 +184,14 @@ public class Calculator
         prevMenu = currentMenu;
         prevMenu.onUnload();
         currentMenu = menus.get(menu);
-        currentMenu.onLoad();
+        currentMenu.onLoad(cursorState);
     }
     private void switchMenu(Menu menu)
     {
         prevMenu = currentMenu;
         prevMenu.onUnload();
         currentMenu = menu;
-        currentMenu.onLoad();
+        currentMenu.onLoad(cursorState);
     }
     /**
      * Switches menu to new menu,
@@ -180,11 +200,11 @@ public class Calculator
     private void switchMenuNoChangePrev(String menu)
     {
         currentMenu = menus.get(menu);
-        currentMenu.onLoad();
+        currentMenu.onLoad(cursorState);
     }
     private void switchMenuNoChangePrev(Menu menu)
     {
         currentMenu = menu;
-        currentMenu.onLoad();
+        currentMenu.onLoad(cursorState);
     }
 }

@@ -33,6 +33,10 @@ public class Ans extends Symbol
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("A") + "ns";
+        }
         return "Ans";
     }
 }

@@ -26,5 +26,9 @@ public abstract class MathObject
     {
         return Colour.invert(input);
     }
+    public void setUnselected()
+    {
+        selected = false;
+    }
     public abstract boolean setSelected(String direction);
 }

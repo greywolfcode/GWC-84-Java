@@ -27,6 +27,10 @@ public class SciNotationOperator extends Operator
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("ᴇ");
+        }
         return "ᴇ";
     }
 }

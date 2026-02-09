@@ -28,6 +28,10 @@ public class ArcTan extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("t") + "an⁻¹(";
+        }
         return "tan⁻¹(";
     }
 }

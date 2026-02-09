@@ -11,7 +11,7 @@ public class Decimal extends Numbers
     //string builder so numbers can be added individually
     private StringBuilder value;
     //store where in the decimal is being selected
-    private long selectedDigit = 0;
+    private int selectedDigit = 0;
     
     public Decimal(BigDecimal decimalValue)
     {
@@ -22,6 +22,11 @@ public class Decimal extends Numbers
     {
         setType("Decimal");
         value = new StringBuilder(decimalValue);
+    }
+    public Decimal(StringBuilder decimalValue)
+    {
+        setType("Decimal");
+        value = decimalValue;
     }
     public Decimal(double decimalValue)
     {
@@ -81,7 +86,7 @@ public class Decimal extends Numbers
             }
             else if (direction.equals("d"))
             {
-                if (selectedDigit == value.length() - 1)
+                if (selectedDigit == value.length() - 1) //check if on last digit of decimal
                 {
                     selected = false;
                     return true;
@@ -89,19 +94,51 @@ public class Decimal extends Numbers
                 selectedDigit += 1;
                 return false;
             }
+            return false; //catch all
         }
-        //check what direction is being moved
+        //check what direction is being moved and respond accordingly
         if (direction.equals("a"))
         {
             selectedDigit = value.length() - 1;
+            selected = true;
             return false;
         }
         else if (direction.equals("d"))
         {
             selectedDigit = 0;
+            selected = true;
             return false;
         }
         return false; //catch all in case of some wierd occurance
+    }
+    public Decimal[] split(boolean includeSelected)
+    {
+        //convert StringBuilder to String so String split method can be used
+        String num = value.toString(); //Yes, it is a bit strange having "num" be a string not an int or double
+        if (selectedDigit == num.length() - 1 && !includeSelected) //check if splitting will be out of bounds
+        {
+                Decimal[] splitNums = new Decimal[1];
+                splitNums[0] = new Decimal(num.substring(0, selectedDigit));
+                return splitNums;
+        }
+        else
+        {
+            Decimal[] splitNums = new Decimal[2];
+            splitNums[0] = new Decimal(num.substring(0, selectedDigit));
+            if (includeSelected)
+            {
+                splitNums[1] = new Decimal(num.substring(selectedDigit));
+            }
+            else
+            {
+                splitNums[1] = new Decimal(num.substring(selectedDigit + 1));
+            }
+            return splitNums;
+        }
+    }
+    public void replace(String newValue)
+    {
+        value.replace(selectedDigit, selectedDigit+1, newValue);
     }
     public String toString()
     {
@@ -112,12 +149,13 @@ public class Decimal extends Numbers
             //BigDecimal is immutable, so this will not break the stored 14 significant digits
             return num.setScale(10, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toString();
         }
-        //this return will always be used if you are able to edit the decimal
+        //this return will always be used if you are able to edit the decimal because doRound will be false
+        String currentValue = value.toString();
         if (selected)
         {
-            return value.toString();
+            return currentValue.substring(0, selectedDigit) + getSelectedString(currentValue.substring(selectedDigit, selectedDigit+1)) + currentValue.substring(selectedDigit+1); 
         }
         //return full string if there is no decimal or just a decimal point
-        return value.toString();
+        return currentValue;
     }
 }

@@ -20,6 +20,10 @@ public class Cbrt extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return "∛";
+        }
         return "∛(";
     }
 }

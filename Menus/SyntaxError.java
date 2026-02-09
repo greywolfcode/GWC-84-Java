@@ -22,7 +22,7 @@ public class SyntaxError extends Menu
         screen[5] = "Press + on menu"; 
         screen[6] = "  item for help";
     }
-    public void eventHandeler(String state, String event)
+    public void eventHandeler(String state, String event, String cursorState)
     {
         switch (event)
         {
@@ -55,7 +55,7 @@ public class SyntaxError extends Menu
                 break;
         }
     }
-    public void onLoad()
+    public void onLoad(String cursorState)
     {
         cursorLocation = 0; 
         updateScreen();

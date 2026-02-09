@@ -18,6 +18,10 @@ public class Rand extends Symbol
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("r") + "and";
+        }
         return "rand";
     }
 }

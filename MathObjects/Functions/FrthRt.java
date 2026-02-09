@@ -20,6 +20,10 @@ public class FrthRt extends Function
     }
     public String toString()
     {
+        if (selected)
+        {
+            return getSelectedString("∜") + "(";
+        }
         return "∜(";
     }
 }
