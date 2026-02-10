@@ -399,7 +399,21 @@ public class MainMenu extends Menu
         }
         else
         {
-            currentLine.add(index-1, value); //inserts before currently selected token
+            if (currentLine.get(index) instanceof Decimal)
+            {
+                Decimal[] nums = ((Decimal)currentLine.get(index)).split(true);
+                currentLine.set(index, nums[0]); //overwrite previous Decimal
+                currentLine.add(index+1, nums[1]);
+                currentLine.add(index+1, value);
+                
+                currentLine.get(index+2).setSelected("d");
+                cursorLocation++;
+            }
+            else
+            {
+                currentLine.add(index-1, value); //inserts before currently selected token
+        
+            }
         }
     }
     private void updateScreen()
