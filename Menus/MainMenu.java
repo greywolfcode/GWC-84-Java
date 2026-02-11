@@ -389,6 +389,68 @@ public class MainMenu extends Menu
                     currentLine.get(index+2).setSelected("d");
                     cursorLocation++;
                 }
+                //deal with merging decimals
+                else if (value instanceof Decimal)
+                {
+                    int numToMerge = 1;
+                    //check one to the left
+                    if (index > 0)
+                    {
+                        if (currentLine.get(index-1) instanceof Decimal)
+                        {
+                            numToMerge++;
+                        }
+                    }
+                    //check one to the right
+                    if (index < currentLine.size()-1)
+                    {
+                        if (currentLine.get(index+1) instanceof Decimal)
+                        {
+                            numToMerge++;
+                        }
+                    }
+                    if (numToMerge > 1) //initalised as one as there is always the new Decimal to be merged
+                    {
+                        Decimal[] nums = new Decimal[numToMerge];
+                        int newIndex = index; //new index in case it needs to be shunted over one
+                        //there is probably a more efficient to do this.
+                        //get new decimals
+                        if (index > 0)
+                        {
+                            if (currentLine.get(index-1) instanceof Decimal)
+                            {
+                                nums[0] = (Decimal)currentLine.remove(index-1); //remove un-needed Decimal
+                                cursorLocation--; //this shunts everything one to the left
+                                newIndex--; //index to replace is getting shunted over one to the left
+                            }
+                        }
+                        if (index < currentLine.size()-1)
+                        {
+                            if (currentLine.get(index+1) instanceof Decimal)
+                            {
+                                nums[nums.length-1] = (Decimal)currentLine.remove(index+1); //remove un-needed decimal
+                            }
+                        }
+                        // value can never be in position 2; only avaliable patterns are
+                        // D-V, D-V-D, V-D; value has to be at begining or in middle
+                        if (nums[0] == null)
+                        {
+                            nums[0] = (Decimal)value;
+                        }
+                        else if (nums[1] == null)
+                        {
+                            nums[0] = (Decimal)value;
+                        }
+                        //merge values
+                        Decimal newNum = Decimal.merge(nums);
+                        currentLine.set(newIndex, newNum);
+                    }
+                    else
+                    {
+                        currentLine.get(index+1).setSelected("a");
+                        currentLine.set(index, value);
+                    }
+                }
                 else
                 {
                     //next charachter is now selected; cursor stays in the same spot
@@ -412,7 +474,6 @@ public class MainMenu extends Menu
             else
             {
                 currentLine.add(index-1, value); //inserts before currently selected token
-        
             }
         }
     }

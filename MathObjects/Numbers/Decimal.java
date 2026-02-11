@@ -13,6 +13,23 @@ public class Decimal extends Numbers
     //store where in the decimal is being selected
     private int selectedDigit = 0;
     
+    /**
+     * Merges an array of Decimal objects into a single object.
+     * They are merged in the order of the array
+     */
+    public static Decimal merge(Decimal[] nums)
+    {
+        Decimal merged = new Decimal();
+        for (Decimal num:nums)
+        {
+            merged.add(num);
+        }
+        return merged;
+    }
+    
+    /**
+     * Constructors
+     */
     public Decimal(BigDecimal decimalValue)
     {
         setType("Decimal");
@@ -43,12 +60,22 @@ public class Decimal extends Numbers
         value = new StringBuilder("");
         setType("Decimal");
     }
+    
     /**
      * Method to add next digit or - or . to string
+     * 
+     * These do not perform addition
      */
     public void add(String charachter)
     {
-        value.append(charachter);
+        if (selected)
+        {
+            value.setCharAt(selectedDigit, charachter.charAt(0));
+        }
+        else
+        {
+            value.append(charachter);
+        }
     }
     public void add(double newValue)
     {
@@ -58,6 +85,11 @@ public class Decimal extends Numbers
     {
         value.append(newValue + "");
     }
+    public void add(Decimal newValue)
+    {
+        value.append(newValue.toString());
+    }
+    
     public BigDecimal getValue()
     {
         //get string from StringBuilder, then convert to BigDecimal
