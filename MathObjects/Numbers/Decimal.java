@@ -22,7 +22,10 @@ public class Decimal extends Numbers
         Decimal merged = new Decimal();
         for (Decimal num:nums)
         {
-            merged.add(num);
+            if (num != null)
+            {
+                merged.add(num);
+            }
         }
         return merged;
     }
@@ -77,6 +80,7 @@ public class Decimal extends Numbers
             value.append(charachter);
         }
     }
+    //add methods
     public void add(double newValue)
     {
         value.append(newValue + "");
@@ -88,6 +92,17 @@ public class Decimal extends Numbers
     public void add(Decimal newValue)
     {
         value.append(newValue.toString());
+    }
+    //insert methonds
+    public void insert(String charachter)
+    {
+        value.insert(selectedDigit, charachter);
+        selectedDigit++;
+    }
+    public void insert(Decimal charachter)
+    {
+        value.insert(selectedDigit, charachter);
+        selectedDigit++;
     }
     
     public BigDecimal getValue()
@@ -179,7 +194,7 @@ public class Decimal extends Numbers
         {
             BigDecimal num = getValue();
             //BigDecimal is immutable, so this will not break the stored 14 significant digits
-            return num.setScale(10, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toString();
+            return num.setScale(10, BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
         }
         //this return will always be used if you are able to edit the decimal because doRound will be false
         String currentValue = value.toString();

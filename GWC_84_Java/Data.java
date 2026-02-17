@@ -1,7 +1,15 @@
 package GWC_84_Java;
 
+//java standard libraries
 import java.util.ArrayList;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+//MathObject libraries
 import MathObjects.MathObject;
+
+
 public class Data 
 {
     /*main history. So complicated because it needs to store:
@@ -79,4 +87,29 @@ public class Data
     {
         return usedReturn;
     }
+    /**
+     * Method to save data to a file
+     */
+     public void saveFile()
+     {
+         try (FileOutputStream output = new FileOutputStream("saves/save1.bin"))
+         {
+             
+         }
+         catch (IOException e)
+         {
+             
+         }
+     }
+     public void loadSave()
+     {
+         try (FileInputStream file = new FileInputStream("saves/sav1.bin"))
+         {
+             
+         }
+         catch (IOException e)
+         {
+             
+         }
+     }
 }

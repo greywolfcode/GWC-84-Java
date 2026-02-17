@@ -1,5 +1,6 @@
 package Menus;
 
+//java standard libraries
 import java.util.Stack;
 import java.util.ArrayList;
 
@@ -131,8 +132,8 @@ public class MainMenu extends Menu
         {
             //values that can be in a decimal
             case "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".":
-                //if possible, add to current Decimal object
-                if (currentLine.size() > 1 && currentLine.get(currentLine.size() - 2) instanceof Decimal)
+                //if possible, add to current Decimal object. Only add if at the end of currentLine
+                if (currentLine.size() > 1 && currentLine.get(currentLine.size() - 2) instanceof Decimal && cursorLocation == currentLine.size() - 1)
                 {
                     updateCursor = false; //not changing length of currentLine
                     //cast to decimal so add method can be run
@@ -415,6 +416,13 @@ public class MainMenu extends Menu
                         int newIndex = index; //new index in case it needs to be shunted over one
                         //there is probably a more efficient to do this.
                         //get new decimals
+                        if (index < currentLine.size()-1) //do this 1st because the first one changes the index by one
+                        {
+                            if (currentLine.get(index+1) instanceof Decimal)
+                            {
+                                nums[nums.length-1] = (Decimal)currentLine.remove(index+1); //remove un-needed decimal
+                            }
+                        }
                         if (index > 0)
                         {
                             if (currentLine.get(index-1) instanceof Decimal)
@@ -422,13 +430,6 @@ public class MainMenu extends Menu
                                 nums[0] = (Decimal)currentLine.remove(index-1); //remove un-needed Decimal
                                 cursorLocation--; //this shunts everything one to the left
                                 newIndex--; //index to replace is getting shunted over one to the left
-                            }
-                        }
-                        if (index < currentLine.size()-1)
-                        {
-                            if (currentLine.get(index+1) instanceof Decimal)
-                            {
-                                nums[nums.length-1] = (Decimal)currentLine.remove(index+1); //remove un-needed decimal
                             }
                         }
                         // value can never be in position 2; only avaliable patterns are
@@ -439,11 +440,13 @@ public class MainMenu extends Menu
                         }
                         else if (nums[1] == null)
                         {
-                            nums[0] = (Decimal)value;
+                            nums[1] = (Decimal)value;
                         }
                         //merge values
                         Decimal newNum = Decimal.merge(nums);
+                        newNum.setSelected("a");
                         currentLine.set(newIndex, newNum);
+                        updateCursor = false;
                     }
                     else
                     {
@@ -463,17 +466,42 @@ public class MainMenu extends Menu
         {
             if (currentLine.get(index) instanceof Decimal)
             {
-                Decimal[] nums = ((Decimal)currentLine.get(index)).split(true);
-                currentLine.set(index, nums[0]); //overwrite previous Decimal
-                currentLine.add(index+1, nums[1]);
-                currentLine.add(index+1, value);
-                
-                currentLine.get(index+2).setSelected("d");
-                cursorLocation++;
+                if (value instanceof Decimal)
+                {
+                    ((Decimal)currentLine.get(index)).insert((Decimal)value);
+                    updateCursor = false;
+                }
+                else
+                {
+                    Decimal[] nums = ((Decimal)currentLine.get(index)).split(true);
+                    currentLine.set(index, nums[0]); //overwrite previous Decimal
+                    currentLine.add(index+1, nums[1]);
+                    currentLine.add(index+1, value);
+                    
+                    currentLine.get(index+2).setSelected("d");
+                    cursorLocation++;
+                }
             }
             else
             {
-                currentLine.add(index-1, value); //inserts before currently selected token
+                if (value instanceof Decimal)
+                {
+                    if (index > 0 && currentLine.get(index - 1) instanceof Decimal)
+                    {
+                        Decimal[] nums = {(Decimal)currentLine.get(index-1), (Decimal)value};
+                        Decimal mergedDecimal = Decimal.merge(nums);
+                        currentLine.set(index-1, mergedDecimal);
+                        updateCursor = false;
+                    }
+                    else
+                    {
+                        currentLine.add(index-1, value);
+                    }
+                }
+                else
+                {
+                    currentLine.add(index-1, value); //inserts before currently selected token
+                }
             }
         }
     }
