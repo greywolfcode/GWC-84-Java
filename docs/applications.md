@@ -11,6 +11,10 @@ Applications are custom Menus that can be used to extend functionality of your c
 The .java files should be placed in the Applications folder.  
 The class should extend Menus.Menu as found in other menus in this program.  
 
+## Options Menu
+
+OptionsMenu (Menus.OptionsMenu) can be extended instead of Menu. This provides a prebuilt interface for making selectable options.
+updateScreen() must be run in the event handeler for it to update.
 
 ## Security
 

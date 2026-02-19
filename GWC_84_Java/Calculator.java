@@ -15,6 +15,8 @@ import Menus.NumMenu;
 import Menus.CmplxMenu;
 import Menus.ProbMenu;
 import Menus.FracMenu;
+import Menus.MemMenu;
+import Menus.AboutMenu;
 //import console control stuff
 import ConsoleControl.Cursor;
 import ConsoleControl.Colour;
@@ -48,6 +50,8 @@ public class Calculator
         menus.put("CmplxMenu", new CmplxMenu(data, events));
         menus.put("ProbMenu", new ProbMenu(data, events));
         menus.put("FracMenu", new FracMenu(data, events));
+        menus.put("MemMenu", new MemMenu(data, events));
+        menus.put("AboutMenu", new AboutMenu(data, events));
         //update ui on startup
         updateTopBar();
     }
@@ -81,6 +85,10 @@ public class Calculator
         else if (input.equals("mth"))
         {
             events.push("switch MathMenu");
+        }
+        else if (input.equals("mem"))
+        {
+            events.push("switch MemMenu");
         }
         else
         {

@@ -8,16 +8,19 @@ This file, saveData.txt, is placed in the main directory. It contains the data t
 
 Data is stored with a piece of data per line:
 
+```
+
 normal save path
 
 default save to load
 
-1 saveOneFilePath
+6 saveSixFilePath
 
-2 saveTwoFilePath
+5 saveFiveFilePath
 
 ...
 
-6 saveFileSixPath
+1 saveFileOnePath
+```
 
 ## Save Files

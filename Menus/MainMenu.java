@@ -94,6 +94,8 @@ public class MainMenu extends Menu
             case "int(":
                 addToCurrentLine(cursorLocation, new Int(), cursorState);
                 break;
+            case "ClearEntries":
+                break;
             default:
                 updateCursor = false;
                 break;

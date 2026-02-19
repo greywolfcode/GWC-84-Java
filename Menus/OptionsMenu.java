@@ -158,6 +158,7 @@ public abstract class OptionsMenu extends Menu
     }
     protected void updateScreen()
     {
+        System.out.println("asdf");
         screen[0] = topBar;
         if (options.size() >= 7)
         {

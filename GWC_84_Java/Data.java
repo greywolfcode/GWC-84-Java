@@ -24,7 +24,8 @@ public class Data
     public Data()
     {
         usedReturn = true;
-        //this will eventually load save data
+        //start up file handeler
+        FileHandling.fileHandlingInit();
     }
     public void addHistory(ArrayList<ArrayList<MathObject>> value)
     {
@@ -44,6 +45,13 @@ public class Data
     public int getHistorySize()
     {
         return history.size();
+    }
+    /**
+     * Permanently clears all history
+     */
+    public void clearHistory()
+    {
+        history.clear();
     }
     /**
      * sets the reuturn to send to new menu
@@ -84,13 +92,5 @@ public class Data
     public boolean checkReturned()
     {
         return usedReturn;
-    }
-    /**
-     * Loads and gets data from files
-     */
-    private void onStartup()
-    {
-        //start up file handeler
-        FileHandling.fileHandlingInit();
     }
 }

@@ -2,7 +2,7 @@ package GWC_84_Java;
 
 //import standard libraries
 import java.util.Scanner;
-import java.util.InputMismatchExcpetion;
+import java.util.InputMismatchException;
 import java.io.PrintWriter;
 import java.io.File;
 import java.io.FileOutputStream; 
@@ -14,14 +14,14 @@ import java.io.IOException;
  */
 public class FileHandling 
 {
-    private String saveDataPath = "saveData.txt"
+    private static String saveDataPath = "SaveData.conf";
     //variables for storing data when loading files
     private static boolean loadedSave;
     private static String defaultSavePath = "saves/";
     private static int defaultSaveFile = 1;
-    private String[] paths = String[6];
+    private static String[] paths = new String[6];
     
-    private static FileHandling(){}
+    private FileHandling(){}
     
     /**
      * loads saveData.txt to prepeare for sving/loading save files
@@ -30,29 +30,19 @@ public class FileHandling
     {
         try(Scanner file = new Scanner(new File(saveDataPath)))
         {
-            if (file.hasNext())
-            {
-                defaultSavepath = file.nextLine();
-            }
-            if (file.hasNext())
-            {
-                try 
-                {
-                    defaultSaveFile = file.nextDouble();
-                    file.nextLine(); //capture newline charachters
-                }
-                catch (InputMismatchExcpetion e)
-                {
-                    defaultSaveFile = 1;
-                }
-            }
+            defaultSavePath = file.nextLine();
+            defaultSaveFile = file.nextInt();
             //get all paths
             while (file.hasNext())
             {
-                int saveNum = Integer.parseInt(file.next());
-                if (saveNum < 6)
+                int saveNum = file.nextInt();
+                if (saveNum <= 6)
                 {
-                    paths[saveNum] = file.nextline();
+                    paths[saveNum-1] = file.nextLine();
+                }
+                else
+                {
+                    file.nextLine();
                 }
             }
             loadedSave = true;
@@ -60,6 +50,15 @@ public class FileHandling
         catch (IOException e)
         {
             loadedSave = false;
+            for (int i = paths.length-1; i >= 0; i--)
+            {
+                paths[i] = "none";
+            }
+            remakeSaveDataFile();
+        }
+        catch (InputMismatchException e)
+        {
+            
         }
     }
     public void saveFile()      
@@ -87,11 +86,17 @@ public class FileHandling
     /**
      * method for remaking the saveData.txt file if it is missing/corrupted
      */
-    private void remakeSaveDataFile()
+    private static void remakeSaveDataFile()
     {
-        try (PrintWriter file = new PrintWriter(saveDatapath))
+        try (PrintWriter file = new PrintWriter(saveDataPath))
         {
-            
+            file.println(defaultSavePath);
+            file.println(defaultSaveFile);
+            for (int i=paths.length; i>0; i--)
+            {
+                file.print(i + " ");
+                file.println(paths[i-1]);
+            }
         }
         catch (IOException e)
         {
