@@ -2,7 +2,7 @@
 
 ## Save Data
 
-This file, saveData.txt, is placed in the main directory. It contains the data to find save files.
+This file, SaveData.conf, is placed in the main directory. It contains the data to find save files.
 
 ### Structure
 
