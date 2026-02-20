@@ -8,7 +8,10 @@ import ConsoleControl.Colour;
 public abstract class MathObject 
 {
     private String type;
+    private int id = 0;
     protected boolean selected = false; //it is just easier to let the child classes handle this
+    
+    public abstract boolean setSelected(String direction);
     
     public String getType()
     {
@@ -18,6 +21,14 @@ public abstract class MathObject
     {
         return this;
     }
+    public void setUnselected()
+    {
+        selected = false;
+    }
+    public int getID()
+    {
+        return id;
+    }
     protected void setType(String objectType)
     {
         type = objectType;
@@ -26,9 +37,8 @@ public abstract class MathObject
     {
         return Colour.invert(input);
     }
-    public void setUnselected()
+    protected void setID(int newID)
     {
-        selected = false;
+        id = newID;
     }
-    public abstract boolean setSelected(String direction);
 }

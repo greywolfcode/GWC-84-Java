@@ -7,7 +7,6 @@ import java.lang.ArithmeticException;
 
 //import MathObject stuff
 import MathObjects.MathObject;
-import MathObjects.Blank;
 //exceptions
 import MathObjects.Exceptions.DomainException;
 import MathObjects.Exceptions.NonRealException;
@@ -18,6 +17,7 @@ import MathObjects.Groupers.Grouper;
 import MathObjects.Numbers.Numbers;
 import MathObjects.Symbols.Symbol;
 import MathObjects.UnaryOperators.UnaryOperator;
+import MathObjects.Helpers.Helper;
 //main classes
 import MathObjects.Groupers.RoundLeft;
 import MathObjects.Numbers.Decimal;
@@ -73,7 +73,7 @@ public class Calculate
         Stack<MathObject> ops = new Stack<>();
         for (MathObject token:input)
         {
-            if (token instanceof Blank) //skip over Blanks
+            if (token instanceof Helper) //skip over any helper objects
             {
                 continue;
             }

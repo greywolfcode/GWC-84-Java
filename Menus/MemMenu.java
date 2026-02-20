@@ -59,7 +59,7 @@ public class MemMenu extends OptionsMenu
                 break;
             case "ClearEntries":
                 data.setReturn(optionName);
-                pushEvent("switch PrevMenu");
+                pushEvent("switch MainMenu");
                 break;
         }
     }

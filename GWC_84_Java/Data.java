@@ -25,13 +25,17 @@ public class Data
     {
         usedReturn = true;
         //start up file handeler
-        FileHandling.fileHandlingInit();
+        FileHandling.fileHandlingInit(this);
     }
     public void addHistory(ArrayList<ArrayList<MathObject>> value)
     {
         history.add(0, value);
         returnValue = "";
         usedReturn = true;
+    }
+    public ArrayList<ArrayList<ArrayList<MathObject>>> getFullHistory()
+    {
+        return history;
     }
     public ArrayList<ArrayList<MathObject>> getHistory(int index)
     {

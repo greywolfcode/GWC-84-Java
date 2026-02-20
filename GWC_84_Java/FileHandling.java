@@ -3,11 +3,17 @@ package GWC_84_Java;
 //import standard libraries
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.ArrayList;
+
 import java.io.PrintWriter;
 import java.io.File;
 import java.io.FileOutputStream; 
 import java.io.FileInputStream; 
 import java.io.IOException;
+
+//import MathObject stuff
+import MathObjects.MathObject;
+import MathObjects.Numbers.Decimal;
 
 /**
  * Collection of methods for handling save files
@@ -15,6 +21,7 @@ import java.io.IOException;
 public class FileHandling 
 {
     private static String saveDataPath = "SaveData.conf";
+    private static Data data;
     //variables for storing data when loading files
     private static boolean loadedSave;
     private static String defaultSavePath = "saves/";
@@ -24,10 +31,12 @@ public class FileHandling
     private FileHandling(){}
     
     /**
-     * loads saveData.txt to prepeare for sving/loading save files
+     * loads saveData.txt to prepeare for saving/loading save files
      */
-    public static void fileHandlingInit()
+    public static void fileHandlingInit(Data storage)
     {
+        data = storage;
+        
         try(Scanner file = new Scanner(new File(saveDataPath)))
         {
             defaultSavePath = file.nextLine();
@@ -63,9 +72,18 @@ public class FileHandling
     }
     public void saveFile()      
     {          
-        try (FileOutputStream output = new FileOutputStream("../saves/save1.bin"))          
+        try (FileOutputStream file = new FileOutputStream("../saves/save1.bin"))          
         {                       
-            
+           //write header
+           file.write("GWC".getBytes()); //write magic bytes
+           file.write(1); //currently version 1
+           file.write("\u2028".getBytes()); //write block end
+           //write history block
+           ArrayList<ArrayList<ArrayList<MathObject>>> history = data.getFullHistory();
+           for (ArrayList<ArrayList<MathObject>> group:history)
+           {
+               
+           }
         }          
         catch (IOException e)          
         {                        
@@ -75,7 +93,7 @@ public class FileHandling
     public void loadSave(int saveNum)      
     {          
         try (FileInputStream file = new FileInputStream(paths[saveNum]))          
-        {                        
+        {
             
         }          
         catch (IOException e)          

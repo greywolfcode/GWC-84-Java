@@ -9,7 +9,10 @@ import GWC_84_Java.Calculate;
 
 //import MathObject classes
 import MathObjects.MathObject;
-import MathObjects.Blank;
+//helpers:
+import MathObjects.Helpers.Blank;
+import MathObjects.Helpers.ClearEntries;
+import MathObjects.Helpers.Done;
 //numbers:
 import MathObjects.Numbers.Decimal;
 //operators:
@@ -20,7 +23,7 @@ import MathObjects.Operators.Divide;
 import MathObjects.Operators.Exponent;
 import MathObjects.Operators.NthRt;
 import MathObjects.Operators.SciNotationOperator;
-//unary operators
+//unary operators:
 import MathObjects.UnaryOperators.Factorial;
 //functions
 import MathObjects.Functions.Sin;
@@ -95,6 +98,7 @@ public class MainMenu extends Menu
                 addToCurrentLine(cursorLocation, new Int(), cursorState);
                 break;
             case "ClearEntries":
+                addToCurrentLine(cursorLocation, new ClearEntries(), cursorState);
                 break;
             default:
                 updateCursor = false;
@@ -203,15 +207,18 @@ public class MainMenu extends Menu
                 addToCurrentLine(cursorLocation, new Ln(), cursorState);
                 break;
             case "clr":
-                if (currentLine.size() > 0)
+                if (currentLine.size() > 1)
                 {
                     currentLine.clear();
                     currentLine.add(new Blank()); //re-add the cursor
+                    cursorLocation = 0;
+                    updateCursor = false;
                 }
                 else
                 {
                     historyLine = 0;
                     clearScreen();
+                    updateCursor = false;
                 }
                 break;
             case "ent":
@@ -222,6 +229,30 @@ public class MainMenu extends Menu
                 }
                 else if (currentLine.size() == 0) //get out clause if there is nothing in the current line
                 {
+                    break;
+                }
+                else if (currentLine.get(0) instanceof ClearEntries) //check if need to clear entries
+                {
+                    //create objects for storing ClearEntries line in history
+                    ArrayList<ArrayList<MathObject>> historyValue = new ArrayList<ArrayList<MathObject>>();
+                    ArrayList<MathObject> input = new ArrayList<MathObject>();                     
+                    input.add(currentLine.get(0));
+                    ArrayList<MathObject> output = new ArrayList<MathObject>();
+                    output.add(new Done());
+                    historyValue.add(input);
+                    historyValue.add(output);
+                    
+                    data.clearHistory();
+                    //add to history after clearing it
+                    data.addHistory(historyValue);
+                    //clear line
+                    currentLine.clear();
+                    currentLine.add(new Blank());
+                    //update screen stuff
+                    historyLine = 0;
+                    clearScreen();
+                    updateCursor = false;
+                    cursorLocation = 0;
                     break;
                 }
                 //get postfix
