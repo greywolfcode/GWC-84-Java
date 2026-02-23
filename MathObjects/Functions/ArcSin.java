@@ -15,6 +15,7 @@ public class ArcSin extends Function
     public ArcSin()
     {
         setType("Function");
+        setID(3);
     }
     public Numbers evaluate(Numbers value)
     {

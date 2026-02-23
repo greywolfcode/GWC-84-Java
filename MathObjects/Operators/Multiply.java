@@ -12,6 +12,7 @@ public class Multiply extends Operator
         setType("Operator");
         setPresedence(3);
         setAssociative("left");
+        setID(23);
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {

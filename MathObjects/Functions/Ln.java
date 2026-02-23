@@ -15,6 +15,7 @@ public class Ln extends Function
     public Ln()
     {
         setType("Function");
+        setID(9);
     }
     public Numbers evaluate(Numbers value)
     {

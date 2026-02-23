@@ -15,6 +15,7 @@ public class Ans extends Symbol
     {
         setValue(0.0);
         data = storage;
+        setID(28);
     }
     @Override
     public Decimal getValue()

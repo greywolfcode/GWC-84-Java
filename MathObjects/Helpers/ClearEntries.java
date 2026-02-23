@@ -5,6 +5,7 @@ public class ClearEntries extends Helper
     public ClearEntries()
     {
         setType("helper");
+        setID(17);
     }
     public String toString()
     {

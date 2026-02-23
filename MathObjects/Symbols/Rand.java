@@ -10,6 +10,7 @@ public class Rand extends Symbol
     public Rand()
     {
         setValue(0.0);
+        setID(31);
     }
     @Override
     public Decimal getValue()

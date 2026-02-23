@@ -95,6 +95,8 @@ public class Calculator
             //check if need to turn off calculator
             if (input.equals("on") || input.equals("off") && state.equals("2nd"))
             {
+                //write to save file
+                FileHandling.saveFile(1);
                 return true;
             }
             //check if need to change cursor state

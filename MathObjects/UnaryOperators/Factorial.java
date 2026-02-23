@@ -14,6 +14,7 @@ public class Factorial extends UnaryOperator
         setType("UnaryOperator");
         setPresedence(5);
         setAssociative("right");
+        setID(27);
     }
     public Numbers evaluate(Numbers num1)
     {

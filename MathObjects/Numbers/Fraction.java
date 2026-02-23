@@ -19,6 +19,7 @@ public class Fraction extends Numbers
         setType("fraction")
         numer = numerator;
         denom = denom;
+        setID(32);
     }
     public Fraction(double numerator, double denominator)
     {
@@ -29,6 +30,7 @@ public class Fraction extends Numbers
     {
         numer = Double.parseDouble(numerator);
         denom = Double.parseDouble(denominator);
+        setID(32);
     }
     public boolean isZero()
     {

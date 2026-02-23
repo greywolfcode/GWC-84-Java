@@ -12,6 +12,7 @@ public class Exponent extends Operator
         setType("Operator");
         setPresedence(4);
         setAssociative("right");
+        setID(21);
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {

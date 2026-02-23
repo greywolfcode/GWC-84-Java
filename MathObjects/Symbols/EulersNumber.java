@@ -5,6 +5,7 @@ public class EulersNumber extends Symbol
     public EulersNumber()
     {
         setValue(Math.E);
+        setID(29);
     }
     public String toString()
     {

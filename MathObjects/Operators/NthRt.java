@@ -25,6 +25,7 @@ public class NthRt extends Operator
         setType("Operator");
         setPresedence(4);
         setAssociative("right");
+        setID(24);
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {

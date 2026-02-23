@@ -13,6 +13,7 @@ public class Divide extends Operator
         setType("Operator");
         setPresedence(3);
         setAssociative("left");
+        setID(20);
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {

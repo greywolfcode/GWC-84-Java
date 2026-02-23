@@ -13,6 +13,7 @@ public class FrthRt extends Function
     public FrthRt()
     {
         setType("Function");
+        setID(7);
     }
     public Numbers evaluate (Numbers value)
     {

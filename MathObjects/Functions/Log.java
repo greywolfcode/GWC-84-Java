@@ -15,6 +15,7 @@ public class Log extends Function
     public Log()
     {
         setType("Function");
+        setID(10);
     }
     public Numbers evaluate(Numbers value)
     {

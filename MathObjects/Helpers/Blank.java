@@ -10,6 +10,7 @@ public class Blank extends Helper
     {
         setType("blank helper"); //off type blank as well as helper becasue it is a special helper
         selected = true; //will always be currently selected when added
+        setID(16);
     }
     public String toString()
     {

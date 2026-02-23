@@ -9,7 +9,8 @@ public class SciNotationOperator extends Operator
 {
     /**
      * This is techincally a special type of exponent;
-     * that is why it is classified as an operator, it has two inputs
+     * that is why it is classified as an operator, it has two inputs, 
+     * one on each side of the operator
      */
      
     private static final BigDecimal TEN =  new BigDecimal(10);
@@ -19,6 +20,7 @@ public class SciNotationOperator extends Operator
         setType("Operator");
         setPresedence(4);
         setAssociative("right");
+        setID(26);
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {

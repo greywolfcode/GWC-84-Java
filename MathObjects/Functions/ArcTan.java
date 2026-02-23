@@ -15,6 +15,7 @@ public class ArcTan extends Function
     public ArcTan()
     {
         setType("Function");
+        setID(4);
     }
     public Numbers evaluate(Numbers value)
     {

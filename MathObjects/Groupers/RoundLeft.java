@@ -10,6 +10,7 @@ public class RoundLeft extends Grouper
         setType("Grouper");
         setSide("left");
         setGrouperType("round");
+        setID(14);
     }
     public String toString()
     {

@@ -15,6 +15,7 @@ public class Sin extends Function
     public Sin()
     {
         setType("Function");
+        setID(11);
     }
     public Numbers evaluate(Numbers value)
     {

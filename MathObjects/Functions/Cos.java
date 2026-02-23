@@ -13,6 +13,7 @@ public class Cos extends Function
     public Cos()
     {
         setType("Function");
+        setID(6);
     }
     public Numbers evaluate(Numbers value)
     {

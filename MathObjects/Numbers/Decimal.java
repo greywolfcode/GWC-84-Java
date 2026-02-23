@@ -1,6 +1,7 @@
 package MathObjects.Numbers;
 
 import java.lang.StringBuilder;
+import java.math.BigInteger;
 import java.math.BigDecimal;
 
 /**
@@ -37,31 +38,37 @@ public class Decimal extends Numbers
     {
         setType("Decimal");
         value = new StringBuilder(decimalValue.toString());
+        setID(19);
     }
     public Decimal(String decimalValue)
     {
         setType("Decimal");
         value = new StringBuilder(decimalValue);
+        setID(19);
     }
     public Decimal(StringBuilder decimalValue)
     {
         setType("Decimal");
         value = decimalValue;
+        setID(19);
     }
     public Decimal(double decimalValue)
     {
         value = new StringBuilder(decimalValue + "");
         setType("Decimal");
+        setID(19);
     }
     public Decimal(long decimalValue)
     {
         value = new StringBuilder(decimalValue + "");
         setType("Decimal");
+        setID(19);
     }
     public Decimal()
     {
         value = new StringBuilder("");
         setType("Decimal");
+        setID(19);
     }
     
     /**
@@ -111,6 +118,14 @@ public class Decimal extends Numbers
         BigDecimal numValue = new BigDecimal(value.toString());
         //return value with correct rounding precision. TI-84+CE has 14 digits
         return numValue.setScale(14, BigDecimal.ROUND_HALF_UP);
+    }
+    public int getScale()
+    {
+        return new BigDecimal(value.toString()).scale();
+    }
+    public BigInteger getUnscaledValue()
+    {
+        return new BigDecimal(value.toString()).unscaledValue();
     }
     public boolean isZero()
     {

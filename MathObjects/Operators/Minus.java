@@ -10,6 +10,7 @@ public class Minus extends Operator
         setType("Operator");
         setPresedence(2);
         setAssociative("left");
+        setID(22);
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {

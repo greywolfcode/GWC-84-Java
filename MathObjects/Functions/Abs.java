@@ -11,6 +11,7 @@ public class Abs extends Function
     public Abs()
     {
         setType("Function");
+        setID(1);
     }
     public Numbers evaluate(Numbers value)
     {

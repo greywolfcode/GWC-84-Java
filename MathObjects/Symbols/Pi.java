@@ -5,6 +5,7 @@ public class Pi extends Symbol
     public Pi()
     {
         setValue(Math.PI);
+        setID(30);
     }
     public String toString()
     {

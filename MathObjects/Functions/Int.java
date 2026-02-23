@@ -15,6 +15,7 @@ public class Int extends Function
     public Int()
     {
         setType("Function");
+        setID(8);
     }
     public Numbers evaluate(Numbers value)
     {

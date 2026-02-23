@@ -30,16 +30,26 @@ default save to load
 #### Header
 
 ```
-3 Bytes: GWC (Magic Bytes)
+6 Bytes: G84 (Magic Bytes, using Java char)
 
 1 Byte: Version
 
-1 Byte: U+0017 (End of block)
+2 Byte: U+0017 (End of block, using Java char)
 ```
 
 ### History Block
 
+```
+4 Bytes: Number of groups
+```
+
 Repeat for every line
+
+```
+4 Bytes Number of MathObjects in Line
+```
+
+Repeat for every MathObject
 
 ```
 1 Byte: Charachter ID
@@ -52,7 +62,7 @@ Repeat for every line
 
     X Bytes: Unscaled Value (from BigInteger.toByteArray)
 
-1 Byte: U+2028 (Line seperator)
+2 Bytes: U+2028 (Line seperator, using Java char)
 ```
 
 Every two lines are paired as the input and output.
@@ -60,5 +70,5 @@ Every two lines are paired as the input and output.
 Final:
 
 ```
-1 Byte: U+0017 (End of block)
+2 Bytes: U+0017 (End of block, using Java char)
 ```

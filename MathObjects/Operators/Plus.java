@@ -10,6 +10,7 @@ public class Plus extends Operator
         setType("Operator");
         setPresedence(2);
         setAssociative("left");
+        setID(25);
     }
     public Numbers evaluate(Numbers num1, Numbers num2)
     {

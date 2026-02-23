@@ -13,6 +13,7 @@ public class Tan extends Function
     public Tan()
     {
         setType("Function");
+        setID(13);
     }
     public Numbers evaluate(Numbers value)
     {

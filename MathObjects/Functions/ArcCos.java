@@ -15,6 +15,7 @@ public class ArcCos extends Function
     public ArcCos()
     {
         setType("Function");
+        setID(2);
     }
     public Numbers evaluate(Numbers value)
     {
