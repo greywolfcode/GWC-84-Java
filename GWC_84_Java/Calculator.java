@@ -3,6 +3,7 @@ package GWC_84_Java;
 //import java stuff
 import java.util.Stack;
 import java.util.HashMap;
+
 //import menus
 import Menus.Menu;
 import Menus.MainMenu;
@@ -17,6 +18,9 @@ import Menus.ProbMenu;
 import Menus.FracMenu;
 import Menus.MemMenu;
 import Menus.AboutMenu;
+import Menus.NoConfigError;
+import Menus.MemManageMenu;
+
 //import console control stuff
 import ConsoleControl.Cursor;
 import ConsoleControl.Colour;
@@ -30,6 +34,7 @@ public class Calculator
     private HashMap<String, Menu> menus;
     private Data data;
     private Stack<String> events;
+    private boolean offCommand = false;
     
     public Calculator()
     {
@@ -52,6 +57,8 @@ public class Calculator
         menus.put("FracMenu", new FracMenu(data, events));
         menus.put("MemMenu", new MemMenu(data, events));
         menus.put("AboutMenu", new AboutMenu(data, events));
+        menus.put("NoConfigError", new NoConfigError(data, events));
+        menus.put("MemManageMenu", new MemManageMenu(data, events));
         //update ui on startup
         updateTopBar();
     }
@@ -90,6 +97,10 @@ public class Calculator
         {
             events.push("switch MemMenu");
         }
+        else if (input.equals("takemetothedebugmenu")) //debug easter egg
+        {
+            events.push("switch NoConfigError");
+        }
         else
         {
             //check if need to turn off calculator
@@ -126,6 +137,11 @@ public class Calculator
         //rerender screen
         clearScreen();
         currentMenu.renderScreen();
+        //check if event turned off the calculator
+        if (offCommand)
+        {
+            return offCommand;
+        }
         return false;
     }
     private void clearScreen()
@@ -167,6 +183,8 @@ public class Calculator
            eventData = event.split(" ");
            switch (eventData[0])
            {
+                case "off":
+                    offCommand = true;
                 case "switch":
                     //check for flags
                     if (eventData[1].equals("noChangePrev"))

@@ -61,6 +61,9 @@ public class MemMenu extends OptionsMenu
                 data.setReturn(optionName);
                 pushEvent("switch MainMenu");
                 break;
+            case "Manage":
+                pushEvent("switch MemManageMenu");
+                break;
         }
     }
 }
