@@ -196,6 +196,35 @@ public class FileHandling
             
         }      
     }
+    /** Path/Default Path getters and setters */
+    
+    public static void setPath(String newPath, int num)
+    {
+        if (num >= 0 && num < 6)
+        {
+            paths[num] = newPath;
+            remakeSaveDataFile();
+        }
+    }
+    public static String getPath(int num)
+    {
+        if (num >= 0 && num < 6)
+        {
+            return paths[num];
+        }
+        return "UndefinedPath";
+    }
+    public static void setDefaultPath(String newDefault)
+    {
+        defaultSavePath = newDefault;
+        remakeSaveDataFile();
+    }
+    public static String getDefaultPath()
+    {
+        return defaultSavePath;
+    }
+    
+    
     /**
      * method for remaking the SaveData.conf file if it is missing/corrupted
      */

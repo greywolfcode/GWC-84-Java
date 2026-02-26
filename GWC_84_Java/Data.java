@@ -97,4 +97,23 @@ public class Data
     {
         return usedReturn;
     }
+    
+    
+    /* These methods are a pass through to access File Handling */
+    public void setPath(String path, int num)
+    {
+        FileHandling.setPath(path, num);
+    }
+    public String getPath(int num)
+    {
+        return FileHandling.getPath(num);
+    }
+    public void setDefaultPath(String path)
+    {
+        FileHandling.setDefaultPath(path);
+    }
+    public String getDefaultPath()
+    {
+        return FileHandling.getDefaultPath();
+    }
 }
