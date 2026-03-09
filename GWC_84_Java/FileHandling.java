@@ -16,6 +16,10 @@ import java.io.DataOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
 //import MathObject stuff
 import MathObjects.MathObject;
 import MathObjects.MathObjectHelper;
@@ -32,6 +36,7 @@ public class FileHandling
     private static boolean loadedSave;
     private static String defaultSavePath = "saves/";
     private static int defaultSaveFile = 1;
+    private static int currentSaveFile = 1;
     private static String[] paths = new String[6];
     
     private FileHandling(){}
@@ -75,10 +80,15 @@ public class FileHandling
         {
             
         }
+        currentSaveFile = defaultSaveFile;
     }
-    public static void saveFile(int saveNum)      
+    public static void saveFile() throws IOException
     {          
-        try (FileOutputStream output = new FileOutputStream(paths[saveNum-1]);
+        //create directory if required
+        Path dirs = Paths.get(paths[currentSaveFile-1].split(".")[0]);
+        Files.createDirectories(dirs);
+        //write file
+        try (FileOutputStream output = new FileOutputStream(paths[currentSaveFile-1]);
              DataOutputStream file = new DataOutputStream(output)) //using DataOutputStream so ints are written as 4 bytes          
         {                       
            //write header
@@ -120,12 +130,18 @@ public class FileHandling
         }          
         catch (IOException e)          
         {                        
-            
+            /**
+             * This should be caught by what calls the method
+             * so something can be dispalyed to the user,
+             * but doing it like this will close the files 
+             * automatically.
+             */
+            throw new IOException(e); 
         }      
     }      
-    public static void loadSave(int saveNum)      
+    public static void loadSave()      
     {          
-        try (FileInputStream input = new FileInputStream(paths[saveNum-1]);
+        try (FileInputStream input = new FileInputStream(paths[currentSaveFile-1]);
              DataInputStream file = new DataInputStream(input))          
         {
             //check for magic bytes
@@ -223,10 +239,21 @@ public class FileHandling
     {
         return defaultSavePath;
     }
-    
+    public static int getDefaultSave()
+    {
+        return defaultSaveFile;
+    }
+    public static void setDefaultSave(int num)
+    {
+        if (num >= 0 && num <6)
+        {
+            defaultSaveFile = num;
+            remakeSaveDataFile();
+        }
+    }
     
     /**
-     * method for remaking the SaveData.conf file if it is missing/corrupted
+     * Method for remaking the SaveData.conf file if it is missing/corrupted/outdated
      */
     private static void remakeSaveDataFile()
     {

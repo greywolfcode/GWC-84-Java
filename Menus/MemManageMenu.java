@@ -1,124 +1,66 @@
 package Menus;
 
-//import standard libraries
 import java.util.Stack;
-
-//import custom libraries
 import GWC_84_Java.Data;
-import ConsoleControl.Colour;
 
-public class MemManageMenu extends Menu
+public class MemManageMenu extends OptionsMenu
 {
-    
-    private int cursorPos = 1;
-    private int topLine = 0;
-    private int selectedLine = 0; //for tracking which save/if default save path is selected
-    private String[] lines;
-    
     public MemManageMenu(Data storage, Stack<String> events)
     {
-        setMenuType("action");
+        setMenuType("return"); //might not actually have any returns
         data = storage;
         setGlobalEvents(events);
-        lines = new String[]{"Default Save Path:", "none", "Save 1:", "none", "Save 2:", "none", "Save 3:", "none", "Save 4:", "none", "Save 5", "none", "Save 6:", "none", ""};
-        updateScreen();
+        String[] options = {"Edit Save Paths", "Choose Default Save"};         
+        setOptions(options);         
+        String[] topBar = {"Manage Memory"};         
+        setTopBar(topBar, 0);         
+        String[] classSwitchOptions = {"MemManageMenu"};         
+        setClassSwitchOptions(classSwitchOptions);
     }
-    
-    public void onLoad(String cursor)
+    public void onLoad(String cursorState)
     {
-        topLine = 0;
-        cursorPos = 1;
-        updatePaths();
+        resetPositions();
         updateScreen();
     }
     public void onUnload(){}
     
-    public void eventHandeler(String state, String event, String cursor)
-    {
-        switch (event)
-        {
-            case "w", "ww", "www": //prevent overwriting path with typos; these are likely not file names that will be used               
-                if (cursorPos == 1)                 
-                {                     
-                    cursorPos = lines.length - 2; //extra line to make scroll work properly  
-                    topLine = cursorPos - 6;
-                    selectedLine = 6;
-                }                 
-                else if (cursorPos == topLine)                 
-                {                     
-                    cursorPos-=2;                     
-                    topLine = cursorPos - 1;  
-                    selectedLine--;
-                }                 
-                else if (cursorPos == topLine + 1)
-                {
-                    cursorPos -= 2;
-                    topLine = cursorPos - 1;
-                    selectedLine--;
-                }
-                else                 
-                {                     
-                    cursorPos-=2;      
-                    selectedLine--;
-                }                 
+    public void eventHandeler(String state, String event, String cursorState)     
+    {         
+        if (state.equals("main"))         
+        {             
+            handelerMain(event);         
+            
+        }         
+        updateScreen();     
+    }     
+    private void handelerMain(String event)     
+    {         
+        switch(event)         
+        {             
+            case "w", "s", "a", "d":                 
+                handleMovement(event);                 
                 break;             
-            case "s", "ss", "sss":             
-                if (cursorPos == lines.length - 2) //see 42                
-                {                     
-                    cursorPos = 1;                     
-                    topLine = 0; 
-                    selectedLine = 0;
-                }
-                else if (cursorPos == topLine + 5)                 
-                {                     
-                    cursorPos+=2;                     
-                    topLine+=2;  
-                    selectedLine++;
-                }                 
-                else                 
-                {                     
-                    cursorPos+=2;  
-                    selectedLine++;
-                }                 
+            case "1", "2":                 
+                pushMenuChange(getOptionWithKey(event));                 
+                break;             
+            case "clr":                 
+                pushEvent("prevMenu");                
+                break;             
+            case "ent":                 
+                pushMenuChange(getCurrentOption());                 
+                break;         
+        }     
+    }     
+    private void pushMenuChange(String optionName)     
+    {         
+        switch (optionName)         
+        {             
+            case "Edit Save Paths":                 
+                pushEvent("switch EditPathsMenu");                 
                 break;
-            default:
-                if (selectedLine == 0) //On default save path
-                {
-                    lines[1] = " " + event;
-                    data.setDefaultPath(event);
-                }
-                else
-                {
-                    lines[selectedLine * 2 + 1] = " " + event; //apply every other and odds offsets
-                    data.setPath(event, selectedLine-1);
-                }
+            case "Choose Default Save":
+                pushEvent("switch SetDefaultSaveMenu");
                 break;
         }
-        updateScreen();
-    }
-    private void updateScreen()
-    {
-        for (int i=0; i<7; i+=1)             
-        {                 
-            if (topLine + i == cursorPos)                 
-            {                     
-                screen[i] = " " + Colour.invert(lines[topLine+i]);
-                
-            }                 
-            else                 
-            {                     
-                screen[i] = " " + lines[topLine+i];   
-                
-            }  
-        }
-    }
-    //update paths with data from Data
-    private void updatePaths()
-    {
-        for (int i=0; i<6; i++)
-        {
-            lines[i*2+1+2] = data.getPath(i); // every second piece, offset by 1 to be odds, offeset by two to not overwrite the default save path
-        }
-        lines[1] = data.getDefaultPath();
     }
 }

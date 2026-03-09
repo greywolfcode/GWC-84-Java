@@ -4,6 +4,8 @@ package GWC_84_Java;
 import java.util.Stack;
 import java.util.HashMap;
 
+import java.io.IOException;
+
 //import menus
 import Menus.Menu;
 import Menus.MainMenu;
@@ -19,7 +21,9 @@ import Menus.FracMenu;
 import Menus.MemMenu;
 import Menus.AboutMenu;
 import Menus.NoConfigError;
+import Menus.EditPathsMenu;
 import Menus.MemManageMenu;
+import Menus.SetDefaultSaveMenu;
 
 //import console control stuff
 import ConsoleControl.Cursor;
@@ -59,6 +63,8 @@ public class Calculator
         menus.put("AboutMenu", new AboutMenu(data, events));
         menus.put("NoConfigError", new NoConfigError(data, events));
         menus.put("MemManageMenu", new MemManageMenu(data, events));
+        menus.put("EditPathsMenu", new EditPathsMenu(data, events));
+        menus.put("SetDefaultSaveMenu", new SetDefaultSaveMenu(data, events));
         //update ui on startup
         updateTopBar();
     }
@@ -107,8 +113,15 @@ public class Calculator
             if (input.equals("on") || input.equals("off") && state.equals("2nd"))
             {
                 //write to save file
-                FileHandling.saveFile(1);
-                return true;
+                try
+                {
+                    FileHandling.saveFile();
+                    return true;
+                }
+                catch(IOException e)
+                {
+                    
+                }
             }
             //check if need to change cursor state
             else if (input.equals("ins") && state.equals("2nd"))

@@ -116,4 +116,12 @@ public class Data
     {
         return FileHandling.getDefaultPath();
     }
+    public void setDefaultSave(int num)
+    {
+        FileHandling.setDefaultSave(num);
+    }
+    public int getDefaultSave()
+    {
+        return FileHandling.getDefaultSave();
+    }
 }
