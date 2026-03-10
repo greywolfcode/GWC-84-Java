@@ -4,6 +4,7 @@ package Menus;
 import java.util.Stack;
 import java.util.ArrayList;
 
+//GWC_84_Java stuff
 import GWC_84_Java.Data;
 import GWC_84_Java.Calculate;
 
@@ -151,60 +152,13 @@ public class MainMenu extends Menu
                      addToCurrentLine(cursorLocation, new Decimal(event), cursorState);
                 }
                 break;
-            //handle negative seperatly since it has to go at the start of the numbe-
+            //handle negative seperatly since it has to go at the start of the number
             case "-":
                 if(currentLine.size() > 0 && currentLine.get(currentLine.size() - 1) instanceof Decimal)
                 {
                     addToCurrentLine(cursorLocation, new Multiply(), cursorState);
                 }
                 addToCurrentLine(cursorLocation, new Decimal("-"), cursorState);
-                break;
-            //operators
-            case "+":
-                addToCurrentLine(cursorLocation, new Plus(), cursorState);
-                break;
-            case "_", "−": //underscore so hyphen can be negative number
-                addToCurrentLine(cursorLocation, new Minus(), cursorState);
-                break;
-            case "*", "×":
-                addToCurrentLine(cursorLocation, new Multiply(), cursorState);
-                break;
-            case "/", "÷":
-                addToCurrentLine(cursorLocation, new Divide(), cursorState);
-                break;
-            case "^":
-                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
-                break;
-            case "^2", "²":
-                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
-                addToCurrentLine(cursorLocation, new Decimal(2));
-                break;
-            case "^-1", "⁻¹":
-                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
-                addToCurrentLine(cursorLocation, new Decimal("-1"));
-                break;
-            //groupers
-            case "(":
-                addToCurrentLine(cursorLocation, new RoundLeft(), cursorState);
-                break;
-            case ")":
-                addToCurrentLine(cursorLocation, new RoundRight(), cursorState);
-                break;
-            //functions
-            case "sin":
-                addToCurrentLine(cursorLocation, new Sin(), cursorState);
-                break;
-            case "cos":
-                addToCurrentLine(cursorLocation, new Cos(), cursorState);
-                break;
-            case "tan":
-                addToCurrentLine(cursorLocation, new Tan(), cursorState);
-                break;
-            case "log":
-                addToCurrentLine(cursorLocation, new Log(), cursorState);
-                break;
-            case "ln":
-                addToCurrentLine(cursorLocation, new Ln(), cursorState);
                 break;
             case "clr":
                 if (currentLine.size() > 1)

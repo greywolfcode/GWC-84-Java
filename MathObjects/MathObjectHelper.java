@@ -39,12 +39,14 @@ import MathObjects.Symbols.Ans;
 import MathObjects.Symbols.EulersNumber;
 import MathObjects.Symbols.Pi;
 import MathObjects.Symbols.Rand;
+import MathObjects.Symbols.Nan;
 
 import MathObjects.UnaryOperators.Factorial;
 
 
 /**
  * Contians helepr methods for working with MathObject classes
+ * and retrieving them
  */
 public class MathObjectHelper 
 {
@@ -126,7 +128,52 @@ public class MathObjectHelper
                 return new Pi();
             case 31:
                 return new Rand();
+            case 33:
+                return new Nan();
         }
         return new Decimal(0); //default value
+    }
+    /**
+     * Get MathObject based on input String
+     * 
+     * return a MathObject Array as some inputs (e.g. ^2)
+     * return multiple objects
+     */
+    public static MathObject[] getObjec(String name, Data data)
+    {
+        switch(name)
+        {
+            //groupers             
+            case "(":                 
+                return new {new RoundLeft()};                 
+            case ")":                 
+                return new {new RoundRight()};                 
+            //functions             
+            case "sin":                 
+                return new {new Sin()};                 
+            case "cos":                 
+                return new {new Cos()};
+            case "tan":                 
+                return new {new Tan()};                 
+            case "log":                 
+                return new {new Log()};
+            case "ln":                 
+                return new {new Ln()};                 
+            //operators             
+            case "+":                 
+                return new {new Plus()};                 
+            case "_", "−": //underscore so hyphen can be negative number                 
+                return new {new Minus()};            
+            case "*", "×":                 
+                return new {new Multiply()};                 
+            case "/", "÷":                 
+                return new {new Divide()};                 
+            case "^":                 
+                return new {new Exponent()};                 
+            case "^2", "²":                 
+                return new {new Exponent(), new Decimal(2)};                 
+            case "^-1", "⁻¹":                
+                return new {new Exponent(), new Decimal("-1")};  
+        }
     }
 }
