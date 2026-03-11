@@ -5,7 +5,7 @@ public class Nan extends Symbol
     public Nan()
     {
         setValue(Double.Nan); //this will ensure no calculations can be done with this
-        setId(33)
+        setId(33);
     }
     public String toString()
     {

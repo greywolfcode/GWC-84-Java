@@ -1,8 +1,16 @@
 package Menus;
 
+//import standard libraries
 import java.util.Stack;
+
+//import GWC_84_Java stuff
 import GWC_84_Java.Data;
+
+//import console control stuff
 import ConsoleControl.Colour;
+
+//import MathObject Stuff
+import MathObjects.MathObjectHelper;
 
 public class NumMenu extends OptionsMenu
 {
@@ -54,14 +62,14 @@ public class NumMenu extends OptionsMenu
                 {
                     break;
                 }
-                data.setReturn(value);
+                data.setReturn(MathObjectHelper.getObjectFromString(value));
                 pushEvent("prevMenu");
                 break;
             case "clr":
                 pushEvent("prevMenu");
                 break;
             case "ent":
-                data.setReturn(getCurrentOption());
+                data.setReturn(MathObjectHelper.getObjectFromString(getCurrentOption()));
                 pushEvent("prevMenu");
                 break;
         }

@@ -23,11 +23,12 @@ public class Data
     private Message returnValueMessage;
     private MathObject returnValueMath;
     private boolean messageReturnUsed;
-    private boolean mathReturnUsed
+    private boolean mathReturnUsed;
     
     public Data()
     {
-        usedReturn = true;
+        mathReturnUsed = true;
+        messageReturnUsed = true;
         //start up file handeler
         FileHandling.fileHandlingInit(this);
     }
@@ -86,7 +87,7 @@ public class Data
         }
         throw new NoReturnException("Return already used");
     }
-    public MathObject getReturnMath() throw NoReturnException
+    public MathObject getReturnMath() throws NoReturnException
     {
         if (!mathReturnUsed)
         {
@@ -101,16 +102,16 @@ public class Data
      */
     public Message getReturnMessage(boolean getIfAlreadyUsed) throws NoReturnException
     {
-        if (getIfAlreadyUsed || !usedReturnMessage)
+        if (getIfAlreadyUsed || !messageReturnUsed)
         {
             messageReturnUsed = true;
             return returnValueMessage;
         }
         throw new NoReturnException("Return used and bypass flag not set to true");
     }
-    public Mathobject getReturnMath(boolean getIfAlreadyUsed) throws NoReturnException
+    public MathObject getReturnMath(boolean getIfAlreadyUsed) throws NoReturnException
     {
-        if (getIfAlreadyUsed || !usedReturnMath)
+        if (getIfAlreadyUsed || !mathReturnUsed)
         {
             mathReturnUsed = true;
             return returnValueMath;

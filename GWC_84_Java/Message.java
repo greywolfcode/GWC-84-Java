@@ -2,7 +2,7 @@ package GWC_84_Java;
 
 public class Message 
 {
-    private mString;
+    private String mString;
     
     public Message(String message)
     {
