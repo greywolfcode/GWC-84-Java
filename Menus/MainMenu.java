@@ -4,49 +4,23 @@ package Menus;
 import java.util.Stack;
 import java.util.ArrayList;
 
+//GWC_84_Java stuff
 import GWC_84_Java.Data;
 import GWC_84_Java.Calculate;
+import GWC_84_Java.Exceptions.NoReturnException;
 
 //import MathObject classes
 import MathObjects.MathObject;
+import MathObjects.MathObjectHelper;
 //helpers:
 import MathObjects.Helpers.Blank;
-import MathObjects.Helpers.ClearEntries;
 import MathObjects.Helpers.Done;
+import MathObjects.Helpers.ClearEntries;
 //numbers:
 import MathObjects.Numbers.Decimal;
 //operators:
-import MathObjects.Operators.Plus;
 import MathObjects.Operators.Minus;
 import MathObjects.Operators.Multiply;
-import MathObjects.Operators.Divide;
-import MathObjects.Operators.Exponent;
-import MathObjects.Operators.NthRt;
-import MathObjects.Operators.SciNotationOperator;
-//unary operators:
-import MathObjects.UnaryOperators.Factorial;
-//functions
-import MathObjects.Functions.Sin;
-import MathObjects.Functions.Cos;
-import MathObjects.Functions.Tan;
-import MathObjects.Functions.ArcSin;
-import MathObjects.Functions.ArcCos;
-import MathObjects.Functions.ArcTan;
-import MathObjects.Functions.Log;
-import MathObjects.Functions.Ln;
-import MathObjects.Functions.Sqrt;
-import MathObjects.Functions.Cbrt;
-import MathObjects.Functions.FrthRt;
-import MathObjects.Functions.Abs;
-import MathObjects.Functions.Int;
-//groupers:
-import MathObjects.Groupers.RoundLeft;
-import MathObjects.Groupers.RoundRight;
-//symbols:
-import MathObjects.Symbols.Pi;
-import MathObjects.Symbols.EulersNumber;
-import MathObjects.Symbols.Ans;
-import MathObjects.Symbols.Rand;
 
 public class MainMenu extends Menu
 {
@@ -54,7 +28,6 @@ public class MainMenu extends Menu
     private int cursorLocation = 0; //stores where in the block the cursor is
     private int historyLine = 0; //stores how many lines of history there are
     private boolean updateCursor = true;
-    
     
     public MainMenu(Data storage, Stack<String> events)
     {
@@ -65,44 +38,27 @@ public class MainMenu extends Menu
     }
     public void onLoad(String cursorState)
     {
-        String returnValue = data.getReturn();
-        switch (returnValue)
+        try
         {
-            case "goto":
-                currentLine = data.getHistory(0).get(0);
-                currentLine.add(new Blank());
-                break;
-            case "∛":
-                addToCurrentLine(cursorLocation, new Cbrt(), cursorState);
-                break;
-            case "∜":
-                addToCurrentLine(cursorLocation, new FrthRt(), cursorState);
-                break;
-            case "³":
-                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
-                addToCurrentLine(cursorLocation, new Decimal(3));
-                break;
-            case "ᕽ√":
-                addToCurrentLine(cursorLocation, new NthRt(), cursorState);
-                break;
-            case "rand":
-                addToCurrentLine(cursorLocation, new Rand(), cursorState);
-                break;
-            case "abs(":
-                addToCurrentLine(cursorLocation, new Abs(), cursorState);
-                break;
-            case "!":
-                addToCurrentLine(cursorLocation, new Factorial(), cursorState);
-                break;
-            case "int(":
-                addToCurrentLine(cursorLocation, new Int(), cursorState);
-                break;
-            case "ClearEntries":
-                addToCurrentLine(cursorLocation, new ClearEntries(), cursorState);
-                break;
-            default:
-                updateCursor = false;
-                break;
+            String returnValue = data.getReturnMessage().getMString();
+            switch (returnValue)
+            {
+                case "goto":
+                    currentLine = data.getHistory(0).get(0);
+                    currentLine.add(new Blank());
+                    break;
+            }
+        }
+        catch (NoReturnException e)
+        {
+            try
+            {
+                addObjectsFromArray(cursorLocation, data.getReturnMath(), cursorState);
+            }
+            catch (NoReturnException x)
+            {
+                updateCursor = false; //no line change has occured if it makes it here
+            }
         }
         if (updateCursor)
         {
@@ -145,66 +101,19 @@ public class MainMenu extends Menu
                     //cast to decimal so add method can be run
                     ((Decimal)currentLine.get(currentLine.size() - 2)).add(event);
                 }
-                //creat new object when required
+                //create new object when required
                 else
                 {
                      addToCurrentLine(cursorLocation, new Decimal(event), cursorState);
                 }
                 break;
-            //handle negative seperatly since it has to go at the start of the numbe-
+            //handle negative seperatly since it has to go at the start of the number
             case "-":
                 if(currentLine.size() > 0 && currentLine.get(currentLine.size() - 1) instanceof Decimal)
                 {
                     addToCurrentLine(cursorLocation, new Multiply(), cursorState);
                 }
                 addToCurrentLine(cursorLocation, new Decimal("-"), cursorState);
-                break;
-            //operators
-            case "+":
-                addToCurrentLine(cursorLocation, new Plus(), cursorState);
-                break;
-            case "_", "−": //underscore so hyphen can be negative number
-                addToCurrentLine(cursorLocation, new Minus(), cursorState);
-                break;
-            case "*", "×":
-                addToCurrentLine(cursorLocation, new Multiply(), cursorState);
-                break;
-            case "/", "÷":
-                addToCurrentLine(cursorLocation, new Divide(), cursorState);
-                break;
-            case "^":
-                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
-                break;
-            case "^2", "²":
-                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
-                addToCurrentLine(cursorLocation, new Decimal(2));
-                break;
-            case "^-1", "⁻¹":
-                addToCurrentLine(cursorLocation, new Exponent(), cursorState);
-                addToCurrentLine(cursorLocation, new Decimal("-1"));
-                break;
-            //groupers
-            case "(":
-                addToCurrentLine(cursorLocation, new RoundLeft(), cursorState);
-                break;
-            case ")":
-                addToCurrentLine(cursorLocation, new RoundRight(), cursorState);
-                break;
-            //functions
-            case "sin":
-                addToCurrentLine(cursorLocation, new Sin(), cursorState);
-                break;
-            case "cos":
-                addToCurrentLine(cursorLocation, new Cos(), cursorState);
-                break;
-            case "tan":
-                addToCurrentLine(cursorLocation, new Tan(), cursorState);
-                break;
-            case "log":
-                addToCurrentLine(cursorLocation, new Log(), cursorState);
-                break;
-            case "ln":
-                addToCurrentLine(cursorLocation, new Ln(), cursorState);
                 break;
             case "clr":
                 if (currentLine.size() > 1)
@@ -341,51 +250,43 @@ public class MainMenu extends Menu
                 }
                 break;
             default:
-                updateCursor = false; //don't update cursor if no action was done 
+                addObjectsFromString(cursorLocation, event, cursorState);
                 break;
         }
     }
     private void handeler2nd(String event, String cursorState)
     {
-        switch (event)
+        addObjectsFromString(cursorLocation, event, cursorState);
+    }
+    /**
+     * Wrapper around MathObjectHelper that does additional checks
+     * and handles adding to currentLine
+     */
+    private void addObjectsFromString(int cursorLocation, String label, String cursorState)
+    {
+        //check if valid using math object helper
+        MathObject[] newObjects = MathObjectHelper.getObject(label, data);
+        addObjectsFromArray(cursorLocation, newObjects, cursorState);
+    }
+    private void addObjectsFromArray(int cursorLocation, MathObject[] newObjects, String cursorState)
+    {
+        if (newObjects == null)
         {
-            //symbols
-            case "e":
-                addToCurrentLine(cursorLocation, new EulersNumber(), cursorState);
-                break;
-            case "e^", "e^x", "eᕽ":
-                addToCurrentLine(cursorLocation, new EulersNumber(), cursorState);
-                addToCurrentLine(cursorLocation, new Exponent());
-                break;
-            case "10^", "10^x", "10ᕽ":
-                addToCurrentLine(cursorLocation, new Decimal(10), cursorState);
-                addToCurrentLine(cursorLocation, new Exponent());
-                break;
-            case "pi", "PI", "Pi", "pI", "π":
-                addToCurrentLine(cursorLocation, new Pi(), cursorState);
-                break;
-            case "ans", "Ans", "ANs", "ANS", "aNS", "anS", "aNs":
-                addToCurrentLine(cursorLocation, new Ans(data), cursorState);
-                break;
-            //functions
-            case "sqrt", "√":
-                addToCurrentLine(cursorLocation, new Sqrt(), cursorState);
-                break;
-            case "asin", "sin^-1", "sin⁻¹":
-                addToCurrentLine(cursorLocation, new ArcSin(), cursorState);
-                break;
-            case "acos", "cos^-1", "cos⁻¹":
-                addToCurrentLine(cursorLocation, new ArcCos(), cursorState);
-                break;
-            case "atan", "tan^-1", "tan⁻¹":
-                addToCurrentLine(cursorLocation, new ArcTan(), cursorState);
-                break;
-            case "ᴇ", "ᴇᴇ", "E", "EE":
-                addToCurrentLine(cursorLocation, new SciNotationOperator(), cursorState);
-                break;
-            default:
-                updateCursor = false;
-                break;
+            updateCursor = false; //don't update cursor if no action was done 
+            return;
+        }
+        addToCurrentLine(cursorLocation, newObjects[0], cursorState);
+        
+        if (newObjects.length > 1)
+        {
+            /* add all remaining objects
+             * This is for exponents and other added objects,
+             * so it needs to be inserted with the first object
+            */
+            for (int i=1, n=newObjects.length; i<n; i++)
+            {
+                addToCurrentLine(cursorLocation, newObjects[i]);
+            }
         }
     }
     /**

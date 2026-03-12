@@ -3,6 +3,8 @@ package GWC_84_Java;
 //java standard libraries
 import java.util.ArrayList;
 
+//Exceptions
+import GWC_84_Java.Exceptions.NoReturnException;
 
 //MathObject libraries
 import MathObjects.MathObject;
@@ -18,20 +20,23 @@ public class Data
      */
     ArrayList<ArrayList<ArrayList<MathObject>>> history = new ArrayList<>();
     //stores return from menus
-    private String returnValue;
-    private boolean usedReturn;
+    private Message returnValueMessage;
+    private MathObject[] returnValueMath;
+    private boolean messageReturnUsed;
+    private boolean mathReturnUsed;
     
     public Data()
     {
-        usedReturn = true;
+        mathReturnUsed = true;
+        messageReturnUsed = true;
         //start up file handeler
         FileHandling.fileHandlingInit(this);
     }
     public void addHistory(ArrayList<ArrayList<MathObject>> value)
     {
         history.add(0, value);
-        returnValue = "";
-        usedReturn = true;
+        messageReturnUsed = true;
+        mathReturnUsed = true;
     }
     public ArrayList<ArrayList<ArrayList<MathObject>>> getFullHistory()
     {
@@ -58,46 +63,77 @@ public class Data
         history.clear();
     }
     /**
-     * sets the reuturn to send to new menu
+     * sets the return to send to new menu
      */
-    public void setReturn(String value)
+    public void setReturn(Message value)
     {
-        returnValue = value;
-        usedReturn = false;
+        returnValueMessage = value;
+        messageReturnUsed = false;
+    }
+    public void setReturn(MathObject[] value)
+    {
+        returnValueMath = value;
+        mathReturnUsed = false;
     }
     /**
-     * gets return for new menu and confirms that the return has been usedd
+     * gets return for new menu and confirms that the return has been used
      */
-    public String getReturn()
+    public Message getReturnMessage() throws NoReturnException
     {
-        if (!usedReturn)
+        if (!messageReturnUsed)
         {
-            usedReturn = true;
-            return returnValue;
+            messageReturnUsed = true;
+            return returnValueMessage;
         }
-        return "returnAlreadyCaptured";
+        throw new NoReturnException("Return already used");
+    }
+    public MathObject[] getReturnMath() throws NoReturnException
+    {
+        if (!mathReturnUsed)
+        {
+            mathReturnUsed = true;
+            return returnValueMath;
+        }
+        throw new NoReturnException("Return already used");
     }
     /**
      * Allows the menu to specify if it wants the return value even if 
      * another menu has already captured it
      */
-    public String getReturn(boolean getIfAlreadyUsed)
+    public Message getReturnMessage(boolean getIfAlreadyUsed) throws NoReturnException
     {
-        if (getIfAlreadyUsed || !usedReturn)
+        if (getIfAlreadyUsed || !messageReturnUsed)
         {
-            usedReturn = true;
-            return returnValue;
+            messageReturnUsed = true;
+            return returnValueMessage;
         }
-        return "returnAlreadyCaptured";
+        throw new NoReturnException("Return used and bypass flag not set to true");
+    }
+    public MathObject[] getReturnMath(boolean getIfAlreadyUsed) throws NoReturnException
+    {
+        if (getIfAlreadyUsed || !mathReturnUsed)
+        {
+            mathReturnUsed = true;
+            return returnValueMath;
+        }
+        throw new NoReturnException("Return used and bypass flag not set to true");
     }
     /**
-     * Checks if return has been retrieved
+     * Checks if any return has been retrieved
      */
     public boolean checkReturned()
     {
-        return usedReturn;
+        return messageReturnUsed && mathReturnUsed;
     }
     
+    public boolean checkMathReturned()
+    {
+        return mathReturnUsed;
+    }
+    public boolean checkMessageReturned()
+    {
+        return messageReturnUsed;
+    }
     
     /* These methods are a pass through to access File Handling */
     public void setPath(String path, int num)

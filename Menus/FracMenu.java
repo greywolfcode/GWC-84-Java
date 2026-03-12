@@ -1,8 +1,16 @@
 package Menus;
 
+//import standard libraries
 import java.util.Stack;
+
+//import GWC_84_java stuff
 import GWC_84_Java.Data;
+
+//import ConsoleControl stuff
 import ConsoleControl.Colour;
+
+//import MathObject stuff
+import MathObjects.MathObjectHelper;
 
 public class FracMenu extends OptionsMenu
 {
@@ -54,14 +62,14 @@ public class FracMenu extends OptionsMenu
                 {
                     break;
                 }
-                data.setReturn(value);
+                data.setReturn(MathObjectHelper.getObject(value, data));
                 pushEvent("prevMenu");
                 break;
             case "clr":
                 pushEvent("prevMenu");
                 break;
             case "ent":
-                data.setReturn(getCurrentOption());
+                data.setReturn(MathObjectHelper.getObject(getCurrentOption(), data));
                 pushEvent("prevMenu");
                 break;
         }
@@ -84,7 +92,7 @@ public class FracMenu extends OptionsMenu
                 {
                     break;
                 }
-                data.setReturn(value);
+                data.setReturn(MathObjectHelper.getObject(value, data));
                 pushEvent("prevMenu");
                 break;
         }

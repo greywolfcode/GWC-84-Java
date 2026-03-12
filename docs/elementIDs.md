@@ -2,6 +2,8 @@
 
 This is the refrence list of IDs to be stored for every MathObject
 
+Current Highest ID: 33
+
 ## Function Block
 
 | Element | ID |
@@ -62,6 +64,7 @@ This is the refrence list of IDs to be stored for every MathObject
 | EulersNumber | 29 |
 | Pi | 30 |
 | Rand | 31 |
+| Nan | 33 |
 
 ### Number Block
 
