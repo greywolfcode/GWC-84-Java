@@ -63,14 +63,14 @@ public class MathMenu extends OptionsMenu
                 {
                     break;
                 }
-                data.setReturn(MathObjectHelper.getObjectFromString(value));
+                data.setReturn(MathObjectHelper.getObject(value, data));
                 pushEvent("prevMenu");
                 break;
             case "clr":
                 pushEvent("prevMenu");
                 break;
             case "ent":
-                data.setReturn(MathObjectHelper.getObjectFromString(getCurrentOption()));
+                data.setReturn(MathObjectHelper.getObject(getCurrentOption(), data));
                 pushEvent("prevMenu");
                 break;
         }
@@ -93,7 +93,7 @@ public class MathMenu extends OptionsMenu
                 {
                     break;
                 }
-                data.setReturn(value);
+                data.setReturn(MathObjectHelper.getObject(value, data));
                 pushEvent("prevMenu");
                 break;
         }

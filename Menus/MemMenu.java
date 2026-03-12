@@ -1,7 +1,13 @@
 package Menus;
 
+//import standard libraries
 import java.util.Stack;
+
+//import GWC_84_Java stuff
 import GWC_84_Java.Data;
+
+//import MathObject stuff
+import MathObjects.MathObjectHelper;
 
 public class MemMenu extends OptionsMenu
 {
@@ -58,7 +64,7 @@ public class MemMenu extends OptionsMenu
                 pushEvent("switch AboutMenu");
                 break;
             case "ClearEntries":
-                data.setReturn(optionName);
+                data.setReturn(MathObjectHelper.getObject(optionName, data));
                 pushEvent("switch MainMenu");
                 break;
             case "Manage":

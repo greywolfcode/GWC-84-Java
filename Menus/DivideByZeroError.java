@@ -1,7 +1,13 @@
 package Menus;
 
+//import standard libraries
 import java.util.Stack;
+
+//import GWC_84_Java stuff
 import GWC_84_Java.Data;
+import GWC_84_Java.Message;
+
+//import ConsleControl stuff
 import ConsoleControl.Colour;
 
 public class DivideByZeroError extends Menu
@@ -30,13 +36,13 @@ public class DivideByZeroError extends Menu
                 pushEvent("prevMenu");
                 break;
             case "2":
-                data.setReturn("goto");
+                data.setReturn(new Message("goto"));
                 pushEvent("prevMenu");
                 break;
             case "ent":
                 if (cursorLocation == 1)
                 {
-                    data.setReturn("goto");
+                    data.setReturn(new Message("goto"));
                 }
                 pushEvent("prevMenu");
                 break;

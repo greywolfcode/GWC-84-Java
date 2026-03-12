@@ -21,7 +21,7 @@ public class Data
     ArrayList<ArrayList<ArrayList<MathObject>>> history = new ArrayList<>();
     //stores return from menus
     private Message returnValueMessage;
-    private MathObject returnValueMath;
+    private MathObject[] returnValueMath;
     private boolean messageReturnUsed;
     private boolean mathReturnUsed;
     
@@ -70,7 +70,7 @@ public class Data
         returnValueMessage = value;
         messageReturnUsed = false;
     }
-    public void setReturn(MathObject value)
+    public void setReturn(MathObject[] value)
     {
         returnValueMath = value;
         mathReturnUsed = false;
@@ -87,7 +87,7 @@ public class Data
         }
         throw new NoReturnException("Return already used");
     }
-    public MathObject getReturnMath() throws NoReturnException
+    public MathObject[] getReturnMath() throws NoReturnException
     {
         if (!mathReturnUsed)
         {
@@ -109,7 +109,7 @@ public class Data
         }
         throw new NoReturnException("Return used and bypass flag not set to true");
     }
-    public MathObject getReturnMath(boolean getIfAlreadyUsed) throws NoReturnException
+    public MathObject[] getReturnMath(boolean getIfAlreadyUsed) throws NoReturnException
     {
         if (getIfAlreadyUsed || !mathReturnUsed)
         {

@@ -7,16 +7,20 @@ import java.util.ArrayList;
 //GWC_84_Java stuff
 import GWC_84_Java.Data;
 import GWC_84_Java.Calculate;
+import GWC_84_Java.Exceptions.NoReturnException;
 
 //import MathObject classes
 import MathObjects.MathObject;
+import MathObjects.MathObjectHelper;
 //helpers:
 import MathObjects.Helpers.Blank;
 import MathObjects.Helpers.Done;
+import MathObjects.Helpers.ClearEntries;
 //numbers:
 import MathObjects.Numbers.Decimal;
 //operators:
 import MathObjects.Operators.Minus;
+import MathObjects.Operators.Multiply;
 
 public class MainMenu extends Menu
 {
@@ -34,7 +38,7 @@ public class MainMenu extends Menu
     }
     public void onLoad(String cursorState)
     {
-        if (!data.checkMessageReturned())
+        try
         {
             String returnValue = data.getReturnMessage().getMString();
             switch (returnValue)
@@ -43,14 +47,18 @@ public class MainMenu extends Menu
                     currentLine = data.getHistory(0).get(0);
                     currentLine.add(new Blank());
                     break;
-                default:
-                    addToCurrentLine(cursorLocation, returnValue, cursorState);
-                    break;
             }
         }
-        else if (!data.checkMathReturned)
+        catch (NoReturnException e)
         {
-            currentLine.add(cursorLocation, data.getReturnMath(), cursorState);
+            try
+            {
+                addObjectsFromArray(cursorLocation, data.getReturnMath(), cursorState);
+            }
+            catch (NoReturnException x)
+            {
+                updateCursor = false; //no line change has occured if it makes it here
+            }
         }
         if (updateCursor)
         {
@@ -93,7 +101,7 @@ public class MainMenu extends Menu
                     //cast to decimal so add method can be run
                     ((Decimal)currentLine.get(currentLine.size() - 2)).add(event);
                 }
-                //creat new object when required
+                //create new object when required
                 else
                 {
                      addToCurrentLine(cursorLocation, new Decimal(event), cursorState);
@@ -242,7 +250,7 @@ public class MainMenu extends Menu
                 }
                 break;
             default:
-                addObejctsFromString(cursorLocation, event, cursorState);
+                addObjectsFromString(cursorLocation, event, cursorState);
                 break;
         }
     }
@@ -254,10 +262,14 @@ public class MainMenu extends Menu
      * Wrapper around MathObjectHelper that does additional checks
      * and handles adding to currentLine
      */
-    private void addObjectsFromString(String cursorLocation, String label, String cursorState)
+    private void addObjectsFromString(int cursorLocation, String label, String cursorState)
     {
         //check if valid using math object helper
         MathObject[] newObjects = MathObjectHelper.getObject(label, data);
+        addObjectsFromArray(cursorLocation, newObjects, cursorState);
+    }
+    private void addObjectsFromArray(int cursorLocation, MathObject[] newObjects, String cursorState)
+    {
         if (newObjects == null)
         {
             updateCursor = false; //don't update cursor if no action was done 
