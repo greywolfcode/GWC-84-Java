@@ -64,6 +64,12 @@ public class Decimal extends Numbers
         setType("Decimal");
         setID(19);
     }
+    public Decimal(Decimal decimalValue)
+    {
+        value = new StringBuilder(decimalValue.getStoredValue());
+        setType("Decimal");
+        setID(19);
+    }
     public Decimal()
     {
         value = new StringBuilder("");
@@ -87,6 +93,7 @@ public class Decimal extends Numbers
             value.append(charachter);
         }
     }
+    
     //add methods
     public void add(double newValue)
     {
@@ -100,7 +107,8 @@ public class Decimal extends Numbers
     {
         value.append(newValue.toString());
     }
-    //insert methonds
+    
+    //insert methods
     public void insert(String charachter)
     {
         value.insert(selectedDigit, charachter);
@@ -118,6 +126,10 @@ public class Decimal extends Numbers
         BigDecimal numValue = new BigDecimal(value.toString());
         //return value with correct rounding precision. TI-84+CE has 14 digits
         return numValue.setScale(14, BigDecimal.ROUND_HALF_UP);
+    }
+    public StringBuilder getStoredValue()
+    {
+        return value;
     }
     public int getScale()
     {

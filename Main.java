@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import ConsoleControl.Cursor;
+import ConsoleControl.Screen;
 import GWC_84_Java.Calculator;
 import GWC_84_Java.Renderer;
 
@@ -7,6 +8,10 @@ public class Main
 {
     public static void main(String[] args)
     {
+        if (true) //may want to deactivate this for debugging
+        {
+            Screen.clear(); //clear screen to prevent offsets
+        }
         //call starting render
         Renderer.render();
         //define objects

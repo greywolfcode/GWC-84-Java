@@ -44,8 +44,23 @@ public class MainMenu extends Menu
             switch (returnValue)
             {
                 case "goto":
-                    currentLine = data.getHistory(0).get(0);
+                    currentLine.clear(); //remove anything leftover in current line
+                    ArrayList<MathObject> historyLine = data.getHistory(0).get(0);
+                    //deepcopy history
+                    for (MathObject val:historyLine)
+                    {
+                        if (val instanceof Decimal)
+                        {
+                            currentLine.add(new Decimal((Decimal)val));
+                        }
+                        else
+                        {
+                            currentLine.add(MathObjectHelper.getObject(val.getID(), data));
+                        }
+                    }
                     currentLine.add(new Blank());
+                    cursorLocation = currentLine.size()-1;
+                    updateCursor = false;
                     break;
             }
         }
@@ -164,7 +179,7 @@ public class MainMenu extends Menu
                     cursorLocation = 0;
                     break;
                 }
-                //get postfix
+                //get solved value
                 String value = Calculate.solveEquation(currentLine);
                 //check for error
                 if (value.equals("error"))
