@@ -7,6 +7,8 @@ import MathObjects.Exceptions.DomainException;
 import MathObjects.Numbers.Numbers;
 import MathObjects.Numbers.Decimal;
 
+import BigMath.BigFactorial;
+
 public class Factorial extends UnaryOperator
 {
     public Factorial()
@@ -24,7 +26,7 @@ public class Factorial extends UnaryOperator
             throw new DomainException("Value is not a valid input");
         }
         
-        return new Decimal(factorial(num1.getValue()));
+        return new Decimal(BigFactorial.factorial(num1.getValue()));
     }
     public String toString()
     {
@@ -33,16 +35,5 @@ public class Factorial extends UnaryOperator
             return getSelectedString("!");
         }
         return "!";
-    }
-    private BigDecimal factorial(BigDecimal num)
-    {
-        if (num.compareTo(BigDecimal.ONE) == 0)
-        {
-            return new BigDecimal(1);
-        }
-        //get number one to use in next layer
-        BigDecimal one = new BigDecimal(1).setScale(14, BigDecimal.ROUND_HALF_UP);
-        //return number multipyed by number minus one
-        return num.multiply(factorial(num.subtract(one))).setScale(14, BigDecimal.ROUND_HALF_UP);
     }
 }
