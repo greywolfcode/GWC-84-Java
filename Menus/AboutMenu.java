@@ -1,7 +1,13 @@
 package Menus;
 
+//import standard libraries
 import java.util.Stack; 
+
+//import GWC_84_Java stuff
 import GWC_84_Java.Data;
+
+//import ConsoleControl stuff
+import ConsoleControl.Colour;
 
 public class AboutMenu extends Menu
 {
@@ -26,13 +32,14 @@ public class AboutMenu extends Menu
     }
     private void updateScreen()
     {
-        screen[0] = "GWC-84 Java";
+        screen[0] = "       " + Colour.invert("GWC-84 Java") + "       ";
         
-        screen[2] = "Console only graphing";
-        screen[3] = "calculator";
+        screen[1] = "Console only graphing";
+        screen[2] = "calculator";
         
-        screen[5] = "Repository:";
-        screen[6] = "https://github.com/";
-        screen[7] = "greywolfcode/GWC-84-Java";
+        screen[4] = "Repository:";
+        screen[5] = "https://github.com/";
+        screen[6] = "greywolfcode/GWC-84-Java";
+        screen[7] = "License: MIT";
     }
 }
