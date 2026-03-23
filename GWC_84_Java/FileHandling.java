@@ -56,9 +56,9 @@ public class FileHandling
             while (file.hasNext())
             {
                 int saveNum = file.nextInt();
-                if (saveNum <= 6)
+                if (saveNum > 0 && saveNum <= 6)
                 {
-                    paths[saveNum-1] = file.nextLine();
+                    paths[saveNum-1] = file.nextLine().trim();
                 }
                 else
                 {
@@ -84,8 +84,16 @@ public class FileHandling
     }
     public static void saveFile() throws IOException
     {          
+        //reset file path & name if it does not exist
+        if (paths[currentSaveFile-1].equals("none"))
+        {
+            paths[currentSaveFile-1] = defaultSavePath + "save" + currentSaveFile + ".g84save";
+            remakeSaveDataFile();
+        }
+        
         //create directory if required
-        Path dirs = Paths.get(paths[currentSaveFile-1].split(".")[0]);
+        String path = paths[currentSaveFile-1];
+        Path dirs = Paths.get(path).getParent();
         Files.createDirectories(dirs);
         //write file
         try (FileOutputStream output = new FileOutputStream(paths[currentSaveFile-1]);
@@ -95,7 +103,7 @@ public class FileHandling
            file.writeChars("G84"); //write magic bytes
            file.write(1); //currently version 1, only need 1 byte
            file.writeChars("\u0017"); //write block end
-           /** write history block */
+           /* write history block */
             ArrayList<ArrayList<ArrayList<MathObject>>> history = data.getFullHistory();
             //write number of groups
             file.writeInt(history.size());
@@ -130,9 +138,9 @@ public class FileHandling
         }          
         catch (IOException e)          
         {                        
-            /**
+            /*
              * This should be caught by what calls the method
-             * so something can be dispalyed to the user,
+             * so something can be displayed to the user,
              * but doing it like this will close the files 
              * automatically.
              */

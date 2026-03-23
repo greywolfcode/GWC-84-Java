@@ -120,7 +120,7 @@ public class Calculator
                 }
                 catch(IOException e)
                 {
-                    
+                    return true;
                 }
             }
             //check if need to change cursor state
