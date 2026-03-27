@@ -13,7 +13,6 @@ public class SaveManageMenu extends Menu
     //path/save data
     private boolean defaultPath = false;
     private int currentSave = 0;
-    private boolean loadedSave = false; //used for disabling load button
     private String path;
     
     //ui data
@@ -78,7 +77,7 @@ public class SaveManageMenu extends Menu
                 cursorPos = 1;
                 break;
             case "clr":
-                pushEvent("switch prevMenu");
+                pushEvent("prevMenu");
                 break;
             case "ent":
                 if (cursorPos == 1)
@@ -98,7 +97,45 @@ public class SaveManageMenu extends Menu
     }
     private void eventHandelerSave(String event)
     {
-        
+        switch (event)
+        {
+            case "w":
+                if (cursorPos > 0)
+                {
+                    cursorPos--;
+                }
+                break;
+            case "s":
+                if (cursorPos < 4)
+                {
+                    cursorPos++;
+                }
+                break;
+            case "1":
+                pushEvent("prevMenu");
+                break;
+            case "2":
+                pushEvent("prevMenu");
+                break;
+            case "3":
+                pushEvent("prevMenu");
+                break;
+            case "clr":
+                pushEvent("prevMenu");
+                break;
+            case "ent":
+                if (cursorPos == 4)
+                {
+                    pushEvent("switch MemManageMenu");
+                }
+                break;
+            default:
+                if (cursorPos == 0)
+                {
+                    path = event;
+                    data.setPath(event, currentSave);
+                }
+        }
     }
     
     private void updateScreen()
@@ -119,7 +156,57 @@ public class SaveManageMenu extends Menu
         }
         else
         {
+            screen[0] = "path:";
             
+            if (cursorPos == 0)
+            {
+                screen[1] = Colour.invert(path);
+                
+                screen[3] = "1: Load";
+                screen[4] = "2: Save";
+                screen[5] = "3: Make Default";
+                
+                screen[7] = "Done";
+            }
+            else if (cursorPos == 1)
+            {
+                screen[1] = path;
+                
+                screen[3] = Colour.invert("1:") + " Load";
+                screen[4] = "2: Save";
+                screen[5] = "3: Make Default";
+                
+                screen[7] = "Done";
+            }
+            else if (cursorPos == 2)
+            {
+                screen[1] = path;
+                
+                screen[3] = "1: Load";
+                screen[4] = Colour.invert("2:") + " Save";
+                screen[5] = "3: Make Default";
+                screen[7] = "Done";
+            }
+            else if (cursorPos == 3)
+            {
+                screen[1] = path;
+                
+                screen[3] = "1: Load";
+                screen[4] = "2: Save";
+                screen[5] = Colour.invert("3: Make Default");
+                
+                screen[7] = "Done";
+            }
+            else if (cursorPos == 4)
+            {
+                screen[1] = path;
+                
+                screen[3] = "1: Load";
+                screen[4] = "2: Save";
+                screen[5] = "3: Make Default";
+                
+                screen[7] = Colour.invert("Done");
+            }
         }
     }
 }
