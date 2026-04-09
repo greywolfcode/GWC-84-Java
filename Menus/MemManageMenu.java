@@ -4,10 +4,11 @@ package Menus;
 //import standard libraries
 import java.util.Stack;
 
-
 //import custom libraries
 import GWC_84_Java.Data;
+import GWC_84_Java.FileHandling;
 import GWC_84_Java.Message;
+
 import ConsoleControl.Colour;
 
 
@@ -143,12 +144,12 @@ public class MemManageMenu extends Menu
     //update paths with data from Data
     private void updatePaths()
     {
-        lines[1] = data.getDefaultPath();
+        lines[1] = FileHandling.getDefaultPath();
         for (int i=0; i<6; i++)
         {
              // every second piece, offset by 1 to be odds, offset from Default path
-            lines[i*2+1+2] = data.getPath(i);
+            lines[i*2+1+2] = FileHandling.getPath(i);
         }
-        currentSelected = data.getDefaultSave() + 1; //get which one should be highlighted. Wierd off by one error
+        currentSelected = FileHandling.getDefaultSave() + 1; //get which one should be highlighted. Wierd off by one error
     }
 }
