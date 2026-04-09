@@ -3,6 +3,7 @@ package Menus;
 import java.util.Stack;
 
 import GWC_84_Java.Data;
+import GWC_84_Java.FileHandling;
 import GWC_84_Java.Message;
 import GWC_84_Java.Exceptions.NoReturnException;
 
@@ -35,7 +36,7 @@ public class SaveManageMenu extends Menu
         }
         catch(NoReturnException e)
         {
-            save = new Message("" + data.getDefaultSave());
+            save = new Message("" + FileHandling.getDefaultSave());
         }
         
         int saveNum = Integer.parseInt(save.getMString());
@@ -44,11 +45,11 @@ public class SaveManageMenu extends Menu
         if (saveNum == 0)
         {
             defaultPath = true;
-            path = data.getDefaultPath();
+            path = FileHandling.getDefaultPath();
             return;
         }
         defaultPath = false;
-        path = data.getPath(saveNum);
+        path = FileHandling.getPath(saveNum);
         
         updateScreen();
     }
@@ -89,7 +90,7 @@ public class SaveManageMenu extends Menu
                 if (cursorPos == 0)
                 {
                     path = event;
-                    data.setDefaultPath(event);
+                    FileHandling.setDefaultPath(event);
                 }
                 break;
         }
@@ -133,7 +134,7 @@ public class SaveManageMenu extends Menu
                 if (cursorPos == 0)
                 {
                     path = event;
-                    data.setPath(event, currentSave);
+                    FileHandling.setPath(event, currentSave);
                 }
         }
     }
