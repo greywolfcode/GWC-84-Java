@@ -1,4 +1,4 @@
-package Menus;
+package Menus.CalcMenus;
 
 //import standard libraries
 import java.util.Stack;
@@ -7,26 +7,29 @@ import java.util.Stack;
 import GWC_84_Java.Data;
 import GWC_84_Java.Message;
 
-//import ConsleControl stuff
+//import ConsoleControl stuff
 import ConsoleControl.Colour;
 
-public class DivideByZeroError extends Menu
+//import base Menu 
+import Menus.Menu;
+
+public class DomainError extends Menu
 {
     private int cursorLocation = 0; //0= Quit, 1 = Goto
     
-    public DivideByZeroError(Data storage, Stack<String> events)
+    public DomainError(Data storage, Stack<String> events)
     {
         setMenuType("return");
         data = storage;
         setGlobalEvents(events);
         //set up error
-        screen[0] = "     DIVIDE BY 0 ERROR:    ";
+        screen[0] = "      DOMAIN  ERROR:      ";
         screen[1] = Colour.invert("1:") + " Quit";
         screen[2] = "2: Goto";
         screen[3] = "___________________________";
-        screen[4] = "Attempted calculation";
-        screen[5] = "  contains divison by zero"; 
-        screen[6] = "Calculation failed";
+        screen[4] = "Value entered is not";
+        screen[5] = "allowed in the function"; 
+        screen[6] = "or command";
     }
     public void eventHandeler(String state, String event, String cursorState)
     {

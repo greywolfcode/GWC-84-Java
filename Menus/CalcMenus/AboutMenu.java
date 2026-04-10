@@ -1,4 +1,5 @@
-package Menus;
+package Menus.CalcMenus;
+
 
 //import standard libraries
 import java.util.Stack; 
@@ -8,6 +9,9 @@ import GWC_84_Java.Data;
 
 //import ConsoleControl stuff
 import ConsoleControl.Colour;
+
+//import base Menu
+import Menus.Menu;
 
 public class AboutMenu extends Menu
 {

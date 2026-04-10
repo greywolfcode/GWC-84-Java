@@ -1,4 +1,4 @@
-package Menus;
+package Menus.CalcMenus;
 
 //import standard libraries
 import java.util.Stack;
@@ -7,26 +7,29 @@ import java.util.Stack;
 import GWC_84_Java.Data;
 import GWC_84_Java.Message;
 
-//import ConsoleControl stuff
+//import ConsoleControl
 import ConsoleControl.Colour;
 
-public class DomainError extends Menu
+//import base Menu 
+import Menus.Menu;
+
+public class SyntaxError extends Menu
 {
     private int cursorLocation = 0; //0= Quit, 1 = Goto
     
-    public DomainError(Data storage, Stack<String> events)
+    public SyntaxError(Data storage, Stack<String> events)
     {
         setMenuType("return");
         data = storage;
         setGlobalEvents(events);
         //set up error
-        screen[0] = "      DOMAIN  ERROR:      ";
+        screen[0] = "      SYNTAX  ERROR:      ";
         screen[1] = Colour.invert("1:") + " Quit";
         screen[2] = "2: Goto";
         screen[3] = "___________________________";
-        screen[4] = "Value entered is not";
-        screen[5] = "allowed in the function"; 
-        screen[6] = "or command";
+        screen[4] = "Check all arguments";
+        screen[5] = "Press + on menu"; 
+        screen[6] = "  item for help";
     }
     public void eventHandeler(String state, String event, String cursorState)
     {

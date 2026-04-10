@@ -1,4 +1,4 @@
-package Menus;
+package Menus.CalcMenus;
 
 //java standard libraries
 import java.util.Stack;
@@ -21,6 +21,9 @@ import MathObjects.Numbers.Decimal;
 //operators:
 import MathObjects.Operators.Minus;
 import MathObjects.Operators.Multiply;
+
+//import base Menu 
+import Menus.Menu;
 
 public class MainMenu extends Menu
 {

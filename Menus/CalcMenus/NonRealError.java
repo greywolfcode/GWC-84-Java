@@ -1,4 +1,4 @@
-package Menus;
+package Menus.CalcMenus;
 
 //import standard libraries
 import java.util.Stack;
@@ -9,6 +9,9 @@ import GWC_84_Java.Message;
 
 //import ConsoleControl stuff
 import ConsoleControl.Colour;
+
+//import base Menu 
+import Menus.Menu;
 
 public class NonRealError extends Menu
 {

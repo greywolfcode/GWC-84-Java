@@ -1,8 +1,11 @@
-package Menus;
+package Menus.CalcMenus;
 
 import java.util.Stack;
 import GWC_84_Java.Data;
 import ConsoleControl.Colour;
+
+//import base Menu 
+import Menus.Menu;
 
 public class NoConfigError extends Menu
 {

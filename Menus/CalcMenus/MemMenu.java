@@ -1,4 +1,4 @@
-package Menus;
+package Menus.CalcMenus;
 
 //import standard libraries
 import java.util.Stack;
@@ -8,6 +8,9 @@ import GWC_84_Java.Data;
 
 //import MathObject stuff
 import MathObjects.MathObjectHelper;
+
+//import base Menu 
+import Menus.OptionsMenu;
 
 public class MemMenu extends OptionsMenu
 {
