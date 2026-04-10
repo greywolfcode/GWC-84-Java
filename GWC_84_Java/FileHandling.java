@@ -87,7 +87,7 @@ public class FileHandling
         //reset file path & name if it does not exist
         if (paths[currentSaveFile-1].equals("none"))
         {
-            paths[currentSaveFile-1] = defaultSavePath + "save" + currentSaveFile + ".g84save";
+            paths[currentSaveFile-1] = defaultSavePath + "save" + currentSaveFile + ".calcsave";
             remakeSaveDataFile();
         }
         
@@ -144,10 +144,10 @@ public class FileHandling
              * but doing it like this will close the files 
              * automatically.
              */
-            throw new IOException(e); 
+            throw e; 
         }      
     }      
-    public static void loadSave()      
+    public static void loadSave() throws IOException   
     {          
         try (FileInputStream input = new FileInputStream(paths[currentSaveFile-1]);
              DataInputStream file = new DataInputStream(input))          
@@ -217,17 +217,37 @@ public class FileHandling
         }          
         catch (IOException e)          
         {                        
-            
+            /*              
+            * This should be caught by what calls the method              
+            * so something can be displayed to the user,              
+            * but doing it like this will close the files               
+            * automatically.              
+            */             
+            throw e; 
         }      
     }
     /** Path/Default Path getters and setters */
-    
+    public static void setCurrentSave(int saveNum)
+    {
+        currentSaveFile = saveNum;
+    }
+    public static int getCurrentSave()
+    {
+        return currentSaveFile;
+    }
     public static void setPath(String newPath, int num)
     {
         if (num >= 0 && num < 6)
         {
             paths[num] = newPath;
             remakeSaveDataFile();
+        }
+    }
+    public static void resetPath(int num)
+    {
+        if (num >= 0 && num < 6)
+        {
+            paths[num] = defaultSavePath + "save" + num + ".calcsave";
         }
     }
     public static String getPath(int num)
