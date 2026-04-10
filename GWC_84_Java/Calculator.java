@@ -21,9 +21,8 @@ import Menus.FracMenu;
 import Menus.MemMenu;
 import Menus.AboutMenu;
 import Menus.NoConfigError;
-import Menus.EditPathsMenu;
 import Menus.MemManageMenu;
-import Menus.SetDefaultSaveMenu;
+import Menus.SaveManageMenu;
 
 //import console control stuff
 import ConsoleControl.Cursor;
@@ -63,8 +62,7 @@ public class Calculator
         menus.put("AboutMenu", new AboutMenu(data, events));
         menus.put("NoConfigError", new NoConfigError(data, events));
         menus.put("MemManageMenu", new MemManageMenu(data, events));
-        menus.put("EditPathsMenu", new EditPathsMenu(data, events));
-        menus.put("SetDefaultSaveMenu", new SetDefaultSaveMenu(data, events));
+        menus.put("SaveManageMenu", new SaveManageMenu(data, events));
         //update ui on startup
         updateTopBar();
     }
