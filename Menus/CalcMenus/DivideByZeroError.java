@@ -7,29 +7,29 @@ import java.util.Stack;
 import GWC_84_Java.Data;
 import GWC_84_Java.Message;
 
-//import ConsleControl stuff
-import ConsoleControl.Colour;
-
 //import base Menu 
-import Menus.Menu;
+import Menus.ErrorMenu;
 
-public class DivideByZeroError extends Menu
+public class DivideByZeroError extends ErrorMenu
 {
-    private int cursorLocation = 0; //0= Quit, 1 = Goto
-    
+
     public DivideByZeroError(Data storage, Stack<String> events)
     {
         setMenuType("return");
         data = storage;
         setGlobalEvents(events);
-        //set up error
-        screen[0] = "     DIVIDE BY 0 ERROR:    ";
-        screen[1] = Colour.invert("1:") + " Quit";
-        screen[2] = "2: Goto";
-        screen[3] = "___________________________";
-        screen[4] = "Attempted calculation";
-        screen[5] = "  contains divison by zero"; 
-        screen[6] = "Calculation failed";
+        
+        //----set up error----
+        
+        setErrorName("     DIVIDE BY 0 ERROR:    ");
+        
+        String[] options = {"Quit", "Goto"};
+        setOptions(options);
+        
+        String[] message = {"Attempted calculation",
+                            "  contains divison by zero", 
+                            "Calculation failed"};
+        setMessage(message);
     }
     public void eventHandeler(String state, String event, String cursorState)
     {
@@ -52,35 +52,11 @@ public class DivideByZeroError extends Menu
             case "clr":
                 pushEvent("prevMenu");
                 break;
-            case "w":
-                cursorLocation = 0;
-                updateScreen();
-                break;
-            case "s":
-                cursorLocation = 1;
-                updateScreen();
+            case "w", "s":
+                moveHandeler(event);
                 break;
             default:
                 break;
-        }
-    }
-    public void onLoad(String cursorState)
-    {
-        cursorLocation = 0; 
-        updateScreen();
-    }
-    public void onUnload(){}
-    private void updateScreen()
-    {
-        if (cursorLocation == 0)
-        {
-            screen[1] = Colour.invert("1:") + " Quit";
-            screen[2] = "2: Goto";
-        }
-        else
-        {
-            screen[1] = "1: Quit";
-            screen[2] = Colour.invert("2:") + " Goto";
         }
     }
 }

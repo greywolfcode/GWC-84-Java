@@ -7,29 +7,26 @@ import java.util.Stack;
 import GWC_84_Java.Data;
 import GWC_84_Java.Message;
 
-//import ConsoleControl stuff
-import ConsoleControl.Colour;
-
 //import base Menu 
-import Menus.Menu;
+import Menus.ErrorMenu;
 
-public class DomainError extends Menu
+public class DomainError extends ErrorMenu
 {
-    private int cursorLocation = 0; //0= Quit, 1 = Goto
-    
     public DomainError(Data storage, Stack<String> events)
     {
         setMenuType("return");
         data = storage;
         setGlobalEvents(events);
-        //set up error
-        screen[0] = "      DOMAIN  ERROR:      ";
-        screen[1] = Colour.invert("1:") + " Quit";
-        screen[2] = "2: Goto";
-        screen[3] = "___________________________";
-        screen[4] = "Value entered is not";
-        screen[5] = "allowed in the function"; 
-        screen[6] = "or command";
+        //----set up error----
+        
+        setErrorName("      DOMAIN  ERROR:      ");
+        
+        String[] options = {"Quit", "Goto"};
+        setOptions(options);
+
+        String[] message = {"Value entered is not",
+                            "allowed in the function", 
+                            "or command"};
     }
     public void eventHandeler(String state, String event, String cursorState)
     {
@@ -52,35 +49,12 @@ public class DomainError extends Menu
             case "clr":
                 pushEvent("prevMenu");
                 break;
-            case "w":
-                cursorLocation = 0;
-                updateScreen();
+            case "w", "s":
+                moveHandeler(event);
                 break;
-            case "s":
-                cursorLocation = 1;
-                updateScreen();
-                break;
+
             default:
                 break;
-        }
-    }
-    public void onLoad(String cursorState)
-    {
-        cursorLocation = 0; 
-        updateScreen();
-    }
-    public void onUnload(){}
-    private void updateScreen()
-    {
-        if (cursorLocation == 0)
-        {
-            screen[1] = Colour.invert("1:") + " Quit";
-            screen[2] = "2: Goto";
-        }
-        else
-        {
-            screen[1] = "1: Quit";
-            screen[2] = Colour.invert("2:") + " Goto";
         }
     }
 }

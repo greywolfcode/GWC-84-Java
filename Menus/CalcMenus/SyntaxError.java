@@ -7,29 +7,27 @@ import java.util.Stack;
 import GWC_84_Java.Data;
 import GWC_84_Java.Message;
 
-//import ConsoleControl
-import ConsoleControl.Colour;
-
 //import base Menu 
-import Menus.Menu;
+import Menus.ErrorMenu;
 
-public class SyntaxError extends Menu
+public class SyntaxError extends ErrorMenu
 {
-    private int cursorLocation = 0; //0= Quit, 1 = Goto
-    
     public SyntaxError(Data storage, Stack<String> events)
     {
         setMenuType("return");
         data = storage;
         setGlobalEvents(events);
-        //set up error
-        screen[0] = "      SYNTAX  ERROR:      ";
-        screen[1] = Colour.invert("1:") + " Quit";
-        screen[2] = "2: Goto";
-        screen[3] = "___________________________";
-        screen[4] = "Check all arguments";
-        screen[5] = "Press + on menu"; 
-        screen[6] = "  item for help";
+        
+        //----set up error----
+        
+        setErrorName("      SYNTAX  ERROR:      ");
+        
+        String[] options = {"Quit", "Goto"};
+        setOptions(options);
+        
+        String[] message = {"Check all arguments",
+                            "Press + on menu", 
+                            "  item for help"};
     }
     public void eventHandeler(String state, String event, String cursorState)
     {
@@ -52,35 +50,11 @@ public class SyntaxError extends Menu
             case "clr":
                 pushEvent("prevMenu");
                 break;
-            case "w":
-                cursorLocation = 0;
-                updateScreen();
-                break;
-            case "s":
-                cursorLocation = 1;
-                updateScreen();
+            case "w", "s":
+                moveHandeler(event);
                 break;
             default:
                 break;
-        }
-    }
-    public void onLoad(String cursorState)
-    {
-        cursorLocation = 0; 
-        updateScreen();
-    }
-    public void onUnload(){}
-    private void updateScreen()
-    {
-        if (cursorLocation == 0)
-        {
-            screen[1] = Colour.invert("1:") + " Quit";
-            screen[2] = "2: Goto";
-        }
-        else
-        {
-            screen[1] = "1: Quit";
-            screen[2] = Colour.invert("2:") + " Goto";
         }
     }
 }
