@@ -1,4 +1,4 @@
-package Menus;
+package Menus.CalcMenus;
 
 //import standard libraries
 import java.util.Stack;
@@ -6,23 +6,26 @@ import java.util.Stack;
 //import GWC_84_Java stuff
 import GWC_84_Java.Data;
 
-//import console control stuff
+//import ConsoleControl
 import ConsoleControl.Colour;
 
-//import MathObject Stuff
+//import MathObject stuff
 import MathObjects.MathObjectHelper;
 
-public class NumMenu extends OptionsMenu
+//import base Menu 
+import Menus.OptionsMenu;
+
+public class CmplxMenu extends OptionsMenu
 {
-    public NumMenu(Data storage, Stack<String> events)
+    public CmplxMenu (Data storage, Stack<String> events)
     {
         setMenuType("return");
         data = storage;
         setGlobalEvents(events);
-        String[] options = {"abs(", "round(", "iPart(", "fPart(", "int(", "min(", "max(", "lcm(", "gcd(", "remainder(", "🞂n⁄d🞀🞂Un⁄d", "🞂F🞀🞂D", "Un⁄d", "n⁄d"};
+        String[] options = {"conj(","real(","imag(", "angle(", "abs(", "🞂Rect", "🞂Polar"};
         setOptions(options);
         String[] topBar = {"MATH", "NUM", "CMPLX", "PROB", "FRAC"};
-        setTopBar(topBar, 1);
+        setTopBar(topBar, 2);
         String[] classSwitchOptions = {"MathMenu", "NumMenu", "CmplxMenu", "ProbMenu", "FracMenu"};
         setClassSwitchOptions(classSwitchOptions);
     }

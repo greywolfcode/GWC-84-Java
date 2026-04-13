@@ -1,21 +1,29 @@
-package Menus;
+package Menus.CalcMenus;
+
 
 //import standard libraries
 import java.util.Stack;
 
 //import custom libraries
 import GWC_84_Java.Data;
+import GWC_84_Java.FileHandling;
+import GWC_84_Java.Message;
+
 import ConsoleControl.Colour;
 
-public class EditPathsMenu extends Menu
+//import base Menu 
+import Menus.Menu;
+
+public class MemManageMenu extends Menu
 {
     
     private int cursorPos = 1;
     private int topLine = 0;
     private int selectedLine = 0; //for tracking which save/if default save path is selected
+    private int currentSelected = 0;
     private String[] lines;
     
-    public EditPathsMenu(Data storage, Stack<String> events)
+    public MemManageMenu(Data storage, Stack<String> events)
     {
         setMenuType("action");
         data = storage;
@@ -28,6 +36,7 @@ public class EditPathsMenu extends Menu
     {
         topLine = 0;
         cursorPos = 1;
+        selectedLine = 0;
         updatePaths();
         updateScreen();
     }
@@ -100,21 +109,11 @@ public class EditPathsMenu extends Menu
             }
             case "ent":
                 {
-                    pushEvent("switch MainMenu");
+                    data.setReturn(new Message("" + selectedLine));
+                    currentSelected = selectedLine;
+                    pushEvent("switch SaveManageMenu");
                     break;
                 }
-            default:
-                if (selectedLine == 0) //On default save path
-                {
-                    lines[1] = " " + event;
-                    data.setDefaultPath(event);
-                }
-                else
-                {
-                    lines[selectedLine * 2 + 1] = " " + event; //apply every other and odds offsets
-                    data.setPath(event, selectedLine-1);
-                }
-                break;
         }
     }
     private void eventHandeler2nd(String event)
@@ -133,22 +132,26 @@ public class EditPathsMenu extends Menu
             if (topLine + i == cursorPos)                 
             {                     
                 screen[i] = " " + Colour.invert(lines[topLine+i]);
-                
-            }                 
+            }   
+            else if ((topLine+i+1) / 2.0 == currentSelected) //will be even number since offset by twos
+            {
+                screen[i] = " " + Colour.bgRGB(lines[topLine+i], 100, 100, 100);
+            }
             else                 
             {                     
                 screen[i] = " " + lines[topLine+i];   
-                
             }  
         }
     }
     //update paths with data from Data
     private void updatePaths()
     {
+        lines[1] = FileHandling.getDefaultPath();
         for (int i=0; i<6; i++)
         {
-            lines[i*2+1+2] = data.getPath(i); // every second piece, offset by 1 to be odds, offeset by two to not overwrite the default save path
+             // every second piece, offset by 1 to be odds, offset from Default path
+            lines[i*2+1+2] = FileHandling.getPath(i);
         }
-        lines[1] = data.getDefaultPath();
+        currentSelected = FileHandling.getDefaultSave() + 1; //get which one should be highlighted. Wierd off by one error
     }
 }

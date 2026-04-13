@@ -1,9 +1,9 @@
-package Menus;
+package Menus.CalcMenus;
 
 //import standard libraries
 import java.util.Stack;
 
-//import GWC_84_java stuff
+//import GWC_84_Java stuff
 import GWC_84_Java.Data;
 
 //import ConsoleControl stuff
@@ -12,17 +12,20 @@ import ConsoleControl.Colour;
 //import MathObject stuff
 import MathObjects.MathObjectHelper;
 
-public class FracMenu extends OptionsMenu
+//import base Menu 
+import Menus.OptionsMenu;
+
+public class ProbMenu extends OptionsMenu
 {
-    public FracMenu(Data storage, Stack<String> events)
+    public ProbMenu(Data storage, Stack<String> events)
     {
         setMenuType("return");
         data = storage;
         setGlobalEvents(events);
-        String[] options = {"n⁄d", "Un⁄d", "🞂F🞀🞂D","🞂n⁄d🞀🞂Un⁄d"};
+        String[] options = {"rand","nPr","nCr", "!", "randInt(", "randNorm(", "randBin(", "randIntNoRep("};
         setOptions(options);
         String[] topBar = {"MATH", "NUM", "CMPLX", "PROB", "FRAC"};
-        setTopBar(topBar, 4);
+        setTopBar(topBar, 3);
         String[] classSwitchOptions = {"MathMenu", "NumMenu", "CmplxMenu", "ProbMenu", "FracMenu"};
         setClassSwitchOptions(classSwitchOptions);
     }

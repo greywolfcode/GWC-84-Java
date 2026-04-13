@@ -1,3 +1,5 @@
 saves/*.*
 saveData.txt
 SaveData.conf
+
+*.ini

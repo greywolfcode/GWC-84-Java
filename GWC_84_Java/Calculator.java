@@ -8,21 +8,21 @@ import java.io.IOException;
 
 //import menus
 import Menus.Menu;
-import Menus.MainMenu;
-import Menus.SyntaxError;
-import Menus.DivideByZeroError;
-import Menus.DomainError;
-import Menus.NonRealError;
-import Menus.MathMenu;
-import Menus.NumMenu;
-import Menus.CmplxMenu;
-import Menus.ProbMenu;
-import Menus.FracMenu;
-import Menus.MemMenu;
-import Menus.AboutMenu;
-import Menus.NoConfigError;
-import Menus.MemManageMenu;
-import Menus.SaveManageMenu;
+import Menus.CalcMenus.MainMenu;
+import Menus.CalcMenus.SyntaxError;
+import Menus.CalcMenus.DivideByZeroError;
+import Menus.CalcMenus.DomainError;
+import Menus.CalcMenus.NonRealError;
+import Menus.CalcMenus.MathMenu;
+import Menus.CalcMenus.NumMenu;
+import Menus.CalcMenus.CmplxMenu;
+import Menus.CalcMenus.ProbMenu;
+import Menus.CalcMenus.FracMenu;
+import Menus.CalcMenus.MemMenu;
+import Menus.CalcMenus.AboutMenu;
+import Menus.CalcMenus.NoConfigError;
+import Menus.CalcMenus.MemManageMenu;
+import Menus.CalcMenus.SaveManageMenu;
 
 //import console control stuff
 import ConsoleControl.Cursor;
