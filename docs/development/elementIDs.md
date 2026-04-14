@@ -29,7 +29,7 @@ Current Highest ID: 33
 | RoundLeft | 14 |
 | RoundRight | 15 |
 
-### Helper Block
+## Helper Block
 
 | Element | ID | 
 |---|---|
@@ -38,7 +38,7 @@ Current Highest ID: 33
 | Done | 18 |
 
 
-### Operator Block
+## Operator Block
 
 | Element | ID |
 |---|---|
@@ -50,13 +50,13 @@ Current Highest ID: 33
 | Plus | 25 |
 | SciNotation | 26 |
 
-### Unary Operator Block
+## Unary Operator Block
 
 | Element | ID |
 |---|---|
 | Factorial | 27 |
 
-### Symbols Block
+## Symbols Block
 
 | Element | ID | 
 |---|---|
@@ -66,7 +66,7 @@ Current Highest ID: 33
 | Rand | 31 |
 | Nan | 33 |
 
-### Number Block
+## Number Block
 
 | Element | ID |
 |---|---|

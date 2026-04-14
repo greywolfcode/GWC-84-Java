@@ -1,0 +1,15 @@
+site_name: GWC-84 Java
+
+nav:
+  - Home: index.md
+  - Application Guide:
+    - Applications: applications/applications.md
+    - Menu Class: applications/menu.md
+  - Development:
+    - Element IDs: development/elementIDs.md
+    - Save Files: development/saveFiles.md
+
+theme:
+  name: readthedocs
+
+repo_url: https://github.com/greywolfcode/GWC-84-Java
