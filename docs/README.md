@@ -15,7 +15,7 @@ pip install properdocs-theme-readthedocs
 
 ## Serving
 
-properDocs can serve the site for local testing using 'properdocs serve'
+properDocs can serve the site for local testing using `properdocs serve`
 
 > [!NOTE]
 > A warning will be issued about README.md whe building, this is fine and the site builds as intended
