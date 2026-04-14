@@ -27,6 +27,7 @@ public class DomainError extends ErrorMenu
         String[] message = {"Value entered is not",
                             "allowed in the function", 
                             "or command"};
+        setMessage(message);
     }
     public void eventHandeler(String state, String event, String cursorState)
     {

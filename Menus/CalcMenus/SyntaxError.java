@@ -28,6 +28,7 @@ public class SyntaxError extends ErrorMenu
         String[] message = {"Check all arguments",
                             "Press + on menu", 
                             "  item for help"};
+        setMessage(message);
     }
     public void eventHandeler(String state, String event, String cursorState)
     {

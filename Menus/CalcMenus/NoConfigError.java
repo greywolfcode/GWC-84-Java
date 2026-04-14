@@ -26,6 +26,7 @@ public class NoConfigError extends ErrorMenu
                             "corrupted. Please place it",          
                             "in the main directory or ",
                             "continue without loading save"};
+        setMessage(message);
     }
     
     public void eventHandeler(String state, String event, String cursor)
