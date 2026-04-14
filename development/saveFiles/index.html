@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Save Files - GWC-84 Java</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var properdocs_page_name = "Save Files";
+        var properdocs_page_input_path = "development\\saveFiles.md";
+        var properdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> GWC-84 Java
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Application Guide</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../applications/applications/">Applications</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../applications/menu/">Menu Class</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Development</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../elementIDs/">Element IDs</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Save Files</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#save-data">Save Data</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#structure">Structure</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#save-files">Save Files</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#structure_1">Structure</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#header">Header</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#history-block">History Block</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">GWC-84 Java</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Development</li>
+      <li class="breadcrumb-item active">Save Files</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/greywolfcode/GWC-84-Java/edit/master/docs/development/saveFiles.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="gwc-84-java-save-files">GWC-84 Java Save Files</h1>
+<h2 id="save-data">Save Data</h2>
+<p>This file, SaveData.conf, is placed in the main directory. It contains the data to find save files.</p>
+<h3 id="structure">Structure</h3>
+<p>Data is stored with a piece of data per line:</p>
+<pre><code>
+normal save path
+
+default save to load
+
+6 saveSixFilePath
+
+5 saveFiveFilePath
+
+...
+
+1 saveFileOnePath
+</code></pre>
+<h2 id="save-files">Save Files</h2>
+<h3 id="structure_1">Structure</h3>
+<h4 id="header">Header</h4>
+<pre><code>6 Bytes: G84 (Magic Bytes, using Java char)
+
+1 Byte: Version
+
+2 Byte: U+0017 (End of block, using Java char)
+</code></pre>
+<h3 id="history-block">History Block</h3>
+<pre><code>4 Bytes: Number of groups
+</code></pre>
+<p>Repeat for every line</p>
+<pre><code>4 Bytes Number of MathObjects in Line
+</code></pre>
+<p>Repeat for every MathObject</p>
+<pre><code>1 Byte: Charachter ID
+
+    For Decimals Only:
+
+    4 Bytes: scale (Java int)
+
+    4 Bytes: number of bytes in unscaled value
+
+    X Bytes: Unscaled Value (from BigInteger.toByteArray)
+
+2 Bytes: U+2028 (Line seperator, using Java char)
+</code></pre>
+<p>Every two lines are paired as the input and output.</p>
+<p>Final:</p>
+<pre><code>2 Bytes: U+0017 (End of block, using Java char)
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../elementIDs/" class="btn btn-neutral float-left" title="Element IDs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://properdocs.org/">ProperDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/greywolfcode/GWC-84-Java" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../elementIDs/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
