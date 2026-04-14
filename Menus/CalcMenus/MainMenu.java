@@ -150,11 +150,14 @@ public class MainMenu extends Menu
                 break;
             case "ent":
                 //perform previous calculation in line if empty or break if no hostory
-                if (currentLine.size() == 0 && data.getHistorySize() > 0)
+                if (currentLine.size() == 1 && data.getHistorySize() > 0)
                 {
-                    currentLine = new ArrayList<MathObject>(data.getHistory(0).get(0)); //copy the ArrayList so clearing currentLine doesn't clear the one stored in history
+                    //get values from history ArrayList so clearing currentLine 
+                    //doesn't clear the one stored in history
+                    currentLine.addAll(data.getHistory(0).get(0)); 
                 }
-                else if (currentLine.size() == 0) //get out clause if there is nothing in the current line
+                //get out clause if there is nothing but cursor in the current line
+                else if (currentLine.size() == 1) 
                 {
                     break;
                 }
